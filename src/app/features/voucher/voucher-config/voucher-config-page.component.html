@@ -80,8 +80,16 @@
       </div>
 
       <div class="col-12 p-2">
-        <label class="block mb-2 text-sm">{{ 'voucher.config.emailBody' | translate }}</label>
-        <p-editor formControlName="emailBody" [style]="{ height: '200px' }"></p-editor>
+        <p-floatLabel variant="on" class="w-full">
+          <textarea
+            pTextarea
+            id="emailBody"
+            rows="6"
+            class="w-full"
+            formControlName="emailBody"
+          ></textarea>
+          <label for="emailBody">{{ 'voucher.config.emailBody' | translate }}</label>
+        </p-floatLabel>
       </div>
     </div>
 

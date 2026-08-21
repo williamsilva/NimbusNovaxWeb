@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { EditorModule } from 'primeng/editor';
+import { TextareaModule } from 'primeng/textarea';
 import { TranslateModule } from '@ngx-translate/core';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
@@ -26,7 +26,7 @@ import { PageHeaderComponent } from '@shared/features/page-header/page-header.co
   imports: [
     CardModule,
     ButtonModule,
-    EditorModule,
+    TextareaModule,
     TranslateModule,
     InputTextModule,
     FloatLabelModule,

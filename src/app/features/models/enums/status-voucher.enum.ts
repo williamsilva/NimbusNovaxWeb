@@ -86,3 +86,12 @@ export function allStatusVoucher(): StatusVoucher[] {
     StatusVoucher.NOT_CLOSED,
   ];
 }
+
+/** Status "em aberto" (voucher ainda não resolvido) - mesmo critério já aplicado no backend
+ *  (VoucherService.HIDDEN_BY_DEFAULT escondia EXCHANGED/CALLED_OFF/NOT_CLOSED quando a busca não
+ *  informava nenhum status). Usado como filtro avançado pré-selecionado na listagem (a pedido do
+ *  usuário: a tela deve abrir já filtrando Negociando/Vencido/Confirmado) - agora explícito na UI
+ *  em vez de um comportamento implícito só do backend. */
+export function defaultVisibleStatusVoucher(): StatusVoucher[] {
+  return [StatusVoucher.DEALING, StatusVoucher.OVERDUE, StatusVoucher.CONFIRMED];
+}

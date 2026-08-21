@@ -36,6 +36,7 @@ import {
   allStatusVoucher,
   statusVoucherLabel,
   statusVoucherSeverity,
+  defaultVisibleStatusVoucher,
 } from '@models/enums/status-voucher.enum';
 import {
   ActiveFilterItem,
@@ -140,7 +141,10 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
   voucher = signal('');
   client = signal('');
   promoterIds = signal<string[] | null>(null);
-  status = signal<StatusVoucher[] | null>(null);
+  /** Vem pré-selecionado com Negociando/Vencido/Confirmado - mesmo critério que o backend já
+   *  aplicava implicitamente quando a busca não informava nenhum status (ver
+   *  VoucherService.HIDDEN_BY_DEFAULT), agora explícito na tela. */
+  status = signal<StatusVoucher[] | null>(defaultVisibleStatusVoucher());
   visitDate = signal<string | string[] | null>(null);
   periodVisitDate = signal<PeriodEnum | null>(null);
 
@@ -314,7 +318,7 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
     this.voucher.set('');
     this.client.set('');
     this.promoterIds.set(null);
-    this.status.set(null);
+    this.status.set(defaultVisibleStatusVoucher());
     this.visitDate.set(null);
     this.periodVisitDate.set(null);
   }
@@ -334,7 +338,7 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
     this.voucher.set(s.voucher ?? '');
     this.client.set(s.client ?? '');
     this.promoterIds.set(s.promoterIds ?? null);
-    this.status.set(s.status ?? null);
+    this.status.set(s.status ?? defaultVisibleStatusVoucher());
     this.visitDate.set(s.visitDate ?? null);
     this.periodVisitDate.set(s.periodVisitDate ?? null);
   }
