@@ -1,0 +1,29 @@
+@use '../../../../../assets/styles/mobile-card-table' as mct;
+
+@include mct.mobile-card-table;
+
+.produtos-type-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 180px;
+
+  button {
+    justify-content: flex-start;
+  }
+}
+
+.produtos-layout {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.produtos-table-area {
+  flex: 1;
+  min-width: 0;
+}

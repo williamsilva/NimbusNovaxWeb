@@ -1,0 +1,541 @@
+<p-dialog
+  [modal]="true"
+  appendTo="body"
+  [closable]="false"
+  (onHide)="onHide()"
+  [draggable]="false"
+  [resizable]="false"
+  [visible]="visible()"
+  [style]="{ width: '960px', maxWidth: '95vw' }"
+  [header]="isEditMode() ? ('agentes.edit.title' | translate) : ('agentes.new.title' | translate)"
+>
+  <form [formGroup]="form" class="cs-dialog-form">
+    <p-tabs value="agente">
+      <p-tablist>
+        <p-tab value="agente">{{ 'agentes.tabs.agente' | translate }}</p-tab>
+        @if (hasRole(TypeAgent.CLIENT)) {
+          <p-tab value="cliente">{{ 'agentes.tabs.cliente' | translate }}</p-tab>
+        }
+        @if (hasRole(TypeAgent.PROMOTER)) {
+          <p-tab value="promotor">{{ 'agentes.tabs.promotor' | translate }}</p-tab>
+        }
+        @if (hasRole(TypeAgent.PROVIDER)) {
+          <p-tab value="fornecedor">{{ 'agentes.tabs.fornecedor' | translate }}</p-tab>
+        }
+        @if (hasRole(TypeAgent.EMPLOYEE)) {
+          <p-tab value="funcionario">{{ 'agentes.tabs.funcionario' | translate }}</p-tab>
+        }
+        @if (hasRole(TypeAgent.TOUR_GUIDE)) {
+          <p-tab value="guiaTuristico">{{ 'agentes.tabs.guiaTuristico' | translate }}</p-tab>
+        }
+      </p-tablist>
+
+      <p-tabpanels>
+        <p-tabpanel value="agente">
+          <div class="mb-3">
+            <span class="th-label block mb-2">{{ 'agentes.fields.roles' | translate }}</span>
+            <div class="flex flex-wrap gap-4 roles-row">
+              @for (opt of roleOptions(); track opt.value) {
+                <div class="flex align-items-center gap-2">
+                  <p-checkbox
+                    [inputId]="'role-' + opt.value"
+                    [value]="opt.value"
+                    formControlName="roles"
+                    name="roles"
+                  ></p-checkbox>
+                  <label [for]="'role-' + opt.value">{{ opt.label }}</label>
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="grid formgrid gap-0">
+            <div class="col-12 md:col-6 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <input
+                  id="name"
+                  pInputText
+                  type="text"
+                  formControlName="name"
+                  class="w-full p-inputtext-sm"
+                />
+                <app-error-msg
+                  [field]="'name'"
+                  [forId]="'name'"
+                  [showTechnicalDetails]="true"
+                  [control]="form.controls['name']"
+                  [label]="'agentes.fields.name' | translate"
+                />
+              </p-floatLabel>
+            </div>
+
+            <div class="col-12 md:col-6 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <input
+                  id="socialReason"
+                  pInputText
+                  type="text"
+                  formControlName="socialReason"
+                  class="w-full p-inputtext-sm"
+                />
+                <label for="socialReason">{{ 'agentes.fields.socialReason' | translate }}</label>
+              </p-floatLabel>
+            </div>
+
+            <div class="col-12 md:col-4 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <input
+                  id="document"
+                  pInputText
+                  type="text"
+                  csCpfCnpjMask
+                  formControlName="document"
+                  class="w-full p-inputtext-sm"
+                />
+                <app-error-msg
+                  [field]="'document'"
+                  [forId]="'document'"
+                  [showTechnicalDetails]="true"
+                  [control]="form.controls['document']"
+                  [label]="'agentes.fields.document' | translate"
+                />
+              </p-floatLabel>
+            </div>
+
+            <div class="col-12 md:col-4 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-select
+                  size="small"
+                  class="w-full"
+                  appendTo="body"
+                  [showClear]="true"
+                  optionLabel="label"
+                  optionValue="value"
+                  inputId="typePerson"
+                  formControlName="typePerson"
+                  [options]="typePersonOptions()"
+                ></p-select>
+                <label for="typePerson">{{ 'agentes.fields.typePerson' | translate }}</label>
+              </p-floatLabel>
+            </div>
+
+            <div class="col-12 md:col-4 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <input
+                  id="rg"
+                  pInputText
+                  type="text"
+                  formControlName="rg"
+                  class="w-full p-inputtext-sm"
+                />
+                <label for="rg">{{ 'agentes.fields.rg' | translate }}</label>
+              </p-floatLabel>
+            </div>
+
+            <div class="col-12 md:col-4 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-select
+                  size="small"
+                  appendTo="body"
+                  inputId="civilState"
+                  class="w-full"
+                  optionLabel="label"
+                  optionValue="value"
+                  [options]="civilStateOptions()"
+                  formControlName="civilState"
+                  [showClear]="true"
+                ></p-select>
+                <label for="civilState">{{ 'agentes.fields.civilState' | translate }}</label>
+              </p-floatLabel>
+            </div>
+
+            <div class="col-12 md:col-4 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-datepicker
+                  appendTo="body"
+                  inputId="birthDate"
+                  csDateInputMask
+                  [showIcon]="true"
+                  class="w-full"
+                  [dateFormat]="i18n.getDateFormat()"
+                  [readonlyInput]="false"
+                  formControlName="birthDate"
+                  [csDateInputMaskFormat]="i18n.getDateFormat()"
+                ></p-datepicker>
+                <label for="birthDate">{{ 'agentes.fields.birthDate' | translate }}</label>
+              </p-floatLabel>
+            </div>
+
+            <div class="col-12 md:col-4 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-select
+                  size="small"
+                  appendTo="body"
+                  inputId="sex"
+                  class="w-full"
+                  optionLabel="label"
+                  optionValue="value"
+                  [options]="sexOptions()"
+                  formControlName="sex"
+                  [showClear]="true"
+                ></p-select>
+                <label for="sex">{{ 'agentes.fields.sex' | translate }}</label>
+              </p-floatLabel>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <div class="flex align-items-center justify-content-between mb-2">
+              <span class="th-label">{{ 'agentes.fields.addresses' | translate }}</span>
+              <button
+                pButton
+                type="button"
+                icon="pi pi-plus"
+                [label]="'common.add' | translate"
+                (click)="addAddress()"
+                class="p-button-text p-button-sm"
+              ></button>
+            </div>
+
+            @for (row of addressGroups; track $index; let i = $index) {
+              <div
+                class="grid formgrid gap-0 align-items-end mb-3 pb-3 border-bottom-1 surface-border"
+                [formGroup]="row"
+              >
+                <div class="col-12 md:col-3 p-2">
+                  <div class="flex align-items-end gap-1">
+                    <p-floatLabel variant="on" class="w-full">
+                      <input
+                        pInputText
+                        type="text"
+                        maxlength="9"
+                        formControlName="postalCode"
+                        class="w-full p-inputtext-sm"
+                        (input)="onZipCodeInput(i, $any($event.target).value)"
+                        (keydown.enter)="searchZipCode(i)"
+                      />
+                      <label>{{ 'agentes.fields.postalCode' | translate }}</label>
+                    </p-floatLabel>
+                    <button
+                      pButton
+                      type="button"
+                      icon="pi pi-search"
+                      tooltipPosition="top"
+                      (click)="searchZipCode(i)"
+                      [loading]="isCepLoading(i)"
+                      class="p-button-sm flex-shrink-0"
+                      [pTooltip]="'agentes.cep.searchTooltip' | translate"
+                    ></button>
+                  </div>
+                </div>
+                <div class="col-12 md:col-5 p-2">
+                  <p-floatLabel variant="on" class="w-full">
+                    <input
+                      pInputText
+                      type="text"
+                      formControlName="street"
+                      class="w-full p-inputtext-sm"
+                    />
+                    <label>{{ 'agentes.fields.street' | translate }}</label>
+                  </p-floatLabel>
+                </div>
+                <div class="col-6 md:col-2 p-2">
+                  <p-floatLabel variant="on" class="w-full">
+                    <input
+                      pInputText
+                      type="text"
+                      formControlName="number"
+                      class="w-full p-inputtext-sm"
+                    />
+                    <label>{{ 'agentes.fields.number' | translate }}</label>
+                  </p-floatLabel>
+                </div>
+                <div class="col-6 md:col-2 p-2">
+                  <p-floatLabel variant="on" class="w-full">
+                    <input
+                      pInputText
+                      type="text"
+                      formControlName="complement"
+                      class="w-full p-inputtext-sm"
+                    />
+                    <label>{{ 'agentes.fields.complement' | translate }}</label>
+                  </p-floatLabel>
+                </div>
+
+                <div class="col-12 md:col-4 p-2">
+                  <p-floatLabel variant="on" class="w-full">
+                    <input
+                      pInputText
+                      type="text"
+                      formControlName="burgh"
+                      class="w-full p-inputtext-sm"
+                    />
+                    <label>{{ 'agentes.fields.burgh' | translate }}</label>
+                  </p-floatLabel>
+                </div>
+                <div class="col-6 md:col-3 p-2">
+                  <p-floatLabel variant="on" class="w-full">
+                    <p-select
+                      size="small"
+                      appendTo="body"
+                      class="w-full"
+                      optionLabel="name"
+                      optionValue="id"
+                      [showClear]="true"
+                      [options]="states()"
+                      [ngModel]="stateIdForAddress(i)"
+                      [ngModelOptions]="{ standalone: true }"
+                      (ngModelChange)="onAddressStateChange(i, $event)"
+                    ></p-select>
+                    <label>{{ 'agentes.fields.state' | translate }}</label>
+                  </p-floatLabel>
+                </div>
+                <div class="col-5 md:col-4 p-2">
+                  <p-floatLabel variant="on" class="w-full">
+                    <p-select
+                      size="small"
+                      appendTo="body"
+                      class="w-full"
+                      optionLabel="name"
+                      optionValue="id"
+                      [showClear]="true"
+                      formControlName="cityId"
+                      [options]="citiesForAddress(i)"
+                    ></p-select>
+                    <label>{{ 'agentes.fields.city' | translate }}</label>
+                  </p-floatLabel>
+                </div>
+                <div class="col-1 p-2 text-right">
+                  <button
+                    pButton
+                    type="button"
+                    icon="pi pi-trash"
+                    (click)="removeAddress(i)"
+                    class="p-button-text p-button-sm p-button-danger"
+                  ></button>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="mt-4">
+            <div class="flex align-items-center justify-content-between mb-2">
+              <span class="th-label">{{ 'agentes.fields.contacts' | translate }}</span>
+              <button
+                pButton
+                type="button"
+                icon="pi pi-plus"
+                [label]="'common.add' | translate"
+                (click)="addContact()"
+                class="p-button-text p-button-sm"
+              ></button>
+            </div>
+
+            @for (row of contactGroups; track $index; let i = $index) {
+              <div
+                class="grid formgrid gap-0 align-items-end mb-2 pb-2 border-bottom-1 surface-border"
+                [formGroup]="row"
+              >
+                <div class="col-12 md:col-3 p-1">
+                  <p-floatLabel variant="on" class="w-full">
+                    <input
+                      pInputText
+                      type="text"
+                      formControlName="name"
+                      class="w-full p-inputtext-sm"
+                    />
+                    <label>{{ 'agentes.fields.contactName' | translate }}</label>
+                  </p-floatLabel>
+                </div>
+                <div class="col-6 md:col-2 p-1">
+                  <p-floatLabel variant="on" class="w-full">
+                    <input
+                      pInputText
+                      type="text"
+                      csPhoneMask
+                      autocomplete="off"
+                      inputmode="numeric"
+                      formControlName="cellphone"
+                      class="w-full p-inputtext-sm"
+                    />
+                    <label>{{ 'agentes.fields.cellphone' | translate }}</label>
+                  </p-floatLabel>
+                </div>
+                <div class="col-6 md:col-2 p-1">
+                  <p-floatLabel variant="on" class="w-full">
+                    <input
+                      pInputText
+                      type="text"
+                      csPhoneMask
+                      autocomplete="off"
+                      inputmode="numeric"
+                      formControlName="telephone"
+                      class="w-full p-inputtext-sm"
+                    />
+                    <label>{{ 'agentes.fields.telephone' | translate }}</label>
+                  </p-floatLabel>
+                </div>
+                <div class="col-11 md:col-4 p-1">
+                  <p-floatLabel variant="on" class="w-full">
+                    <input
+                      pInputText
+                      type="text"
+                      formControlName="email"
+                      class="w-full p-inputtext-sm"
+                    />
+                    <label>{{ 'agentes.fields.email' | translate }}</label>
+                  </p-floatLabel>
+                </div>
+                <div class="col-1 p-1 text-right">
+                  <button
+                    pButton
+                    type="button"
+                    icon="pi pi-trash"
+                    (click)="removeContact(i)"
+                    class="p-button-text p-button-sm p-button-danger"
+                  ></button>
+                </div>
+              </div>
+            }
+          </div>
+        </p-tabpanel>
+
+        @if (hasRole(TypeAgent.CLIENT)) {
+          <p-tabpanel value="cliente">
+            <div class="col-12 md:col-6 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-select
+                  size="small"
+                  appendTo="body"
+                  class="w-full"
+                  optionLabel="label"
+                  optionValue="value"
+                  [options]="partyStatusOptions()"
+                  formControlName="statusClient"
+                ></p-select>
+                <label>{{ 'agentes.fields.status' | translate }}</label>
+              </p-floatLabel>
+            </div>
+          </p-tabpanel>
+        }
+
+        @if (hasRole(TypeAgent.PROMOTER)) {
+          <p-tabpanel value="promotor">
+            <div class="col-12 md:col-6 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-select
+                  size="small"
+                  appendTo="body"
+                  class="w-full"
+                  optionLabel="label"
+                  optionValue="value"
+                  [options]="partyStatusOptions()"
+                  formControlName="statusPromoter"
+                ></p-select>
+                <label>{{ 'agentes.fields.status' | translate }}</label>
+              </p-floatLabel>
+            </div>
+          </p-tabpanel>
+        }
+
+        @if (hasRole(TypeAgent.PROVIDER)) {
+          <p-tabpanel value="fornecedor">
+            <div class="col-12 md:col-6 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-select
+                  size="small"
+                  appendTo="body"
+                  class="w-full"
+                  optionLabel="label"
+                  optionValue="value"
+                  [options]="partyStatusOptions()"
+                  formControlName="statusProvider"
+                ></p-select>
+                <label>{{ 'agentes.fields.status' | translate }}</label>
+              </p-floatLabel>
+            </div>
+          </p-tabpanel>
+        }
+
+        @if (hasRole(TypeAgent.EMPLOYEE)) {
+          <p-tabpanel value="funcionario">
+            <div class="grid formgrid gap-0">
+              <div class="col-12 md:col-6 p-2">
+                <p-floatLabel variant="on" class="w-full">
+                  <p-select
+                    size="small"
+                    appendTo="body"
+                    class="w-full"
+                    optionLabel="label"
+                    optionValue="value"
+                    [options]="partyStatusOptions()"
+                    formControlName="statusEmployee"
+                  ></p-select>
+                  <label>{{ 'agentes.fields.status' | translate }}</label>
+                </p-floatLabel>
+              </div>
+              <div class="col-12 md:col-3 p-2 flex align-items-center gap-2">
+                <p-checkbox
+                  inputId="isManager"
+                  formControlName="isManager"
+                  [binary]="true"
+                ></p-checkbox>
+                <label for="isManager">{{ 'agentes.fields.isManager' | translate }}</label>
+              </div>
+              <div class="col-12 md:col-3 p-2 flex align-items-center gap-2">
+                <p-checkbox
+                  inputId="isAttendant"
+                  formControlName="isAttendant"
+                  [binary]="true"
+                ></p-checkbox>
+                <label for="isAttendant">{{ 'agentes.fields.isAttendant' | translate }}</label>
+              </div>
+            </div>
+          </p-tabpanel>
+        }
+
+        @if (hasRole(TypeAgent.TOUR_GUIDE)) {
+          <p-tabpanel value="guiaTuristico">
+            <div class="col-12 md:col-6 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-select
+                  size="small"
+                  appendTo="body"
+                  class="w-full"
+                  optionLabel="label"
+                  optionValue="value"
+                  [options]="partyStatusOptions()"
+                  formControlName="statusTourGuide"
+                ></p-select>
+                <label>{{ 'agentes.fields.status' | translate }}</label>
+              </p-floatLabel>
+            </div>
+          </p-tabpanel>
+        }
+      </p-tabpanels>
+    </p-tabs>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      (click)="close()"
+      icon="pi pi-times"
+      [disabled]="saving()"
+      class="p-button-text p-button-sm"
+      [label]="'common.cancel' | translate"
+    ></button>
+
+    <button
+      pButton
+      type="button"
+      (click)="save()"
+      icon="pi pi-save"
+      class="p-button-sm"
+      [loading]="saving()"
+      [label]="'common.save' | translate"
+      [disabled]="saving() || !canSubmit()"
+    ></button>
+  </ng-template>
+</p-dialog>

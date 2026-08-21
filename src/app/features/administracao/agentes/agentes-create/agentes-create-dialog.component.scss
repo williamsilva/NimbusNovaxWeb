@@ -1,0 +1,8 @@
+// Checkbox menor só pra linha de papéis - variáveis de design token do PrimeNG (--p-checkbox-*)
+// atravessam a view encapsulation normalmente (são custom properties herdadas pelo DOM real, não
+// escopadas por atributo), então dá pra reduzir só aqui sem ::ng-deep nem afetar outros checkboxes
+// do app (ex.: backup-settings, que usa o tamanho padrão).
+.roles-row {
+  --p-checkbox-width: 1.125rem;
+  --p-checkbox-height: 1.125rem;
+}

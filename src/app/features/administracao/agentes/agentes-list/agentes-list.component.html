@@ -1,0 +1,336 @@
+<cs-page-header
+  [subtitle]="'agentes.subtitle' | translate"
+  [breadcrumb]="[
+    { label: ('breadcrumb.dashboard.title' | translate), url: '/' },
+    { label: ('breadcrumb.agentes' | translate) },
+  ]"
+  [compact]="false"
+>
+  <button
+    pButton
+    type="button"
+    (click)="refresh()"
+    icon="pi pi-refresh"
+    class="p-button-text p-button-sm"
+    [label]="'common.update' | translate"
+  ></button>
+
+  <button
+    pButton
+    type="button"
+    (click)="goNew()"
+    icon="pi pi-plus"
+    tooltipPosition="top"
+    [disabled]="!canCreate()"
+    class="p-button-info p-button-sm"
+    [label]="'agentes.new.title' | translate"
+  ></button>
+</cs-page-header>
+
+<app-agentes-create-dialog
+  [agent]="agent()"
+  (saved)="onSaved()"
+  [visible]="upsertVisible()"
+  (visibleChange)="onUpsertVisibleChange($event)"
+></app-agentes-create-dialog>
+
+<cs-filters-panel
+  (clear)="clear()"
+  [collapsed]="true"
+  (search)="search()"
+  [actionsAlign]="'start'"
+  [activeCount]="activeFiltersCount()"
+  [title]="'common.filter' | translate"
+  [activeFilterGroups]="activeFilterGroups()"
+>
+  <div class="grid formgrid gap-0 align-items-end">
+    <cs-advanced-period-date-filter
+      [value]="createdAt()"
+      dateInputId="createdAt"
+      class="col-12 md:col-2 p-1"
+      [period]="periodCreatedAt()"
+      periodInputId="periodCreatedAt"
+      [periodOptions]="periodEnumOptions()"
+      (valueChange)="createdAt.set($event)"
+      [view]="setViewFormat(periodCreatedAt())"
+      [dateLabel]="'agentes.fields.createdAt' | translate"
+      [dateFormat]="setDateFormat(periodCreatedAt())"
+      [periodLabel]="'agentes.fields.periodCreatedAt' | translate"
+      [selectionMode]="setSelectionMode(periodCreatedAt())"
+      (periodChange)="onPeriodColumnChange(periodCreatedAt, createdAt, $event)"
+    ></cs-advanced-period-date-filter>
+
+    <div class="col-12 md:col-2 p-1">
+      <p-floatLabel variant="on" class="w-full">
+        <input
+          id="code"
+          pInputText
+          [value]="code()"
+          class="w-full p-inputtext-sm"
+          (input)="code.set(($any($event.target).value ?? '').toString())"
+        />
+        <label for="code">{{ 'agentes.fields.code' | translate }}</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="col-12 md:col-4 p-1">
+      <p-floatLabel variant="on" class="w-full">
+        <input
+          id="name"
+          pInputText
+          [value]="name()"
+          class="w-full p-inputtext-sm"
+          (input)="name.set(($any($event.target).value ?? '').toString())"
+        />
+        <label for="name">{{ 'agentes.fields.name' | translate }}</label>
+      </p-floatLabel>
+    </div>
+  </div>
+
+  <div class="grid formgrid gap-0 align-items-end">
+    <div class="col-12 md:col-2 p-1">
+      <p-floatLabel variant="on" class="w-full">
+        <input
+          pInputText
+          id="document"
+          csCpfCnpjMask
+          [value]="document()"
+          class="w-full p-inputtext-sm"
+          (input)="document.set(($any($event.target).value ?? '').toString().replace(/\D+/g, ''))"
+        />
+        <label for="document">{{ 'agentes.fields.document' | translate }}</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="col-12 md:col-2 p-1">
+      <p-floatLabel variant="on" class="w-full">
+        <p-multiSelect
+          size="small"
+          class="w-full"
+          appendTo="body"
+          [showClear]="true"
+          optionLabel="label"
+          optionValue="value"
+          inputId="typePerson"
+          [showToggleAll]="false"
+          [ngModel]="typePerson()"
+          [options]="typePersonOptions()"
+          (ngModelChange)="typePerson.set($event?.length ? $event : null)"
+        ></p-multiSelect>
+        <label for="typePerson">{{ 'agentes.fields.typePerson' | translate }}</label>
+      </p-floatLabel>
+    </div>
+  </div>
+</cs-filters-panel>
+
+<div class="surface-card border-round px-3 pt-2 pb-3 mt-2">
+  <p-table
+    #dt
+    stripedRows
+    dataKey="id"
+    size="small"
+    [rows]="rows"
+    [lazy]="true"
+    showGridlines
+    [value]="agents()"
+    [rowHover]="true"
+    [paginator]="true"
+    sortMode="multiple"
+    filterDisplay="menu"
+    stateStorage="local"
+    class="cs-admin-table"
+    [loading]="facade.loading()"
+    [stateKey]="tableStateKey()"
+    [showCurrentPageReport]="true"
+    [totalRecords]="totalRecords()"
+    (onLazyLoad)="onLazyLoad($event)"
+    [paginatorDropdownAppendTo]="'body'"
+    (onPage)="onPageChange($event)"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    [tableStyle]="{ width: '100%', 'min-width': '48rem' }"
+    [currentPageReportTemplate]="'pagination.report' | translate"
+  >
+    <ng-template pTemplate="colgroup">
+      <colgroup>
+        <col style="width: 110px" />
+        <col style="width: auto" />
+        <col style="width: 120px" />
+        <col style="width: 170px" />
+        <col style="width: 170px" />
+        <col style="width: 70px" />
+      </colgroup>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="code">
+          <div class="th-flex text-center">
+            <span
+              class="th-label"
+              tooltipPosition="top"
+              [pTooltip]="'agentes.columns.code' | translate"
+              >{{ 'agentes.columns.code' | translate }}</span
+            >
+            <span class="th-icons">
+              <p-sortIcon field="code"></p-sortIcon>
+              <p-columnFilter
+                field="code"
+                type="text"
+                display="menu"
+                class="ml-auto"
+                matchMode="contains"
+                [useGrouping]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+                styleClass="cs-colfilter"
+              ></p-columnFilter>
+            </span>
+          </div>
+        </th>
+
+        <th pSortableColumn="name">
+          <div class="th-flex text-center">
+            <span
+              class="th-label"
+              tooltipPosition="top"
+              [pTooltip]="'agentes.columns.name' | translate"
+              >{{ 'agentes.columns.name' | translate }}</span
+            >
+            <span class="th-icons">
+              <p-sortIcon field="name"></p-sortIcon>
+              <p-columnFilter
+                field="name"
+                type="text"
+                display="menu"
+                class="ml-auto"
+                matchMode="contains"
+                [useGrouping]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+                styleClass="cs-colfilter"
+              ></p-columnFilter>
+            </span>
+          </div>
+        </th>
+
+        <th>
+          <div class="th-flex text-center">
+            <span
+              class="th-label"
+              tooltipPosition="top"
+              [pTooltip]="'agentes.columns.typePerson' | translate"
+              >{{ 'agentes.columns.typePerson' | translate }}</span
+            >
+          </div>
+        </th>
+
+        <th pSortableColumn="document">
+          <div class="th-flex text-center">
+            <span
+              class="th-label"
+              tooltipPosition="top"
+              [pTooltip]="'agentes.columns.document' | translate"
+              >{{ 'agentes.columns.document' | translate }}</span
+            >
+            <span class="th-icons">
+              <p-sortIcon field="document"></p-sortIcon>
+              <p-columnFilter
+                field="document"
+                type="text"
+                display="menu"
+                class="ml-auto"
+                matchMode="contains"
+                [useGrouping]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+                styleClass="cs-colfilter"
+              ></p-columnFilter>
+            </span>
+          </div>
+        </th>
+
+        <th pSortableColumn="createdAt">
+          <div class="th-flex text-center">
+            <span
+              class="th-label"
+              tooltipPosition="top"
+              [pTooltip]="'agentes.columns.createdAt' | translate"
+              >{{ 'agentes.columns.createdAt' | translate }}</span
+            >
+            <span class="th-icons">
+              <p-sortIcon field="createdAt"></p-sortIcon>
+            </span>
+          </div>
+        </th>
+
+        <th class="text-center">
+          <div class="th-flex text-center justify-content-center">
+            <span
+              class="th-label"
+              tooltipPosition="top"
+              [pTooltip]="'common.actions' | translate"
+              >{{ 'common.actions' | translate }}</span
+            >
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td class="mobile-card-title">{{ row.code }}</td>
+        <td [attr.data-label]="'agentes.columns.name' | translate">
+          <span class="cs-table-cell-ellipsis" tooltipPosition="top" [pTooltip]="row.name">{{
+            row.name
+          }}</span>
+        </td>
+        <td class="text-center" [attr.data-label]="'agentes.columns.typePerson' | translate">
+          {{ row.typePerson ? typePersonLabel(row.typePerson) : '-' }}
+        </td>
+        <td class="text-center" [attr.data-label]="'agentes.columns.document' | translate">
+          {{ row.document | csDocument }}
+        </td>
+        <td class="text-center" [attr.data-label]="'agentes.columns.createdAt' | translate">
+          {{ row.createdAt ? (row.createdAt | csDate: 'short') : '-' }}
+        </td>
+        <td class="text-center mobile-card-actions">
+          <div class="table-actions">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-pencil"
+              (click)="edit(row)"
+              class="p-button-text p-button-sm"
+              [disabled]="!secPolicy.canEdit()"
+              [pTooltip]="'common.edit' | translate"
+              tooltipPosition="top"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              (click)="confirmDelete(row)"
+              class="p-button-text p-button-sm"
+              [disabled]="!secPolicy.canDelete()"
+              [pTooltip]="'common.delete' | translate"
+              tooltipPosition="top"
+            ></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6" class="text-center py-5 opacity-70">
+          {{
+            facade.loadedOnce()
+              ? ('agentes.empty.title' | translate)
+              : ('common.loading' | translate)
+          }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
