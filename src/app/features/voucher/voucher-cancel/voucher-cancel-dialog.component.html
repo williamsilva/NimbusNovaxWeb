@@ -1,0 +1,60 @@
+<p-dialog
+  [modal]="true"
+  appendTo="body"
+  [closable]="false"
+  (onHide)="onHide()"
+  [draggable]="false"
+  [resizable]="false"
+  [visible]="visible()"
+  [style]="{ width: '420px', maxWidth: '95vw' }"
+  [header]="'voucher.cancel.title' | translate"
+>
+  @if (voucher()) {
+    <p class="mb-3">{{ 'voucher.cancel.message' | translate: { code: voucher()!.code } }}</p>
+  }
+
+  <form [formGroup]="form">
+    <p-floatLabel variant="on" class="w-full">
+      <p-select
+        size="small"
+        appendTo="body"
+        styleClass="w-full"
+        optionLabel="label"
+        optionValue="value"
+        inputId="cancellationReasonId"
+        [options]="reasonOptions()"
+        formControlName="cancellationReasonId"
+      ></p-select>
+      <label for="cancellationReasonId">{{ 'voucher.cancel.reason' | translate }}</label>
+    </p-floatLabel>
+    <app-error-msg
+      [field]="'cancellationReasonId'"
+      [forId]="'cancellationReasonId'"
+      [control]="form.controls.cancellationReasonId"
+      [label]="'voucher.cancel.reason' | translate"
+    />
+  </form>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      (click)="close()"
+      icon="pi pi-times"
+      class="p-button-text p-button-sm"
+      [label]="'common.cancel' | translate"
+      [disabled]="saving()"
+    ></button>
+
+    <button
+      pButton
+      type="button"
+      (click)="confirm()"
+      icon="pi pi-ban"
+      class="p-button-sm p-button-danger"
+      [loading]="saving()"
+      [label]="'voucher.cancel.confirm' | translate"
+      [disabled]="saving()"
+    ></button>
+  </ng-template>
+</p-dialog>

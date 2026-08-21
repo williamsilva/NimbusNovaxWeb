@@ -1,0 +1,98 @@
+<div class="p-fluid grid formgrid gap-0 align-items-end mb-2">
+  <div class="col-6 p-1">
+    <app-error-msg
+      [field]="'productId'"
+      [forId]="'productId-' + label()"
+      [control]="productId"
+      [label]="label()"
+    />
+    <p-select
+      size="small"
+      [filter]="true"
+      filterBy="name"
+      optionLabel="name"
+      optionValue="id"
+      appendTo="body"
+      styleClass="w-full"
+      [formControl]="productId"
+      optionDisabled="inactive"
+      [options]="products()"
+      [placeholder]="'voucher.items.selectProduct' | translate"
+    ></p-select>
+  </div>
+
+  <div class="col-3 p-1">
+    <app-error-msg
+      [field]="'quantity'"
+      [forId]="'quantity-' + label()"
+      [control]="quantity"
+      [label]="'voucher.items.quantity' | translate"
+    />
+    <p-inputNumber
+      [min]="1"
+      [max]="999"
+      inputId="quantity"
+      [showButtons]="true"
+      styleClass="w-full"
+      [formControl]="quantity"
+      incrementButtonIcon="pi pi-plus"
+      decrementButtonIcon="pi pi-minus"
+    ></p-inputNumber>
+  </div>
+
+  <div class="col-3 p-1">
+    <button
+      pButton
+      type="button"
+      icon="pi pi-plus"
+      (click)="addItem()"
+      class="p-button-sm w-full"
+      [label]="'common.add' | translate"
+    ></button>
+  </div>
+</div>
+
+<p-table [value]="items()" size="small" showGridlines styleClass="w-full">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>{{ 'voucher.items.product' | translate }}</th>
+      <th style="width: 8rem">{{ 'voucher.items.unitPrice' | translate }}</th>
+      <th style="width: 7rem">{{ 'voucher.items.quantity' | translate }}</th>
+      <th style="width: 9rem">{{ 'voucher.items.total' | translate }}</th>
+      <th style="width: 3rem"></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+    <tr>
+      <td>{{ item.productName }}</td>
+      <td>{{ item.unitPrice | currency: currency : 'symbol' : undefined : locale }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ itemTotal(item) | currency: currency : 'symbol' : undefined : locale }}</td>
+      <td>
+        <button
+          pButton
+          type="button"
+          icon="pi pi-times-circle"
+          (click)="removeItem(rowIndex)"
+          class="p-button-text p-button-sm p-button-danger"
+          [pTooltip]="'common.remove' | translate"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="5" class="text-center opacity-70">{{ 'voucher.items.empty' | translate }}</td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <tr>
+      <td colspan="3" class="text-right font-bold">{{ 'voucher.items.subtotal' | translate }}</td>
+      <td class="font-bold">{{ totalValue() | currency: currency : 'symbol' : undefined : locale }}</td>
+      <td></td>
+    </tr>
+  </ng-template>
+</p-table>

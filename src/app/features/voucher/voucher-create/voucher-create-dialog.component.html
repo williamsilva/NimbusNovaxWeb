@@ -1,0 +1,194 @@
+<p-dialog
+  [modal]="true"
+  appendTo="body"
+  [closable]="false"
+  (onHide)="onHide()"
+  [draggable]="false"
+  [resizable]="false"
+  [visible]="visible()"
+  [style]="{ width: '900px', maxWidth: '95vw' }"
+  [header]="isEditMode() ? ('voucher.edit.title' | translate) + ' - ' + voucher()!.code : ('voucher.new.title' | translate)"
+>
+  <form [formGroup]="form" class="cs-dialog-form">
+    <p-tabs [(value)]="activeTab">
+      <p-tablist>
+        <p-tab [value]="0"><i class="pi pi-home"></i>&nbsp;{{ 'voucher.tabs.data' | translate }}</p-tab>
+        <p-tab [value]="1"><i class="pi pi-ticket"></i>&nbsp;{{ 'voucher.tabs.tickets' | translate }}</p-tab>
+        <p-tab [value]="2"><i class="pi pi-shopping-cart"></i>&nbsp;{{ 'voucher.tabs.foods' | translate }}</p-tab>
+        <p-tab [value]="3"><i class="pi pi-book"></i>&nbsp;{{ 'voucher.tabs.notes' | translate }}</p-tab>
+      </p-tablist>
+
+      <p-tabpanels>
+        <p-tabpanel [value]="0">
+          <div class="grid formgrid gap-0">
+            <div class="col-12 md:col-6 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-select
+                  size="small"
+                  [filter]="true"
+                  filterBy="name"
+                  optionLabel="name"
+                  optionValue="id"
+                  inputId="clientId"
+                  appendTo="body"
+                  styleClass="w-full"
+                  optionDisabled="inactive"
+                  formControlName="clientId"
+                  [options]="clients()"
+                ></p-select>
+                <label for="clientId">{{ 'voucher.fields.client' | translate }}</label>
+              </p-floatLabel>
+              <app-error-msg
+                [field]="'clientId'"
+                [forId]="'clientId'"
+                [control]="form.controls.clientId"
+                [label]="'voucher.fields.client' | translate"
+              />
+            </div>
+
+            <div class="col-12 md:col-6 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-select
+                  size="small"
+                  [filter]="true"
+                  filterBy="name"
+                  optionLabel="name"
+                  optionValue="id"
+                  inputId="promoterId"
+                  appendTo="body"
+                  styleClass="w-full"
+                  optionDisabled="inactive"
+                  formControlName="promoterId"
+                  [options]="promoters()"
+                ></p-select>
+                <label for="promoterId">{{ 'voucher.fields.promoter' | translate }}</label>
+              </p-floatLabel>
+              <app-error-msg
+                [field]="'promoterId'"
+                [forId]="'promoterId'"
+                [control]="form.controls.promoterId"
+                [label]="'voucher.fields.promoter' | translate"
+              />
+            </div>
+
+            <div class="col-12 md:col-6 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-select
+                  size="small"
+                  [filter]="true"
+                  filterBy="name"
+                  optionLabel="name"
+                  optionValue="id"
+                  [showClear]="true"
+                  appendTo="body"
+                  inputId="tourGuideId"
+                  styleClass="w-full"
+                  optionDisabled="inactive"
+                  formControlName="tourGuideId"
+                  [options]="tourGuides()"
+                ></p-select>
+                <label for="tourGuideId">{{ 'voucher.fields.tourGuide' | translate }}</label>
+              </p-floatLabel>
+            </div>
+
+            <div class="col-12 md:col-6 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-datepicker
+                  appendTo="body"
+                  csDateInputMask
+                  inputId="visitDate"
+                  [showIcon]="true"
+                  styleClass="w-full"
+                  [dateFormat]="i18n.getDateFormat()"
+                  [readonlyInput]="false"
+                  formControlName="visitDate"
+                  [csDateInputMaskFormat]="i18n.getDateFormat()"
+                ></p-datepicker>
+                <label for="visitDate">{{ 'voucher.fields.visitDate' | translate }}</label>
+              </p-floatLabel>
+              <app-error-msg
+                [field]="'visitDate'"
+                [forId]="'visitDate'"
+                [control]="form.controls.visitDate"
+                [label]="'voucher.fields.visitDate' | translate"
+              />
+            </div>
+
+            <div class="col-12 md:col-6 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <p-inputNumber
+                  mode="currency"
+                  inputId="advanceValue"
+                  [currency]="i18n.getCurrency()"
+                  [locale]="i18n.getLocale()"
+                  styleClass="w-full"
+                  formControlName="advanceValue"
+                ></p-inputNumber>
+                <label for="advanceValue">{{ 'voucher.fields.advanceValue' | translate }}</label>
+              </p-floatLabel>
+            </div>
+
+            @if (isEditMode()) {
+              <div class="col-12 md:col-6 p-2 flex align-items-center gap-2">
+                <span class="th-label">{{ 'voucher.fields.status' | translate }}:</span>
+                <span class="font-bold">{{ statusLabel() }}</span>
+              </div>
+            }
+          </div>
+        </p-tabpanel>
+
+        <p-tabpanel [value]="1">
+          <app-voucher-items
+            [items]="tickets()"
+            [typeProduct]="TypeProduct.TICKET"
+            (itemsChange)="tickets.set($event)"
+            [label]="'voucher.tabs.tickets' | translate"
+          ></app-voucher-items>
+        </p-tabpanel>
+
+        <p-tabpanel [value]="2">
+          <app-voucher-items
+            [items]="foods()"
+            [typeProduct]="TypeProduct.FOOD"
+            (itemsChange)="foods.set($event)"
+            [label]="'voucher.tabs.foods' | translate"
+          ></app-voucher-items>
+        </p-tabpanel>
+
+        <p-tabpanel [value]="3">
+          <div class="grid formgrid gap-0">
+            <div class="col-12 p-2">
+              <p-floatLabel variant="on" class="w-full">
+                <textarea id="note" rows="5" pTextarea formControlName="note" class="w-full"></textarea>
+                <label for="note">{{ 'voucher.fields.note' | translate }}</label>
+              </p-floatLabel>
+            </div>
+          </div>
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      (click)="close()"
+      icon="pi pi-times"
+      class="p-button-text p-button-sm"
+      [label]="'common.cancel' | translate"
+      [disabled]="saving()"
+    ></button>
+
+    <button
+      pButton
+      type="button"
+      (click)="save()"
+      icon="pi pi-save"
+      class="p-button-sm"
+      [loading]="saving()"
+      [label]="'common.save' | translate"
+      [disabled]="saving() || !canSubmit()"
+    ></button>
+  </ng-template>
+</p-dialog>

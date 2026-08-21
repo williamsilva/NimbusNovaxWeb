@@ -1,0 +1,384 @@
+<cs-page-header
+  [subtitle]="'voucher.subtitle' | translate"
+  [breadcrumb]="[
+    { label: ('breadcrumb.dashboard.title' | translate), url: '/' },
+    { label: ('breadcrumb.voucher' | translate) },
+  ]"
+  [compact]="false"
+>
+  <button
+    pButton
+    type="button"
+    (click)="refresh()"
+    icon="pi pi-refresh"
+    class="p-button-text p-button-sm"
+    [label]="'common.update' | translate"
+  ></button>
+
+  <button
+    pButton
+    type="button"
+    (click)="goNew()"
+    icon="pi pi-plus"
+    tooltipPosition="top"
+    [disabled]="!canCreate()"
+    class="p-button-info p-button-sm"
+    [label]="'voucher.new.title' | translate"
+  ></button>
+</cs-page-header>
+
+<app-voucher-create-dialog
+  [voucher]="editingVoucher()"
+  (saved)="onSaved()"
+  [visible]="upsertVisible()"
+  (visibleChange)="onUpsertVisibleChange($event)"
+></app-voucher-create-dialog>
+
+<app-voucher-cancel-dialog
+  [voucher]="cancelingVoucher()"
+  [visible]="cancelVisible()"
+  (canceled)="onCanceled()"
+  (visibleChange)="onCancelVisibleChange($event)"
+></app-voucher-cancel-dialog>
+
+<cs-filters-panel
+  [collapsed]="true"
+  (clear)="clear()"
+  (search)="search()"
+  [actionsAlign]="'start'"
+  [activeCount]="activeFiltersCount()"
+  [title]="'common.filter' | translate"
+  [activeFilterGroups]="activeFilterGroups()"
+>
+  <div class="grid formgrid gap-0 align-items-end">
+    <div class="col-12 md:col-2 p-1">
+      <p-floatLabel variant="on" class="w-full">
+        <input
+          id="voucher"
+          pInputText
+          [value]="voucher()"
+          class="w-full p-inputtext-sm"
+          (input)="voucher.set(($any($event.target).value ?? '').toString())"
+        />
+        <label for="voucher">{{ 'voucher.fields.voucher' | translate }}</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="col-12 md:col-3 p-1">
+      <p-floatLabel variant="on" class="w-full">
+        <input
+          id="client"
+          pInputText
+          [value]="client()"
+          class="w-full p-inputtext-sm"
+          (input)="client.set(($any($event.target).value ?? '').toString())"
+        />
+        <label for="client">{{ 'voucher.fields.client' | translate }}</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="col-12 md:col-3 p-1">
+      <p-floatLabel variant="on" class="w-full">
+        <p-multiSelect
+          size="small"
+          class="w-full"
+          appendTo="body"
+          [showClear]="true"
+          inputId="promoterIds"
+          optionLabel="name"
+          optionValue="id"
+          filterBy="name"
+          [filter]="true"
+          [ngModel]="promoterIds()"
+          [showToggleAll]="false"
+          [options]="promoterOptions()"
+          (ngModelChange)="promoterIds.set($event?.length ? $event : null)"
+        ></p-multiSelect>
+        <label for="promoterIds">{{ 'voucher.fields.promoter' | translate }}</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="col-12 md:col-2 p-1">
+      <p-floatLabel variant="on" class="w-full">
+        <p-multiSelect
+          size="small"
+          class="w-full"
+          appendTo="body"
+          [showClear]="true"
+          inputId="status"
+          optionLabel="label"
+          optionValue="value"
+          [ngModel]="status()"
+          [showToggleAll]="false"
+          [options]="statusOptions()"
+          (ngModelChange)="status.set($event?.length ? $event : null)"
+        ></p-multiSelect>
+        <label for="status">{{ 'voucher.fields.status' | translate }}</label>
+      </p-floatLabel>
+    </div>
+
+    <cs-advanced-period-date-filter
+      dateInputId="visitDate"
+      periodInputId="periodVisitDate"
+      [value]="visitDate()"
+      [period]="periodVisitDate()"
+      class="col-12 md:col-2 p-1"
+      (valueChange)="visitDate.set($event)"
+      [periodOptions]="periodEnumOptions()"
+      [view]="setViewFormat(periodVisitDate())"
+      [dateFormat]="setDateFormat(periodVisitDate())"
+      [selectionMode]="setSelectionMode(periodVisitDate())"
+      [dateLabel]="'voucher.fields.visitDate' | translate"
+      [periodLabel]="'voucher.fields.periodVisitDate' | translate"
+      (periodChange)="onPeriodColumnChange(periodVisitDate, visitDate, $event)"
+    ></cs-advanced-period-date-filter>
+  </div>
+</cs-filters-panel>
+
+<div class="surface-card border-round px-3 pt-2 pb-3 mt-2">
+  <p-table
+    #dt
+    stripedRows
+    dataKey="id"
+    size="small"
+    [rows]="rows"
+    [lazy]="true"
+    showGridlines
+    [value]="vouchers()"
+    [rowHover]="true"
+    [paginator]="true"
+    sortMode="multiple"
+    filterDisplay="menu"
+    stateStorage="local"
+    class="cs-admin-table"
+    [loading]="facade.loading()"
+    [stateKey]="tableStateKey()"
+    [showCurrentPageReport]="true"
+    [totalRecords]="totalRecords()"
+    (onLazyLoad)="onLazyLoad($event)"
+    [paginatorDropdownAppendTo]="'body'"
+    (onPage)="onPageChange($event)"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    [tableStyle]="{ width: '100%', 'min-width': '56rem' }"
+    [currentPageReportTemplate]="'pagination.report' | translate"
+  >
+    <ng-template pTemplate="colgroup">
+      <colgroup>
+        <col style="width: 110px" />
+        <col style="width: auto" />
+        <col style="width: auto" />
+        <col style="width: 110px" />
+        <col style="width: 130px" />
+        <col style="width: 120px" />
+        <col style="width: 190px" />
+      </colgroup>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="voucher">
+          <div class="th-flex text-center">
+            <span class="th-label">{{ 'voucher.columns.voucher' | translate }}</span>
+            <span class="th-icons">
+              <p-sortIcon field="voucher"></p-sortIcon>
+              <p-columnFilter
+                field="voucher"
+                type="text"
+                display="menu"
+                matchMode="contains"
+                [useGrouping]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+                styleClass="cs-colfilter"
+              ></p-columnFilter>
+            </span>
+          </div>
+        </th>
+
+        <th>
+          <div class="th-flex text-center">
+            <span class="th-label">{{ 'voucher.columns.client' | translate }}</span>
+          </div>
+        </th>
+
+        <th>
+          <div class="th-flex text-center">
+            <span class="th-label">{{ 'voucher.columns.promoter' | translate }}</span>
+          </div>
+        </th>
+
+        <th pSortableColumn="visitDate">
+          <div class="th-flex text-center">
+            <span class="th-label">{{ 'voucher.columns.visitDate' | translate }}</span>
+            <span class="th-icons"><p-sortIcon field="visitDate"></p-sortIcon></span>
+          </div>
+        </th>
+
+        <th pSortableColumn="totalPrice">
+          <div class="th-flex text-center">
+            <span class="th-label">{{ 'voucher.columns.totalPrice' | translate }}</span>
+            <span class="th-icons"><p-sortIcon field="totalPrice"></p-sortIcon></span>
+          </div>
+        </th>
+
+        <th pSortableColumn="status">
+          <div class="th-flex text-center">
+            <span class="th-label">{{ 'voucher.columns.status' | translate }}</span>
+            <span class="th-icons">
+              <p-sortIcon field="status"></p-sortIcon>
+              <p-columnFilter
+                display="menu"
+                matchMode="in"
+                field="status"
+                [showOperator]="false"
+                [showAddButton]="false"
+                [showMatchModes]="false"
+                styleClass="cs-colfilter"
+              >
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-multiSelect
+                    size="small"
+                    class="w-full"
+                    appendTo="body"
+                    [ngModel]="value"
+                    [showClear]="true"
+                    optionLabel="label"
+                    optionValue="value"
+                    [options]="statusOptions()"
+                    (onChange)="filter($event.value)"
+                    [placeholder]="'common.all' | translate"
+                  ></p-multiSelect>
+                </ng-template>
+              </p-columnFilter>
+            </span>
+          </div>
+        </th>
+
+        <th class="text-center">
+          <div class="th-flex text-center justify-content-center">
+            <span class="th-label">{{ 'common.actions' | translate }}</span>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td class="mobile-card-title cell-strong">{{ row.code }}</td>
+        <td class="text-center cs-table-cell-ellipsis" [attr.data-label]="'voucher.columns.client' | translate">
+          {{ row.client.name }}
+        </td>
+        <td class="text-center cs-table-cell-ellipsis" [attr.data-label]="'voucher.columns.promoter' | translate">
+          {{ row.promoter.name }}
+        </td>
+        <td class="text-center" [attr.data-label]="'voucher.columns.visitDate' | translate">
+          {{ row.visitDate ? (row.visitDate | csDate) : '-' }}
+        </td>
+        <td class="text-center" [attr.data-label]="'voucher.columns.totalPrice' | translate">
+          {{ formatAmount(row.totalPrice) }}
+        </td>
+        <td class="text-center" [attr.data-label]="'voucher.columns.status' | translate">
+          <cs-tag [value]="statusLabel(row.status)" [tone]="statusSeverity(row.status)"></cs-tag>
+        </td>
+        <td class="text-center mobile-card-actions">
+          <div class="table-actions">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-pencil"
+              (click)="edit(row)"
+              class="p-button-text p-button-sm"
+              [disabled]="!secPolicy.canEdit(row)"
+              [pTooltip]="'common.edit' | translate"
+              tooltipPosition="top"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-check-circle"
+              (click)="confirmConfirm(row)"
+              class="p-button-text p-button-sm"
+              [disabled]="!secPolicy.canConfirm(row)"
+              [pTooltip]="'voucher.action.confirm.tooltip' | translate"
+              tooltipPosition="top"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-times-circle"
+              (click)="confirmNotConfirm(row)"
+              class="p-button-text p-button-sm"
+              [disabled]="!secPolicy.canNotConfirm(row)"
+              [pTooltip]="'voucher.action.notConfirm.tooltip' | translate"
+              tooltipPosition="top"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-sync"
+              (click)="confirmChange(row)"
+              class="p-button-text p-button-sm"
+              [disabled]="!secPolicy.canChangeStatus(row)"
+              [pTooltip]="'voucher.action.change.tooltip' | translate"
+              tooltipPosition="top"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-ban"
+              (click)="openCancel(row)"
+              class="p-button-text p-button-sm"
+              [disabled]="!secPolicy.canCancel(row)"
+              [pTooltip]="'voucher.action.cancel.tooltip' | translate"
+              tooltipPosition="top"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-envelope"
+              (click)="confirmSendEmail(row)"
+              class="p-button-text p-button-sm"
+              [disabled]="!secPolicy.canSendEmail(row)"
+              [pTooltip]="'voucher.action.sendEmail.tooltip' | translate"
+              tooltipPosition="top"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-file-pdf"
+              (click)="viewPdf(row)"
+              class="p-button-text p-button-sm"
+              [pTooltip]="'voucher.action.viewPdf.tooltip' | translate"
+              tooltipPosition="top"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              (click)="confirmDelete(row)"
+              class="p-button-text p-button-sm"
+              [disabled]="!secPolicy.canDelete(row)"
+              [pTooltip]="'common.delete' | translate"
+              tooltipPosition="top"
+            ></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7" class="text-center py-5 opacity-70">
+          {{ facade.loadedOnce() ? ('voucher.empty.title' | translate) : ('common.loading' | translate) }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

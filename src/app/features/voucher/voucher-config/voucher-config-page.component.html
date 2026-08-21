@@ -1,0 +1,99 @@
+<cs-page-header
+  [subtitle]="'voucher.config.subtitle' | translate"
+  [breadcrumb]="[
+    { label: ('breadcrumb.dashboard.title' | translate), url: '/' },
+    { label: ('breadcrumb.voucher' | translate), url: '/voucher' },
+    { label: ('breadcrumb.voucherConfig' | translate) },
+  ]"
+></cs-page-header>
+
+<p-card class="mt-2 block">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="grid formgrid gap-0">
+      <div class="col-12 md:col-3 p-2">
+        <div class="flex align-items-center justify-content-between border-1 surface-border border-round p-3 h-full gap-3">
+          <label for="senderMail" class="text-sm flex-1">{{ 'voucher.config.senderMail' | translate }}</label>
+          <p-toggleswitch formControlName="senderMail" inputId="senderMail"></p-toggleswitch>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-3 p-2">
+        <p-floatLabel variant="on" class="w-full">
+          <p-inputNumber
+            [min]="1"
+            [max]="365"
+            styleClass="w-full"
+            inputId="daysToExpire"
+            [showButtons]="true"
+            formControlName="daysToExpire"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          ></p-inputNumber>
+          <label for="daysToExpire">{{ 'voucher.config.daysToExpire' | translate }}</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="col-12 md:col-3 p-2">
+        <p-floatLabel variant="on" class="w-full">
+          <p-inputNumber
+            [min]="1"
+            [max]="365"
+            styleClass="w-full"
+            inputId="daysToCancel"
+            [showButtons]="true"
+            formControlName="daysToCancel"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          ></p-inputNumber>
+          <label for="daysToCancel">{{ 'voucher.config.daysToCancel' | translate }}</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="col-12 md:col-3 p-2">
+        <p-floatLabel variant="on" class="w-full">
+          <p-inputNumber
+            [min]="1"
+            [max]="365"
+            styleClass="w-full"
+            [showButtons]="true"
+            inputId="numberPendingVouchers"
+            formControlName="numberPendingVouchers"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          ></p-inputNumber>
+          <label for="numberPendingVouchers">{{ 'voucher.config.numberPendingVouchers' | translate }}</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="col-12 p-2">
+        <p-floatLabel variant="on" class="w-full">
+          <input
+            pInputText
+            type="text"
+            class="w-full p-inputtext-sm"
+            id="notificationEmails"
+            formControlName="notificationEmails"
+          />
+          <label for="notificationEmails">{{ 'voucher.config.notificationEmails' | translate }}</label>
+        </p-floatLabel>
+        <small class="text-color-secondary">{{ 'voucher.config.notificationEmailsHint' | translate }}</small>
+      </div>
+
+      <div class="col-12 p-2">
+        <label class="block mb-2 text-sm">{{ 'voucher.config.emailBody' | translate }}</label>
+        <p-editor formControlName="emailBody" [style]="{ height: '200px' }"></p-editor>
+      </div>
+    </div>
+
+    @if (canEdit()) {
+      <div class="mt-4 px-2">
+        <p-button
+          type="submit"
+          icon="pi pi-save"
+          [label]="'common.save' | translate"
+          [disabled]="form.invalid"
+        ></p-button>
+      </div>
+    }
+  </form>
+</p-card>
