@@ -1,0 +1,11 @@
+# syntax=docker/dockerfile:1
+# Container de desenvolvimento - roda o Angular dev server (ng serve) com live-reload a partir do
+# código montado como volume (ver ../docker-compose.yml). Diferente do Dockerfile "de produção"
+# (build otimizado servido via nginx, usado nos deploys reais e no preview local sem live-reload).
+FROM node:22-alpine
+WORKDIR /workspace
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+EXPOSE 4203
+CMD ["npx", "ng", "serve", "--host", "0.0.0.0", "--port", "4203"]
