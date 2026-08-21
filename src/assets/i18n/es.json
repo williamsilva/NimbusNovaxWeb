@@ -63,6 +63,17 @@
         "title": "Motivo de Cancelación"
       }
     },
+    "voucher": {
+      "list": {
+        "title": "Vouchers"
+      },
+      "dashboard": {
+        "title": "Dashboard de Vouchers"
+      },
+      "config": {
+        "title": "Configuración de Vouchers"
+      }
+    },
     "adjustment": {
       "chargebacks": {
         "title": "Chargebacks"
@@ -301,6 +312,12 @@
       "produtos": "Productos",
       "motivoCancelamento": "Motivo de Cancelación"
     },
+    "voucher": {
+      "title": "Voucher",
+      "list": "Vouchers",
+      "dashboard": "Dashboard",
+      "config": "Configuración"
+    },
     "settings": {
       "title": "Configuraciones",
       "email": "E-mail",
@@ -335,6 +352,9 @@
     "agentes": "Agentes",
     "produtos": "Productos",
     "motivoCancelamento": "Motivo de Cancelación",
+    "voucher": "Voucher",
+    "voucherDashboard": "Dashboard",
+    "voucherConfig": "Configuración",
     "dashboard": {
       "title": "Dashboard",
       "management": {
@@ -662,6 +682,15 @@
       "active": "Activo",
       "inactive": "Inactivo",
       "unknown": "Desconocido"
+    },
+    "statusVoucher": {
+      "dealing": "Negociando",
+      "confirmed": "Confirmado",
+      "exchanged": "Accedido",
+      "overdue": "Vencido",
+      "calledOff": "Cancelado",
+      "notClosed": "No Cerrado",
+      "unknown": "N/A"
     },
     "sex": {
       "male": "Masculino",
@@ -2088,6 +2117,126 @@
         "system": "Los motivos generados por el sistema no pueden eliminarse.",
         "noPermission": "No tiene permiso para eliminar motivos de cancelación."
       }
+    }
+  },
+  "voucher": {
+    "subtitle": "Consulta y gestión de vouchers",
+    "new": {
+      "title": "Nuevo voucher"
+    },
+    "edit": {
+      "title": "Editar voucher"
+    },
+    "tabs": {
+      "data": "Datos del Voucher",
+      "tickets": "Entradas",
+      "foods": "Alimentación",
+      "notes": "Observaciones"
+    },
+    "fields": {
+      "voucher": "Voucher",
+      "client": "Cliente",
+      "promoter": "Promotor",
+      "tourGuide": "Guía Turístico",
+      "visitDate": "Fecha de visita",
+      "periodVisitDate": "Período de la visita",
+      "advanceValue": "Depósito",
+      "note": "Observación",
+      "status": "Estado"
+    },
+    "columns": {
+      "voucher": "Voucher",
+      "client": "Cliente",
+      "promoter": "Promotor",
+      "visitDate": "Visita",
+      "totalPrice": "Valor",
+      "status": "Estado"
+    },
+    "items": {
+      "selectProduct": "Seleccione un producto",
+      "quantity": "Cantidad",
+      "product": "Producto",
+      "unitPrice": "Unitario",
+      "total": "Total",
+      "subtotal": "Subtotal",
+      "empty": "Ningún ítem agregado"
+    },
+    "form": {
+      "created": "Voucher creado con éxito.",
+      "updated": "Voucher actualizado con éxito."
+    },
+    "empty": {
+      "title": "Ningún voucher encontrado"
+    },
+    "delete": {
+      "header": "Eliminar voucher",
+      "message": "¿Desea realmente eliminar el voucher {{code}}?",
+      "success": "Voucher eliminado con éxito."
+    },
+    "cancel": {
+      "title": "Cancelar voucher",
+      "message": "Seleccione el motivo de cancelación del voucher {{code}}.",
+      "reason": "Motivo de cancelación",
+      "confirm": "Confirmar cancelación"
+    },
+    "action": {
+      "confirm": {
+        "tooltip": "Confirmar",
+        "header": "Confirmar voucher",
+        "message": "¿Desea realmente confirmar el voucher {{code}}?",
+        "success": "Voucher confirmado con éxito."
+      },
+      "notConfirm": {
+        "tooltip": "No confirmar",
+        "header": "Marcar voucher como no cerrado",
+        "message": "¿Desea realmente marcar el voucher {{code}} como no cerrado?",
+        "success": "Voucher marcado como no cerrado."
+      },
+      "change": {
+        "tooltip": "Cambiar",
+        "header": "Cambiar voucher",
+        "message": "¿Desea realmente marcar el voucher {{code}} como accedido? Esta acción no se puede revertir.",
+        "success": "Voucher cambiado con éxito."
+      },
+      "cancel": {
+        "tooltip": "Cancelar",
+        "success": "Voucher cancelado con éxito."
+      },
+      "sendEmail": {
+        "tooltip": "Enviar por correo",
+        "header": "Enviar voucher por correo",
+        "message": "¿Enviar el voucher {{code}} por correo al cliente?",
+        "success": "Voucher enviado por correo con éxito."
+      },
+      "viewPdf": {
+        "tooltip": "Ver PDF"
+      }
+    },
+    "config": {
+      "subtitle": "Configuración general de voucher",
+      "senderMail": "Notificar al cambiar",
+      "daysToExpire": "Días para vencer",
+      "daysToCancel": "Días para cancelar",
+      "numberPendingVouchers": "Nº de vouchers pendientes",
+      "notificationEmails": "Correos de notificación",
+      "notificationEmailsHint": "Destinatarios del aviso de vouchers vencidos, separados por coma.",
+      "emailBody": "Texto de la notificación",
+      "saved": "Configuración guardada con éxito."
+    },
+    "dashboard": {
+      "subtitle": "Estadísticas de vouchers",
+      "firstPeriod": "Período inicial",
+      "finalPeriod": "Período final",
+      "totalClients": "Clientes",
+      "totalVouchers": "Vouchers",
+      "totalPrice": "Valor total",
+      "totalPriceFoods": "Valor alimentación",
+      "byStatus": "Vouchers por estado",
+      "topClients": "Top clientes",
+      "client": "Cliente",
+      "vouchers": "Vouchers",
+      "total": "Total",
+      "empty": "Ningún dato encontrado"
     }
   },
   "groups": {

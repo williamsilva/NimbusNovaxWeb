@@ -103,6 +103,12 @@ export const UI_KEYS = {
       produtos: 'menu.administracao.produtos',
       motivoCancelamento: 'menu.administracao.motivoCancelamento',
     },
+    voucher: {
+      title: 'menu.voucher.title',
+      list: 'menu.voucher.list',
+      dashboard: 'menu.voucher.dashboard',
+      config: 'menu.voucher.config',
+    },
     file: {
       processing: {
         file: 'menu.file.processing.file',
@@ -1345,6 +1351,15 @@ export const UI_KEYS = {
       inactive: 'enum.recordStatus.inactive',
       unknown: 'enum.recordStatus.unknown',
     },
+    statusVoucher: {
+      dealing: 'enum.statusVoucher.dealing',
+      confirmed: 'enum.statusVoucher.confirmed',
+      exchanged: 'enum.statusVoucher.exchanged',
+      overdue: 'enum.statusVoucher.overdue',
+      calledOff: 'enum.statusVoucher.calledOff',
+      notClosed: 'enum.statusVoucher.notClosed',
+      unknown: 'enum.statusVoucher.unknown',
+    },
     sex: {
       male: 'enum.sex.male',
       female: 'enum.sex.female',
@@ -1731,6 +1746,52 @@ export const UI_KEYS = {
       header: 'motivoCancelamento.delete.header',
       message: 'motivoCancelamento.delete.message',
       success: 'motivoCancelamento.delete.success',
+    },
+  },
+  voucher: {
+    fields: {
+      voucher: 'voucher.fields.voucher',
+      client: 'voucher.fields.client',
+      promoter: 'voucher.fields.promoter',
+      status: 'voucher.fields.status',
+      visitDate: 'voucher.fields.visitDate',
+    },
+    form: {
+      updated: 'voucher.form.updated',
+      created: 'voucher.form.created',
+    },
+    delete: {
+      header: 'voucher.delete.header',
+      message: 'voucher.delete.message',
+      success: 'voucher.delete.success',
+    },
+    action: {
+      confirm: {
+        header: 'voucher.action.confirm.header',
+        message: 'voucher.action.confirm.message',
+        success: 'voucher.action.confirm.success',
+      },
+      notConfirm: {
+        header: 'voucher.action.notConfirm.header',
+        message: 'voucher.action.notConfirm.message',
+        success: 'voucher.action.notConfirm.success',
+      },
+      change: {
+        header: 'voucher.action.change.header',
+        message: 'voucher.action.change.message',
+        success: 'voucher.action.change.success',
+      },
+      cancel: {
+        success: 'voucher.action.cancel.success',
+      },
+      sendEmail: {
+        header: 'voucher.action.sendEmail.header',
+        message: 'voucher.action.sendEmail.message',
+        success: 'voucher.action.sendEmail.success',
+      },
+    },
+    config: {
+      saved: 'voucher.config.saved',
     },
   },
   audit: {

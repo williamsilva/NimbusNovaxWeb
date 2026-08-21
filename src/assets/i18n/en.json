@@ -63,6 +63,17 @@
         "title": "Cancellation Reason"
       }
     },
+    "voucher": {
+      "list": {
+        "title": "Vouchers"
+      },
+      "dashboard": {
+        "title": "Voucher Dashboard"
+      },
+      "config": {
+        "title": "Voucher Settings"
+      }
+    },
     "adjustment": {
       "chargebacks": {
         "title": "Chargebacks"
@@ -301,6 +312,12 @@
       "produtos": "Products",
       "motivoCancelamento": "Cancellation Reason"
     },
+    "voucher": {
+      "title": "Voucher",
+      "list": "Vouchers",
+      "dashboard": "Dashboard",
+      "config": "Settings"
+    },
     "settings": {
       "title": "Settings",
       "email": "E-mail",
@@ -335,6 +352,9 @@
     "agentes": "Agents",
     "produtos": "Products",
     "motivoCancelamento": "Cancellation Reason",
+    "voucher": "Voucher",
+    "voucherDashboard": "Dashboard",
+    "voucherConfig": "Settings",
     "dashboard": {
       "title": "Dashboard",
       "management": {
@@ -671,6 +691,15 @@
       "active": "Active",
       "inactive": "Inactive",
       "unknown": "Unknown"
+    },
+    "statusVoucher": {
+      "dealing": "Dealing",
+      "confirmed": "Confirmed",
+      "exchanged": "Exchanged",
+      "overdue": "Overdue",
+      "calledOff": "Canceled",
+      "notClosed": "Not Closed",
+      "unknown": "N/A"
     },
     "sex": {
       "male": "Male",
@@ -2088,6 +2117,126 @@
         "system": "System-generated reasons cannot be deleted.",
         "noPermission": "You don't have permission to delete cancellation reasons."
       }
+    }
+  },
+  "voucher": {
+    "subtitle": "Search and manage vouchers",
+    "new": {
+      "title": "New voucher"
+    },
+    "edit": {
+      "title": "Edit voucher"
+    },
+    "tabs": {
+      "data": "Voucher Data",
+      "tickets": "Tickets",
+      "foods": "Food",
+      "notes": "Notes"
+    },
+    "fields": {
+      "voucher": "Voucher",
+      "client": "Client",
+      "promoter": "Promoter",
+      "tourGuide": "Tour Guide",
+      "visitDate": "Visit date",
+      "periodVisitDate": "Visit period",
+      "advanceValue": "Deposit",
+      "note": "Note",
+      "status": "Status"
+    },
+    "columns": {
+      "voucher": "Voucher",
+      "client": "Client",
+      "promoter": "Promoter",
+      "visitDate": "Visit",
+      "totalPrice": "Amount",
+      "status": "Status"
+    },
+    "items": {
+      "selectProduct": "Select a product",
+      "quantity": "Quantity",
+      "product": "Product",
+      "unitPrice": "Unit price",
+      "total": "Total",
+      "subtotal": "Subtotal",
+      "empty": "No items added"
+    },
+    "form": {
+      "created": "Voucher created successfully.",
+      "updated": "Voucher updated successfully."
+    },
+    "empty": {
+      "title": "No vouchers found"
+    },
+    "delete": {
+      "header": "Delete voucher",
+      "message": "Do you really want to delete voucher {{code}}?",
+      "success": "Voucher deleted successfully."
+    },
+    "cancel": {
+      "title": "Cancel voucher",
+      "message": "Select the cancellation reason for voucher {{code}}.",
+      "reason": "Cancellation reason",
+      "confirm": "Confirm cancellation"
+    },
+    "action": {
+      "confirm": {
+        "tooltip": "Confirm",
+        "header": "Confirm voucher",
+        "message": "Do you really want to confirm voucher {{code}}?",
+        "success": "Voucher confirmed successfully."
+      },
+      "notConfirm": {
+        "tooltip": "Not confirm",
+        "header": "Mark voucher as not closed",
+        "message": "Do you really want to mark voucher {{code}} as not closed?",
+        "success": "Voucher marked as not closed."
+      },
+      "change": {
+        "tooltip": "Exchange",
+        "header": "Exchange voucher",
+        "message": "Do you really want to mark voucher {{code}} as exchanged? This action cannot be undone.",
+        "success": "Voucher exchanged successfully."
+      },
+      "cancel": {
+        "tooltip": "Cancel",
+        "success": "Voucher canceled successfully."
+      },
+      "sendEmail": {
+        "tooltip": "Send by e-mail",
+        "header": "Send voucher by e-mail",
+        "message": "Send voucher {{code}} by e-mail to the client?",
+        "success": "Voucher sent by e-mail successfully."
+      },
+      "viewPdf": {
+        "tooltip": "View PDF"
+      }
+    },
+    "config": {
+      "subtitle": "General voucher settings",
+      "senderMail": "Notify on exchange",
+      "daysToExpire": "Days to expire",
+      "daysToCancel": "Days to cancel",
+      "numberPendingVouchers": "Max pending vouchers",
+      "notificationEmails": "Notification e-mails",
+      "notificationEmailsHint": "Recipients for the expired vouchers warning, comma-separated.",
+      "emailBody": "Notification text",
+      "saved": "Settings saved successfully."
+    },
+    "dashboard": {
+      "subtitle": "Voucher statistics",
+      "firstPeriod": "Start period",
+      "finalPeriod": "End period",
+      "totalClients": "Clients",
+      "totalVouchers": "Vouchers",
+      "totalPrice": "Total amount",
+      "totalPriceFoods": "Food amount",
+      "byStatus": "Vouchers by status",
+      "topClients": "Top clients",
+      "client": "Client",
+      "vouchers": "Vouchers",
+      "total": "Total",
+      "empty": "No data found"
     }
   },
   "groups": {

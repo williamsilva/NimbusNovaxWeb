@@ -199,6 +199,18 @@ export const PERMISSIONS = {
     DELETE: 'MOTIVO_CANCELAMENTO_DELETE',
   },
 
+  VOUCHERS: {
+    VIEW: 'VOUCHERS_CONSULT',
+    CREATE: 'VOUCHERS_CREATE',
+    CHANGE: 'VOUCHERS_CHANGE',
+    DELETE: 'VOUCHERS_DELETE',
+  },
+
+  VOUCHER_CONFIG: {
+    VIEW: 'VOUCHER_CONFIG_CONSULT',
+    CHANGE: 'VOUCHER_CONFIG_CHANGE',
+  },
+
 } as const;
 
 type ValueOf<T> = T[keyof T];
@@ -229,4 +241,6 @@ export const ALL_PERMISSIONS: Permission[] = [
   ...Object.values(PERMISSIONS.AGENTES),
   ...Object.values(PERMISSIONS.PRODUTOS),
   ...Object.values(PERMISSIONS.MOTIVO_CANCELAMENTO),
+  ...Object.values(PERMISSIONS.VOUCHERS),
+  ...Object.values(PERMISSIONS.VOUCHER_CONFIG),
 ];

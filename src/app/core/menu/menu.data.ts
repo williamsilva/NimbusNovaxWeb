@@ -58,6 +58,34 @@ export const APP_MENU: AppMenuItem[] = [
       },
     ],
   },
+  /* Voucher — cor cyan */
+  {
+    icon: 'pi pi-ticket text-cyan-600',
+    labelKey: 'menu.voucher.title',
+    children: [
+      {
+        labelKey: 'menu.voucher.list',
+        icon: 'pi pi-list text-cyan-400',
+        route: '/voucher',
+        exact: true,
+        permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHERS.VIEW],
+      },
+      {
+        labelKey: 'menu.voucher.dashboard',
+        icon: 'pi pi-chart-pie text-cyan-400',
+        route: '/voucher/dashboard',
+        exact: false,
+        permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHERS.VIEW],
+      },
+      {
+        labelKey: 'menu.voucher.config',
+        icon: 'pi pi-cog text-cyan-400',
+        route: '/voucher/config',
+        exact: false,
+        permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHER_CONFIG.VIEW],
+      },
+    ],
+  },
   /* Settings — cor slate */
   {
     icon: 'pi pi-cog text-slate-600',

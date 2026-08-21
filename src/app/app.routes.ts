@@ -39,6 +39,12 @@ export const appRoutes: Routes = [
       },
 
       {
+        path: 'voucher',
+        loadChildren: () =>
+          import('./features/voucher/voucher.routes').then((m) => m.VOUCHER_ROUTES),
+      },
+
+      {
         path: 'forbidden',
         title: 'routes.forbidden.title',
         loadComponent: () =>
