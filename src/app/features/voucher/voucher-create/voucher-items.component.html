@@ -13,7 +13,7 @@
       optionLabel="name"
       optionValue="id"
       appendTo="body"
-      styleClass="w-full"
+      class="w-full"
       [formControl]="productId"
       [options]="products()"
       [placeholder]="'voucher.items.selectProduct' | translate"
@@ -32,7 +32,7 @@
       [max]="999"
       inputId="quantity"
       [showButtons]="true"
-      styleClass="w-full"
+      class="w-full"
       [formControl]="quantity"
       incrementButtonIcon="pi pi-plus"
       decrementButtonIcon="pi pi-minus"
@@ -52,7 +52,7 @@
   </div>
 </div>
 
-<p-table [value]="items()" size="small" showGridlines styleClass="w-full">
+<p-table [value]="items()" size="small" showGridlines class="w-full">
   <ng-template pTemplate="header">
     <tr>
       <th>{{ 'voucher.items.product' | translate }}</th>

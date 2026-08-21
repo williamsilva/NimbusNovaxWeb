@@ -25,7 +25,7 @@ import { CsColumnFilterTemplateDirective } from './cs-column-filter-template.dir
               [field]="filterField"
               [matchMode]="matchMode"
               [display]="filterDisplay"
-              styleClass="cs-colfilter"
+              class="cs-colfilter"
               [useGrouping]="useGrouping"
               [showOperator]="showOperator"
               [showAddButton]="showAddButton"
@@ -63,7 +63,6 @@ export class CsTableColumnHeaderComponent {
 
   @Input() filterDisplay: 'menu' | 'row' = 'menu';
   @Input() matchMode = 'in';
-  @Input() styleClass = 'cs-colfilter';
 
   @Input() useGrouping = true;
   @Input() showOperator = false;
