@@ -43,8 +43,10 @@ export class VoucherPermissionPolicy {
     return this.canChange() && (row.status === StatusVoucher.DEALING || row.status === StatusVoucher.OVERDUE);
   }
 
+  /** Só pode trocar (marcar como acessado) um voucher já CONFIRMED - mesma regra do backend
+   *  (VoucherFlowService.change). */
   canChangeStatus(row: VoucherPermissionTarget): boolean {
-    return this.canChange() && row.status !== StatusVoucher.OVERDUE && row.status !== StatusVoucher.CONFIRMED;
+    return this.canChange() && row.status === StatusVoucher.CONFIRMED;
   }
 
   canCancel(row: VoucherPermissionTarget): boolean {

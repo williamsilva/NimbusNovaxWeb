@@ -146,10 +146,10 @@
     [rows]="rows"
     [lazy]="true"
     showGridlines
-    [value]="vouchers()"
     [rowHover]="true"
     [paginator]="true"
     sortMode="multiple"
+    [value]="vouchers()"
     filterDisplay="menu"
     stateStorage="local"
     class="cs-admin-table"
@@ -172,7 +172,7 @@
         <col style="width: 110px" />
         <col style="width: 130px" />
         <col style="width: 120px" />
-        <col style="width: 190px" />
+        <col style="width: 170px" />
       </colgroup>
     </ng-template>
 
@@ -184,14 +184,14 @@
             <span class="th-icons">
               <p-sortIcon field="voucher"></p-sortIcon>
               <p-columnFilter
-                field="voucher"
                 type="text"
                 display="menu"
+                field="voucher"
                 matchMode="contains"
+                class="cs-colfilter"
                 [useGrouping]="false"
                 [showOperator]="false"
                 [showAddButton]="false"
-                class="cs-colfilter"
               ></p-columnFilter>
             </span>
           </div>
