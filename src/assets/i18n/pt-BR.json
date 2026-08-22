@@ -2672,7 +2672,7 @@
       "notificationRecipientsHint": "Usuários com a permissão \"Recebe notificações de vouchers vencidos\" no NimbusAuth.",
       "notificationRecipientsEmpty": "Nenhum usuário com esta permissão no momento.",
       "emailBody": "Texto da notificação",
-      "emailBodyHint": "Texto exibido no e-mail enviado aos contatos do cliente quando o voucher é trocado.",
+      "emailBodyHint": "Texto exibido no e-mail enviado aos contatos do cliente quando o voucher é trocado. Texto simples, sem formatação - deixe uma linha em branco pra separar parágrafos.",
       "importantInfo": "Informações importantes",
       "importantInfoHint": "Um aviso por linha, exibido no rodapé do e-mail e do PDF do voucher enviado ao cliente (ex.: regras de cancelamento, remarcação).",
       "saved": "Configuração salva com sucesso."

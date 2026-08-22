@@ -2224,7 +2224,7 @@
       "notificationRecipientsHint": "Users holding the \"Receives expired vouchers notifications\" permission in NimbusAuth.",
       "notificationRecipientsEmpty": "No user currently holds this permission.",
       "emailBody": "Notification text",
-      "emailBodyHint": "Text shown in the e-mail sent to the client's contacts when the voucher is exchanged.",
+      "emailBodyHint": "Text shown in the e-mail sent to the client's contacts when the voucher is exchanged. Plain text, no markup - leave a blank line to separate paragraphs.",
       "importantInfo": "Important information",
       "importantInfoHint": "One notice per line, shown at the bottom of the e-mail and PDF sent to the client (e.g. cancellation/rescheduling rules).",
       "saved": "Settings saved successfully."
