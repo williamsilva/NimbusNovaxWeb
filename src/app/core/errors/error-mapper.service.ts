@@ -47,12 +47,22 @@ export class ErrorMapperService {
     };
   }
 
+  /**
+   * `tErrorCodeLoose(code, fallback)` tenta traduzir `code` como uma chave i18n (ex.:
+   * "PASSWORD_CURRENT_INVALID") e só usa `fallback` quando não encontra - mas até esta correção,
+   * o fallback passado era sempre `e.message` (quase sempre ausente num corpo ProblemDetail RFC
+   * 7807, que só tem `detail`), então uma mensagem de negócio livre (ex.: "Client 'X' already has
+   * a voucher being negotiated (DEALING).") virava a chave i18n em si (nunca encontrada) e caía
+   * no genérico "Ocorreu um erro inesperado", descartando silenciosamente o texto real do backend.
+   * `e.message ?? e.code`/`e.message ?? e.detail` corrige isso: cai no próprio texto livre, não
+   * mais no genérico, quando não é de fato um código i18n conhecido.
+   */
   message(e: ApiError | null | undefined): string {
     if (!e) return this.i18n.tErrorCodeLoose('GENERIC_ERROR');
 
     if (e.userMessage) return e.userMessage;
-    if (e.code) return this.i18n.tErrorCodeLoose(e.code, e.message);
-    if (e.detail) return this.i18n.tErrorCodeLoose(e.detail, e.message);
+    if (e.code) return this.i18n.tErrorCodeLoose(e.code, e.message ?? e.code);
+    if (e.detail) return this.i18n.tErrorCodeLoose(e.detail, e.message ?? e.detail);
     if (e.message) return e.message;
 
     return this.i18n.tErrorCodeLoose('GENERIC_ERROR');
