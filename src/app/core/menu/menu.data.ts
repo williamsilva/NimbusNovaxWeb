@@ -72,37 +72,37 @@ export const APP_MENU: AppMenuItem[] = [
       },
     ],
   },
-  /* Settings — cor slate */
+  /* Settings — cor indigo */
   {
-    icon: 'pi pi-cog text-slate-600',
+    icon: 'pi pi-cog text-indigo-600',
     labelKey: 'menu.settings.title',
     children: [
       {
         exact: false,
         route: '/settings/email',
         labelKey: 'menu.settings.email',
-        icon: 'pi pi-envelope text-slate-400',
+        icon: 'pi pi-envelope text-indigo-400',
         permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.SETTINGS.EMAIL_VIEW],
       },
       {
         exact: false,
         route: '/settings/backup',
         labelKey: 'menu.settings.backup',
-        icon: 'pi pi-database text-slate-400',
+        icon: 'pi pi-database text-indigo-400',
         permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.SETTINGS.BACKUP_PROCESS],
       },
       {
         exact: false,
         route: '/settings/email-log',
         labelKey: 'menu.settings.emailLog',
-        icon: 'pi pi-history text-slate-400',
+        icon: 'pi pi-history text-indigo-400',
         permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.SETTINGS.EMAIL_LOG_VIEW],
       },
       {
         exact: false,
         route: '/settings/voucher',
         labelKey: 'menu.settings.voucher',
-        icon: 'pi pi-ticket text-slate-400',
+        icon: 'pi pi-ticket text-indigo-400',
         permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHER_CONFIG.VIEW],
       },
     ],
