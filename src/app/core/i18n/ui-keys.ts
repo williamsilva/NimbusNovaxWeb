@@ -106,7 +106,6 @@ export const UI_KEYS = {
     voucher: {
       title: 'menu.voucher.title',
       list: 'menu.voucher.list',
-      dashboard: 'menu.voucher.dashboard',
     },
     file: {
       processing: {

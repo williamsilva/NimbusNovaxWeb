@@ -19,15 +19,8 @@ export const VOUCHER_ROUTES: Routes = [
   },
   {
     path: 'dashboard',
-    title: 'routes.voucher.dashboard.title',
-    canActivate: [permissionGuard],
-    data: {
-      requireAll: false,
-      redirectTo: '/forbidden',
-      permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHERS.VIEW],
-    },
-    loadComponent: () =>
-      import('./voucher-dashboard/voucher-dashboard.component').then((m) => m.VoucherDashboardComponent),
+    pathMatch: 'full',
+    redirectTo: '/dashboard',
   },
   {
     path: '**',

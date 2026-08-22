@@ -49,13 +49,6 @@ export const APP_MENU: AppMenuItem[] = [
         exact: true,
         permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHERS.VIEW],
       },
-      {
-        labelKey: 'menu.voucher.dashboard',
-        icon: 'pi pi-chart-pie text-cyan-400',
-        route: '/voucher/dashboard',
-        exact: false,
-        permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHERS.VIEW],
-      },
     ],
   },
   /* Security */

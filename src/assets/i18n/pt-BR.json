@@ -66,9 +66,6 @@
     "voucher": {
       "list": {
         "title": "Vouchers"
-      },
-      "dashboard": {
-        "title": "Dashboard de Vouchers"
       }
     },
     "adjustment": {
@@ -309,8 +306,7 @@
     },
     "voucher": {
       "title": "Voucher",
-      "list": "Vouchers",
-      "dashboard": "Dashboard"
+      "list": "Vouchers"
     },
     "settings": {
       "title": "Configurações",
@@ -348,7 +344,6 @@
     "produtos": "Produtos",
     "motivoCancelamento": "Motivo Cancelamento",
     "voucher": "Voucher",
-    "voucherDashboard": "Dashboard",
     "dashboard": {
       "title": "Dashboard",
       "management": {
@@ -2677,7 +2672,6 @@
       "saved": "Configuração salva com sucesso."
     },
     "dashboard": {
-      "subtitle": "Estatísticas de vouchers",
       "firstPeriod": "Período inicial",
       "finalPeriod": "Período final",
       "totalClients": "Clientes",
