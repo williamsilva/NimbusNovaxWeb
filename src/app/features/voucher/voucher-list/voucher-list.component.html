@@ -180,7 +180,9 @@
       <tr>
         <th pSortableColumn="voucher">
           <div class="th-flex text-center">
-            <span class="th-label">{{ 'voucher.columns.voucher' | translate }}</span>
+            <span class="th-label" tooltipPosition="top" [pTooltip]="'voucher.columns.voucher' | translate">{{
+              'voucher.columns.voucher' | translate
+            }}</span>
             <span class="th-icons">
               <p-sortIcon field="voucher"></p-sortIcon>
               <p-columnFilter
@@ -199,33 +201,43 @@
 
         <th>
           <div class="th-flex text-center">
-            <span class="th-label">{{ 'voucher.columns.client' | translate }}</span>
+            <span class="th-label" tooltipPosition="top" [pTooltip]="'voucher.columns.client' | translate">{{
+              'voucher.columns.client' | translate
+            }}</span>
           </div>
         </th>
 
         <th>
           <div class="th-flex text-center">
-            <span class="th-label">{{ 'voucher.columns.promoter' | translate }}</span>
+            <span class="th-label" tooltipPosition="top" [pTooltip]="'voucher.columns.promoter' | translate">{{
+              'voucher.columns.promoter' | translate
+            }}</span>
           </div>
         </th>
 
         <th pSortableColumn="visitDate">
           <div class="th-flex text-center">
-            <span class="th-label">{{ 'voucher.columns.visitDate' | translate }}</span>
+            <span class="th-label" tooltipPosition="top" [pTooltip]="'voucher.columns.visitDate' | translate">{{
+              'voucher.columns.visitDate' | translate
+            }}</span>
             <span class="th-icons"><p-sortIcon field="visitDate"></p-sortIcon></span>
           </div>
         </th>
 
         <th pSortableColumn="totalPrice">
           <div class="th-flex text-center">
-            <span class="th-label">{{ 'voucher.columns.totalPrice' | translate }}</span>
+            <span class="th-label" tooltipPosition="top" [pTooltip]="'voucher.columns.totalPrice' | translate">{{
+              'voucher.columns.totalPrice' | translate
+            }}</span>
             <span class="th-icons"><p-sortIcon field="totalPrice"></p-sortIcon></span>
           </div>
         </th>
 
         <th pSortableColumn="status">
           <div class="th-flex text-center">
-            <span class="th-label">{{ 'voucher.columns.status' | translate }}</span>
+            <span class="th-label" tooltipPosition="top" [pTooltip]="'voucher.columns.status' | translate">{{
+              'voucher.columns.status' | translate
+            }}</span>
             <span class="th-icons">
               <p-sortIcon field="status"></p-sortIcon>
               <p-columnFilter
@@ -258,7 +270,9 @@
 
         <th class="text-center">
           <div class="th-flex text-center justify-content-center">
-            <span class="th-label">{{ 'common.actions' | translate }}</span>
+            <span class="th-label" tooltipPosition="top" [pTooltip]="'common.actions' | translate">{{
+              'common.actions' | translate
+            }}</span>
           </div>
         </th>
       </tr>

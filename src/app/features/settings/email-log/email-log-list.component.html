@@ -340,7 +340,11 @@
             row.subject
           }}</span>
         </td>
-        <td class="text-center">{{ eventTypeLabel(row.eventType) }}</td>
+        <td class="text-center">
+          <span class="cs-table-cell-ellipsis" tooltipPosition="top" [pTooltip]="eventTypeLabel(row.eventType)">{{
+            eventTypeLabel(row.eventType)
+          }}</span>
+        </td>
         <td class="text-center">
           <cs-status-badge
             [tone]="tone(row.status)"
