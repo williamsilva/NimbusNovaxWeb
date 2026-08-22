@@ -9,27 +9,6 @@ export const APP_MENU: AppMenuItem[] = [
     route: '/dashboard',
     exact: true,
   },
-  /* Security */
-  {
-    icon: 'pi pi-shield text-red-600',
-    labelKey: 'menu.security.title',
-    children: [
-      {
-        labelKey: 'menu.security.users',
-        icon: 'pi pi-user text-red-400',
-        route: '/security/users',
-        exact: false,
-        permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.USERS.VIEW],
-      },
-      {
-        labelKey: 'menu.security.groups',
-        icon: 'pi pi-id-card text-red-400',
-        route: '/security/groups',
-        exact: false,
-        permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.GROUPS.VIEW],
-      },
-    ],
-  },
   /* Administração — cor âmbar */
   {
     icon: 'pi pi-briefcase text-amber-600',
@@ -83,6 +62,27 @@ export const APP_MENU: AppMenuItem[] = [
         route: '/voucher/config',
         exact: false,
         permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHER_CONFIG.VIEW],
+      },
+    ],
+  },
+  /* Security */
+  {
+    icon: 'pi pi-shield text-red-600',
+    labelKey: 'menu.security.title',
+    children: [
+      {
+        labelKey: 'menu.security.users',
+        icon: 'pi pi-user text-red-400',
+        route: '/security/users',
+        exact: false,
+        permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.USERS.VIEW],
+      },
+      {
+        labelKey: 'menu.security.groups',
+        icon: 'pi pi-id-card text-red-400',
+        route: '/security/groups',
+        exact: false,
+        permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.GROUPS.VIEW],
       },
     ],
   },
