@@ -315,8 +315,7 @@
     "voucher": {
       "title": "Voucher",
       "list": "Vouchers",
-      "dashboard": "Dashboard",
-      "config": "Settings"
+      "dashboard": "Dashboard"
     },
     "settings": {
       "title": "Settings",
@@ -324,7 +323,8 @@
       "scheduler": "Scheduler",
       "reconciliation": "Reconciliation",
       "backup": "Backup",
-      "emailLog": "Email Audit"
+      "emailLog": "Email Audit",
+      "voucher": "Voucher Settings"
     },
     "file": {
       "processing": {

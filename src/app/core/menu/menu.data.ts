@@ -56,13 +56,6 @@ export const APP_MENU: AppMenuItem[] = [
         exact: false,
         permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHERS.VIEW],
       },
-      {
-        labelKey: 'menu.voucher.config',
-        icon: 'pi pi-cog text-cyan-400',
-        route: '/voucher/config',
-        exact: false,
-        permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHER_CONFIG.VIEW],
-      },
     ],
   },
   /* Security */
@@ -111,6 +104,13 @@ export const APP_MENU: AppMenuItem[] = [
         labelKey: 'menu.settings.emailLog',
         icon: 'pi pi-history text-slate-400',
         permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.SETTINGS.EMAIL_LOG_VIEW],
+      },
+      {
+        exact: false,
+        route: '/voucher/config',
+        labelKey: 'menu.settings.voucher',
+        icon: 'pi pi-ticket text-slate-400',
+        permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHER_CONFIG.VIEW],
       },
     ],
   },

@@ -107,7 +107,6 @@ export const UI_KEYS = {
       title: 'menu.voucher.title',
       list: 'menu.voucher.list',
       dashboard: 'menu.voucher.dashboard',
-      config: 'menu.voucher.config',
     },
     file: {
       processing: {
@@ -131,6 +130,7 @@ export const UI_KEYS = {
       reconciliation: 'menu.settings.reconciliation',
       backup: 'menu.settings.backup',
       emailLog: 'menu.settings.emailLog',
+      voucher: 'menu.settings.voucher',
     },
     reconciliation: 'menu.reconciliation',
   },

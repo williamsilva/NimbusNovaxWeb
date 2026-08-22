@@ -310,8 +310,7 @@
     "voucher": {
       "title": "Voucher",
       "list": "Vouchers",
-      "dashboard": "Dashboard",
-      "config": "Configuração"
+      "dashboard": "Dashboard"
     },
     "settings": {
       "title": "Configurações",
@@ -319,7 +318,8 @@
       "scheduler": "Agendamento",
       "reconciliation": "Conciliação",
       "backup": "Backup",
-      "emailLog": "Auditoria de E-mail"
+      "emailLog": "Auditoria de E-mail",
+      "voucher": "Configuração de Vouchers"
     },
     "file": {
       "processing": {
