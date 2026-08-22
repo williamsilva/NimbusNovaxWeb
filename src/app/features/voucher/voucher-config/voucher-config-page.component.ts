@@ -12,7 +12,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 import { I18nService } from '@core/i18n/i18n.service';
-import { CsTagComponent } from '@shared/ui/tag/cs-tag.component';
 import { VoucherConfigFacade } from '@features/facade/voucher-config.facade';
 import { VoucherPermissionPolicy } from '@features/voucher/policy/voucher-permission.policy';
 import { PageHeaderComponent } from '@shared/features/page-header/page-header.component';
@@ -28,7 +27,6 @@ import { PageHeaderComponent } from '@shared/features/page-header/page-header.co
     CardModule,
     ButtonModule,
     TooltipModule,
-    CsTagComponent,
     TextareaModule,
     TranslateModule,
     FloatLabelModule,
@@ -47,8 +45,6 @@ export class VoucherConfigPageComponent {
   readonly secPolicy = inject(VoucherPermissionPolicy);
 
   readonly canEdit = computed(() => this.secPolicy.canChangeConfig());
-
-  readonly notificationRecipients = this.facade.notificationRecipients;
 
   readonly form = this.fb.nonNullable.group({
     senderMail: [true],

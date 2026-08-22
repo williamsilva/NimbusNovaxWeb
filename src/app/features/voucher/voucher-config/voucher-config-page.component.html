@@ -97,27 +97,6 @@
       </div>
 
       <div class="col-12 p-2">
-        <label class="text-sm text-color-secondary block mb-2">
-          {{ 'voucher.config.notificationRecipients' | translate }}
-          <i
-            class="pi pi-info-circle text-xs ml-1 text-color-secondary cursor-pointer"
-            style="pointer-events: auto"
-            [pTooltip]="'voucher.config.notificationRecipientsHint' | translate"
-            tooltipPosition="top"
-          ></i>
-        </label>
-        @if (notificationRecipients().length) {
-          <div class="flex flex-wrap gap-2">
-            @for (recipient of notificationRecipients(); track recipient.username) {
-              <cs-tag [value]="recipient.name" tone="info" [pTooltip]="recipient.username" />
-            }
-          </div>
-        } @else {
-          <small class="text-color-secondary">{{ 'voucher.config.notificationRecipientsEmpty' | translate }}</small>
-        }
-      </div>
-
-      <div class="col-12 p-2">
         <p-floatLabel variant="on" class="w-full">
           <textarea
             pTextarea

@@ -44,11 +44,3 @@ export function mapConfigVoucherApiModel(input: ConfigVoucherApiModel): ConfigVo
     updatedAt: input.updatedAt ?? null,
   };
 }
-
-/** Usuário que hoje recebe o aviso diário de vouchers vencidos (tem a permissão
- *  VOUCHER_NOTIFICATION no NimbusAuth) - só leitura, ver GET /voucher-config/notification-recipients.
- *  Concedida/revogada no NimbusAuth (grupo NOTIFICAÇÕES), não nesta tela. */
-export interface VoucherNotificationRecipientModel {
-  name: string;
-  username: string;
-}
