@@ -2217,8 +2217,9 @@
       "daysToExpire": "Days to expire",
       "daysToCancel": "Days to cancel",
       "numberPendingVouchers": "Max pending vouchers",
-      "notificationEmails": "Notification e-mails",
-      "notificationEmailsHint": "Recipients for the expired vouchers warning, comma-separated.",
+      "notificationRecipients": "Expired vouchers warning recipients",
+      "notificationRecipientsHint": "Users holding the \"Receives expired vouchers notifications\" permission in NimbusAuth.",
+      "notificationRecipientsEmpty": "No user currently holds this permission.",
       "emailBody": "Notification text",
       "saved": "Settings saved successfully."
     },

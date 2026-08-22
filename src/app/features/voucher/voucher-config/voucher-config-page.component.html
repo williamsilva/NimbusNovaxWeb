@@ -65,17 +65,17 @@
       </div>
 
       <div class="col-12 p-2">
-        <p-floatLabel variant="on" class="w-full">
-          <input
-            pInputText
-            type="text"
-            class="w-full p-inputtext-sm"
-            id="notificationEmails"
-            formControlName="notificationEmails"
-          />
-          <label for="notificationEmails">{{ 'voucher.config.notificationEmails' | translate }}</label>
-        </p-floatLabel>
-        <small class="text-color-secondary">{{ 'voucher.config.notificationEmailsHint' | translate }}</small>
+        <label class="text-sm text-color-secondary block mb-2">{{ 'voucher.config.notificationRecipients' | translate }}</label>
+        @if (notificationRecipients().length) {
+          <div class="flex flex-wrap gap-2">
+            @for (recipient of notificationRecipients(); track recipient.username) {
+              <cs-tag [value]="recipient.name" tone="info" [pTooltip]="recipient.username" />
+            }
+          </div>
+        } @else {
+          <small class="text-color-secondary">{{ 'voucher.config.notificationRecipientsEmpty' | translate }}</small>
+        }
+        <small class="text-color-secondary block mt-2">{{ 'voucher.config.notificationRecipientsHint' | translate }}</small>
       </div>
 
       <div class="col-12 p-2">

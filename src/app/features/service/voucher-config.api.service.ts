@@ -10,6 +10,7 @@ import {
   ConfigVoucherApiModel,
   ConfigVoucherUpdateInput,
   mapConfigVoucherApiModel,
+  VoucherNotificationRecipientModel,
 } from '@models/voucher-config.models';
 
 @Injectable({ providedIn: 'root' })
@@ -23,5 +24,9 @@ export class VoucherConfigApiService {
 
   update(input: ConfigVoucherUpdateInput): Observable<ConfigVoucherModel> {
     return this.http.put<ConfigVoucherApiModel>(this.baseUrl, input).pipe(map(mapConfigVoucherApiModel));
+  }
+
+  notificationRecipients(): Observable<VoucherNotificationRecipientModel[]> {
+    return this.http.get<VoucherNotificationRecipientModel[]>(`${this.baseUrl}/notification-recipients`);
   }
 }

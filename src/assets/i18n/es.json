@@ -2217,8 +2217,9 @@
       "daysToExpire": "Días para vencer",
       "daysToCancel": "Días para cancelar",
       "numberPendingVouchers": "Nº de vouchers pendientes",
-      "notificationEmails": "Correos de notificación",
-      "notificationEmailsHint": "Destinatarios del aviso de vouchers vencidos, separados por coma.",
+      "notificationRecipients": "Destinatarios del aviso de vouchers vencidos",
+      "notificationRecipientsHint": "Usuarios con el permiso \"Recibe notificaciones de vouchers vencidos\" en NimbusAuth.",
+      "notificationRecipientsEmpty": "Ningún usuario tiene este permiso por el momento.",
       "emailBody": "Texto de la notificación",
       "saved": "Configuración guardada con éxito."
     },

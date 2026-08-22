@@ -5,7 +5,6 @@ export interface ConfigVoucherModel {
   daysToCancel: number;
   numberPendingVouchers: number;
   emailBody: string | null;
-  notificationEmails: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -16,7 +15,6 @@ export interface ConfigVoucherUpdateInput {
   daysToCancel: number;
   numberPendingVouchers: number;
   emailBody?: string | null;
-  notificationEmails?: string | null;
 }
 
 export interface ConfigVoucherApiModel {
@@ -26,7 +24,6 @@ export interface ConfigVoucherApiModel {
   daysToCancel: number;
   numberPendingVouchers: number;
   emailBody?: string | null;
-  notificationEmails?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -39,8 +36,15 @@ export function mapConfigVoucherApiModel(input: ConfigVoucherApiModel): ConfigVo
     daysToCancel: input.daysToCancel,
     numberPendingVouchers: input.numberPendingVouchers,
     emailBody: input.emailBody ?? null,
-    notificationEmails: input.notificationEmails ?? null,
     createdAt: input.createdAt ?? null,
     updatedAt: input.updatedAt ?? null,
   };
+}
+
+/** Usuário que hoje recebe o aviso diário de vouchers vencidos (tem a permissão
+ *  VOUCHER_NOTIFICATION no NimbusAuth) - só leitura, ver GET /voucher-config/notification-recipients.
+ *  Concedida/revogada no NimbusAuth (grupo NOTIFICAÇÕES), não nesta tela. */
+export interface VoucherNotificationRecipientModel {
+  name: string;
+  username: string;
 }

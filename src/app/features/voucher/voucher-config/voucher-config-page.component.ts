@@ -4,14 +4,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 import { TextareaModule } from 'primeng/textarea';
 import { TranslateModule } from '@ngx-translate/core';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 import { I18nService } from '@core/i18n/i18n.service';
+import { CsTagComponent } from '@shared/ui/tag/cs-tag.component';
 import { VoucherConfigFacade } from '@features/facade/voucher-config.facade';
 import { VoucherPermissionPolicy } from '@features/voucher/policy/voucher-permission.policy';
 import { PageHeaderComponent } from '@shared/features/page-header/page-header.component';
@@ -26,9 +27,10 @@ import { PageHeaderComponent } from '@shared/features/page-header/page-header.co
   imports: [
     CardModule,
     ButtonModule,
+    TooltipModule,
+    CsTagComponent,
     TextareaModule,
     TranslateModule,
-    InputTextModule,
     FloatLabelModule,
     InputNumberModule,
     ToggleSwitchModule,
@@ -46,13 +48,14 @@ export class VoucherConfigPageComponent {
 
   readonly canEdit = computed(() => this.secPolicy.canChangeConfig());
 
+  readonly notificationRecipients = this.facade.notificationRecipients;
+
   readonly form = this.fb.nonNullable.group({
     senderMail: [true],
     daysToExpire: [20, [Validators.required, Validators.min(1)]],
     daysToCancel: [90, [Validators.required, Validators.min(1)]],
     numberPendingVouchers: [20, [Validators.required, Validators.min(1)]],
     emailBody: [''],
-    notificationEmails: [''],
   });
 
   private loaded = false;
@@ -74,7 +77,6 @@ export class VoucherConfigPageComponent {
         daysToCancel: config.daysToCancel,
         numberPendingVouchers: config.numberPendingVouchers,
         emailBody: config.emailBody ?? '',
-        notificationEmails: config.notificationEmails ?? '',
       });
       if (!this.canEdit()) {
         this.form.disable();
@@ -94,7 +96,6 @@ export class VoucherConfigPageComponent {
         daysToCancel: v.daysToCancel,
         numberPendingVouchers: v.numberPendingVouchers,
         emailBody: v.emailBody || null,
-        notificationEmails: v.notificationEmails || null,
       })
       .subscribe({
         next: () => {
