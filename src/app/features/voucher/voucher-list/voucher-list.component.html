@@ -232,10 +232,10 @@
                 display="menu"
                 matchMode="in"
                 field="status"
+                class="cs-colfilter"
                 [showOperator]="false"
                 [showAddButton]="false"
                 [showMatchModes]="false"
-                class="cs-colfilter"
               >
                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                   <p-multiSelect
@@ -274,14 +274,14 @@
         </td>
         <td class="text-center" [attr.data-label]="'voucher.columns.promoter' | translate">
           <span
-            class="cs-table-cell-ellipsis"
             tooltipPosition="top"
+            class="cs-table-cell-ellipsis"
             [pTooltip]="row.promoter.name"
             >{{ row.promoter.name }}</span
           >
         </td>
         <td class="text-center" [attr.data-label]="'voucher.columns.visitDate' | translate">
-          {{ row.visitDate ? (row.visitDate | csDate) : '-' }}
+          {{ row.visitDate ? (row.visitDate | csDate: 'short') : '-' }}
         </td>
         <td class="text-center" [attr.data-label]="'voucher.columns.totalPrice' | translate">
           {{ formatAmount(row.totalPrice) }}
@@ -296,86 +296,86 @@
               type="button"
               icon="pi pi-pencil"
               (click)="edit(row)"
-              class="p-button-text p-button-sm"
-              [disabled]="!secPolicy.canEdit(row)"
-              [pTooltip]="'common.edit' | translate"
               tooltipPosition="top"
+              class="p-button-text p-button-sm"
+              [pTooltip]="'common.edit' | translate"
+              [disabled]="!secPolicy.canEdit(row)"
             ></button>
 
             <button
               pButton
               type="button"
+              tooltipPosition="top"
               icon="pi pi-check-circle"
               (click)="confirmConfirm(row)"
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canConfirm(row)"
               [pTooltip]="'voucher.action.confirm.tooltip' | translate"
-              tooltipPosition="top"
             ></button>
 
             <button
               pButton
               type="button"
+              tooltipPosition="top"
               icon="pi pi-times-circle"
               (click)="confirmNotConfirm(row)"
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canNotConfirm(row)"
               [pTooltip]="'voucher.action.notConfirm.tooltip' | translate"
-              tooltipPosition="top"
             ></button>
 
             <button
               pButton
               type="button"
               icon="pi pi-sync"
+              tooltipPosition="top"
               (click)="confirmChange(row)"
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canChangeStatus(row)"
               [pTooltip]="'voucher.action.change.tooltip' | translate"
-              tooltipPosition="top"
             ></button>
 
             <button
               pButton
               type="button"
               icon="pi pi-ban"
+              tooltipPosition="top"
               (click)="openCancel(row)"
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canCancel(row)"
               [pTooltip]="'voucher.action.cancel.tooltip' | translate"
-              tooltipPosition="top"
             ></button>
 
             <button
               pButton
               type="button"
               icon="pi pi-envelope"
+              tooltipPosition="top"
               (click)="confirmSendEmail(row)"
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canSendEmail(row)"
               [pTooltip]="'voucher.action.sendEmail.tooltip' | translate"
-              tooltipPosition="top"
             ></button>
 
             <button
               pButton
               type="button"
               icon="pi pi-file-pdf"
+              tooltipPosition="top"
               (click)="viewPdf(row)"
               class="p-button-text p-button-sm"
               [pTooltip]="'voucher.action.viewPdf.tooltip' | translate"
-              tooltipPosition="top"
             ></button>
 
             <button
               pButton
               type="button"
               icon="pi pi-trash"
+              tooltipPosition="top"
               (click)="confirmDelete(row)"
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canDelete(row)"
               [pTooltip]="'common.delete' | translate"
-              tooltipPosition="top"
             ></button>
           </div>
         </td>

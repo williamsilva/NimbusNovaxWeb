@@ -73,7 +73,7 @@ export class VoucherCreateDialogComponent {
 
   readonly isEditMode = computed(() => !!this.voucher());
   readonly canSubmit = computed(() =>
-    this.isEditMode() ? this.secPolicy.canEdit({ id: this.voucher()!.id, status: this.voucher()!.status }) : this.secPolicy.canCreate(),
+    this.isEditMode() ? this.secPolicy.canEdit(this.voucher()!) : this.secPolicy.canCreate(),
   );
 
   readonly statusLabel = computed(() => statusVoucherLabel(this.voucher()?.status ?? null, this.i18n));

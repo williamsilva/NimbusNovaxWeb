@@ -5,7 +5,7 @@ import { PermissionService } from '@core/auth/permission.service';
 import { StatusVoucher } from '@models/enums/status-voucher.enum';
 import { VoucherModel } from '@models/voucher.models';
 
-export interface VoucherPermissionTarget extends Pick<VoucherModel, 'id' | 'status'> {}
+export interface VoucherPermissionTarget extends Pick<VoucherModel, 'id' | 'status' | 'totalPrice'> {}
 
 /** Regras replicadas do sistema legado (Novax antigo): delete físico só em DEALING
  *  (VoucherConsultComponent.canCancel); as ações de fluxo (confirmar/não confirmar/trocar/
@@ -35,8 +35,14 @@ export class VoucherPermissionPolicy {
     return this.perms.hasSupportOr(PERMISSIONS.VOUCHERS.CHANGE);
   }
 
+  /** Voucher com valor zerado não pode ser confirmado - mesma regra do backend
+   *  (VoucherFlowService.confirm). */
   canConfirm(row: VoucherPermissionTarget): boolean {
-    return this.canChange() && (row.status === StatusVoucher.DEALING || row.status === StatusVoucher.OVERDUE);
+    return (
+      this.canChange() &&
+      (row.status === StatusVoucher.DEALING || row.status === StatusVoucher.OVERDUE) &&
+      row.totalPrice > 0
+    );
   }
 
   canNotConfirm(row: VoucherPermissionTarget): boolean {
