@@ -3957,12 +3957,9 @@
       "FAILED": "Falha no envio"
     },
     "eventType": {
-      "addendum_approved": "Aditivo aprovado",
-      "payment_released": "Parcela liberada",
-      "ticket_target": "Chamado",
-      "ticket_closed": "Chamado fechado",
-      "password_reset": "Reset de senha",
-      "first_password": "Convite (primeira senha)"
+      "voucher_send": "Envio de voucher",
+      "voucher_change": "Troca de voucher",
+      "voucher_expired_warning": "Aviso de vouchers vencidos"
     },
     "empty": {
       "title": "Nenhum e-mail registrado"

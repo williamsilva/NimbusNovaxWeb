@@ -3962,12 +3962,9 @@
       "FAILED": "Send failed"
     },
     "eventType": {
-      "addendum_approved": "Addendum approved",
-      "payment_released": "Installment released",
-      "ticket_target": "Ticket",
-      "ticket_closed": "Ticket closed",
-      "password_reset": "Password reset",
-      "first_password": "Invite (first password)"
+      "voucher_send": "Voucher sent",
+      "voucher_change": "Voucher exchanged",
+      "voucher_expired_warning": "Expired vouchers warning"
     },
     "empty": {
       "title": "No emails registered"
