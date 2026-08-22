@@ -73,7 +73,6 @@ Arquivos já preparados para o deploy:
 - `public/_headers` para cache básico
 - `.nvmrc` para alinhar a versão do Node
 
-Antes de publicar em produção, confirme que o backend (NimbusNovaxServer) está acessível e que a URL
-real foi preenchida em `src/environments/environment.prod.ts` (hoje é um placeholder
-`https://api.nimbusnovax.com.br`, já que o NimbusNovaxServer ainda não tem domínio de produção
-documentado).
+Antes de publicar em produção, confirme que o backend (NimbusNovaxServer) está acessível em
+`https://novax-api.nimbussystems.com.br`, já preenchido em `src/environments/environment.prod.ts`
+(deploy real via Railway, mesmo padrão de CardSyncWeb/NimbusFlowWeb).
