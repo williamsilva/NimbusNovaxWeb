@@ -11,7 +11,15 @@
     <div class="grid formgrid gap-0">
       <div class="col-12 md:col-3 p-2">
         <div class="flex align-items-center justify-content-between border-1 surface-border border-round p-3 h-full gap-3">
-          <label for="senderMail" class="text-sm flex-1">{{ 'voucher.config.senderMail' | translate }}</label>
+          <label for="senderMail" class="text-sm flex-1">
+            {{ 'voucher.config.senderMail' | translate }}
+            <i
+              class="pi pi-info-circle text-xs ml-1 text-color-secondary cursor-pointer"
+              style="pointer-events: auto"
+              [pTooltip]="'voucher.config.senderMailHint' | translate"
+              tooltipPosition="top"
+            ></i>
+          </label>
           <p-toggleswitch formControlName="senderMail" inputId="senderMail"></p-toggleswitch>
         </div>
       </div>
@@ -28,7 +36,15 @@
             incrementButtonIcon="pi pi-plus"
             decrementButtonIcon="pi pi-minus"
           ></p-inputNumber>
-          <label for="daysToExpire">{{ 'voucher.config.daysToExpire' | translate }}</label>
+          <label for="daysToExpire">
+            {{ 'voucher.config.daysToExpire' | translate }}
+            <i
+              class="pi pi-info-circle text-xs ml-1 text-color-secondary cursor-pointer"
+              style="pointer-events: auto"
+              [pTooltip]="'voucher.config.daysToExpireHint' | translate"
+              tooltipPosition="top"
+            ></i>
+          </label>
         </p-floatLabel>
       </div>
 
@@ -44,7 +60,15 @@
             incrementButtonIcon="pi pi-plus"
             decrementButtonIcon="pi pi-minus"
           ></p-inputNumber>
-          <label for="daysToCancel">{{ 'voucher.config.daysToCancel' | translate }}</label>
+          <label for="daysToCancel">
+            {{ 'voucher.config.daysToCancel' | translate }}
+            <i
+              class="pi pi-info-circle text-xs ml-1 text-color-secondary cursor-pointer"
+              style="pointer-events: auto"
+              [pTooltip]="'voucher.config.daysToCancelHint' | translate"
+              tooltipPosition="top"
+            ></i>
+          </label>
         </p-floatLabel>
       </div>
 
@@ -60,12 +84,28 @@
             incrementButtonIcon="pi pi-plus"
             decrementButtonIcon="pi pi-minus"
           ></p-inputNumber>
-          <label for="numberPendingVouchers">{{ 'voucher.config.numberPendingVouchers' | translate }}</label>
+          <label for="numberPendingVouchers">
+            {{ 'voucher.config.numberPendingVouchers' | translate }}
+            <i
+              class="pi pi-info-circle text-xs ml-1 text-color-secondary cursor-pointer"
+              style="pointer-events: auto"
+              [pTooltip]="'voucher.config.numberPendingVouchersHint' | translate"
+              tooltipPosition="top"
+            ></i>
+          </label>
         </p-floatLabel>
       </div>
 
       <div class="col-12 p-2">
-        <label class="text-sm text-color-secondary block mb-2">{{ 'voucher.config.notificationRecipients' | translate }}</label>
+        <label class="text-sm text-color-secondary block mb-2">
+          {{ 'voucher.config.notificationRecipients' | translate }}
+          <i
+            class="pi pi-info-circle text-xs ml-1 text-color-secondary cursor-pointer"
+            style="pointer-events: auto"
+            [pTooltip]="'voucher.config.notificationRecipientsHint' | translate"
+            tooltipPosition="top"
+          ></i>
+        </label>
         @if (notificationRecipients().length) {
           <div class="flex flex-wrap gap-2">
             @for (recipient of notificationRecipients(); track recipient.username) {
@@ -75,7 +115,6 @@
         } @else {
           <small class="text-color-secondary">{{ 'voucher.config.notificationRecipientsEmpty' | translate }}</small>
         }
-        <small class="text-color-secondary block mt-2">{{ 'voucher.config.notificationRecipientsHint' | translate }}</small>
       </div>
 
       <div class="col-12 p-2">
@@ -87,7 +126,15 @@
             class="w-full"
             formControlName="emailBody"
           ></textarea>
-          <label for="emailBody">{{ 'voucher.config.emailBody' | translate }}</label>
+          <label for="emailBody">
+            {{ 'voucher.config.emailBody' | translate }}
+            <i
+              class="pi pi-info-circle text-xs ml-1 text-color-secondary cursor-pointer"
+              style="pointer-events: auto"
+              [pTooltip]="'voucher.config.emailBodyHint' | translate"
+              tooltipPosition="top"
+            ></i>
+          </label>
         </p-floatLabel>
       </div>
     </div>

@@ -2214,13 +2214,18 @@
     "config": {
       "subtitle": "Configuración general de voucher",
       "senderMail": "Notificar al cambiar",
+      "senderMailHint": "Envía un correo a los contactos del cliente cada vez que el voucher es cambiado.",
       "daysToExpire": "Días para vencer",
+      "daysToExpireHint": "Días después de la fecha de la visita para que un voucher Confirmado se marque automáticamente como Vencido.",
       "daysToCancel": "Días para cancelar",
+      "daysToCancelHint": "Días después de la fecha de la visita para que un voucher En negociación sea cancelado automáticamente por el sistema.",
       "numberPendingVouchers": "Nº de vouchers pendientes",
+      "numberPendingVouchersHint": "Máximo de vouchers pendientes (En negociación + Vencido + Confirmado) que un mismo cliente puede tener a la vez.",
       "notificationRecipients": "Destinatarios del aviso de vouchers vencidos",
       "notificationRecipientsHint": "Usuarios con el permiso \"Recibe notificaciones de vouchers vencidos\" en NimbusAuth.",
       "notificationRecipientsEmpty": "Ningún usuario tiene este permiso por el momento.",
       "emailBody": "Texto de la notificación",
+      "emailBodyHint": "Texto que se muestra en el correo enviado a los contactos del cliente cuando el voucher es cambiado.",
       "saved": "Configuración guardada con éxito."
     },
     "dashboard": {
