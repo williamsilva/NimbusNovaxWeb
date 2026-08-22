@@ -5,6 +5,7 @@ export interface ConfigVoucherModel {
   daysToCancel: number;
   numberPendingVouchers: number;
   emailBody: string | null;
+  importantInfo: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -15,6 +16,7 @@ export interface ConfigVoucherUpdateInput {
   daysToCancel: number;
   numberPendingVouchers: number;
   emailBody?: string | null;
+  importantInfo?: string | null;
 }
 
 export interface ConfigVoucherApiModel {
@@ -24,6 +26,7 @@ export interface ConfigVoucherApiModel {
   daysToCancel: number;
   numberPendingVouchers: number;
   emailBody?: string | null;
+  importantInfo?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -36,6 +39,7 @@ export function mapConfigVoucherApiModel(input: ConfigVoucherApiModel): ConfigVo
     daysToCancel: input.daysToCancel,
     numberPendingVouchers: input.numberPendingVouchers,
     emailBody: input.emailBody ?? null,
+    importantInfo: input.importantInfo ?? null,
     createdAt: input.createdAt ?? null,
     updatedAt: input.updatedAt ?? null,
   };

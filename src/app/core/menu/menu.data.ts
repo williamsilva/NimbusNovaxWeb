@@ -105,6 +105,13 @@ export const APP_MENU: AppMenuItem[] = [
         icon: 'pi pi-ticket text-indigo-400',
         permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHER_CONFIG.VIEW],
       },
+      {
+        exact: false,
+        route: '/settings/company',
+        labelKey: 'menu.settings.company',
+        icon: 'pi pi-building text-indigo-400',
+        permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.SETTINGS.COMPANY_VIEW],
+      },
     ],
   },
 ];

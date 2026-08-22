@@ -149,6 +149,9 @@
       },
       "voucher": {
         "title": "Configuración de Vouchers"
+      },
+      "company": {
+        "title": "Empresa"
       }
     },
     "transactions": {
@@ -320,7 +323,8 @@
       "reconciliation": "Conciliación",
       "backup": "Backup",
       "emailLog": "Auditoría de E-mail",
-      "voucher": "Configuración de Vouchers"
+      "voucher": "Configuración de Vouchers",
+      "company": "Empresa"
     },
     "file": {
       "processing": {
@@ -2221,6 +2225,8 @@
       "notificationRecipientsEmpty": "Ningún usuario tiene este permiso por el momento.",
       "emailBody": "Texto de la notificación",
       "emailBodyHint": "Texto que se muestra en el correo enviado a los contactos del cliente cuando el voucher es cambiado.",
+      "importantInfo": "Información importante",
+      "importantInfoHint": "Un aviso por línea, mostrado al pie del correo y del PDF enviado al cliente (ej.: reglas de cancelación/reprogramación).",
       "saved": "Configuración guardada con éxito."
     },
     "dashboard": {
@@ -3988,6 +3994,19 @@
       "executed": "Backup generado con éxito — la descarga debería comenzar automáticamente.",
       "executeError": "No fue posible generar el backup. Intente nuevamente."
     }
+  },
+  "companySettings": {
+    "subtitle": "Datos de la empresa mostrados en el encabezado del correo y del PDF enviados al cliente",
+    "name": "Nombre",
+    "document": "CNPJ",
+    "addressLine": "Dirección",
+    "city": "Ciudad",
+    "state": "Estado",
+    "postalCode": "Código postal",
+    "phone": "Teléfono",
+    "email": "E-mail",
+    "hint": "Estos datos aparecen en el encabezado del correo y del PDF enviados al cliente.",
+    "saved": "Configuración guardada con éxito."
   },
   "scheduler": {
     "status": {

@@ -130,6 +130,7 @@ export const UI_KEYS = {
       backup: 'menu.settings.backup',
       emailLog: 'menu.settings.emailLog',
       voucher: 'menu.settings.voucher',
+      company: 'menu.settings.company',
     },
     reconciliation: 'menu.reconciliation',
   },
@@ -1792,6 +1793,9 @@ export const UI_KEYS = {
     config: {
       saved: 'voucher.config.saved',
     },
+  },
+  companySettings: {
+    saved: 'companySettings.saved',
   },
   audit: {
     emailLog: {

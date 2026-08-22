@@ -56,6 +56,7 @@ export class VoucherConfigPageComponent {
     daysToCancel: [90, [Validators.required, Validators.min(1)]],
     numberPendingVouchers: [20, [Validators.required, Validators.min(1)]],
     emailBody: [''],
+    importantInfo: [''],
   });
 
   private loaded = false;
@@ -77,6 +78,7 @@ export class VoucherConfigPageComponent {
         daysToCancel: config.daysToCancel,
         numberPendingVouchers: config.numberPendingVouchers,
         emailBody: config.emailBody ?? '',
+        importantInfo: config.importantInfo ?? '',
       });
       if (!this.canEdit()) {
         this.form.disable();
@@ -96,6 +98,7 @@ export class VoucherConfigPageComponent {
         daysToCancel: v.daysToCancel,
         numberPendingVouchers: v.numberPendingVouchers,
         emailBody: v.emailBody || null,
+        importantInfo: v.importantInfo || null,
       })
       .subscribe({
         next: () => {

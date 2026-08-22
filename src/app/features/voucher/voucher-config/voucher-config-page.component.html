@@ -137,6 +137,27 @@
           </label>
         </p-floatLabel>
       </div>
+
+      <div class="col-12 p-2">
+        <p-floatLabel variant="on" class="w-full">
+          <textarea
+            pTextarea
+            id="importantInfo"
+            rows="6"
+            class="w-full"
+            formControlName="importantInfo"
+          ></textarea>
+          <label for="importantInfo">
+            {{ 'voucher.config.importantInfo' | translate }}
+            <i
+              class="pi pi-info-circle text-xs ml-1 text-color-secondary cursor-pointer"
+              style="pointer-events: auto"
+              [pTooltip]="'voucher.config.importantInfoHint' | translate"
+              tooltipPosition="top"
+            ></i>
+          </label>
+        </p-floatLabel>
+      </div>
     </div>
 
     @if (canEdit()) {

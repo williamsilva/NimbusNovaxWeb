@@ -149,6 +149,9 @@
       },
       "voucher": {
         "title": "Voucher Settings"
+      },
+      "company": {
+        "title": "Company"
       }
     },
     "transactions": {
@@ -320,7 +323,8 @@
       "reconciliation": "Reconciliation",
       "backup": "Backup",
       "emailLog": "Email Audit",
-      "voucher": "Voucher Settings"
+      "voucher": "Voucher Settings",
+      "company": "Company"
     },
     "file": {
       "processing": {
@@ -2221,6 +2225,8 @@
       "notificationRecipientsEmpty": "No user currently holds this permission.",
       "emailBody": "Notification text",
       "emailBodyHint": "Text shown in the e-mail sent to the client's contacts when the voucher is exchanged.",
+      "importantInfo": "Important information",
+      "importantInfoHint": "One notice per line, shown at the bottom of the e-mail and PDF sent to the client (e.g. cancellation/rescheduling rules).",
       "saved": "Settings saved successfully."
     },
     "dashboard": {
@@ -3988,6 +3994,19 @@
       "executed": "Backup generated successfully — the download should start automatically.",
       "executeError": "Could not generate the backup. Please try again."
     }
+  },
+  "companySettings": {
+    "subtitle": "Company data shown in the header of the e-mail and PDF sent to the client",
+    "name": "Name",
+    "document": "Tax ID",
+    "addressLine": "Address",
+    "city": "City",
+    "state": "State",
+    "postalCode": "Postal code",
+    "phone": "Phone",
+    "email": "E-mail",
+    "hint": "This data appears in the header of the e-mail and PDF sent to the client.",
+    "saved": "Settings saved successfully."
   },
   "scheduler": {
     "status": {
