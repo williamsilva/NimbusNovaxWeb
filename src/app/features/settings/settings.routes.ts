@@ -48,6 +48,20 @@ export const SETTINGS_ROUTES: Routes = [
       ),
   },
   {
+    path: 'voucher',
+    title: 'routes.settings.voucher.title',
+    canActivate: [permissionGuard],
+    data: {
+      requireAll: false,
+      redirectTo: '/forbidden',
+      permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHER_CONFIG.VIEW],
+    },
+    loadComponent: () =>
+      import('../voucher/voucher-config/voucher-config-page.component').then(
+        (m) => m.VoucherConfigPageComponent,
+      ),
+  },
+  {
     path: '**',
     title: 'routes.notFound.title',
     loadComponent: () => import('../error/not-found/not-found.page').then((m) => m.NotFoundPage),

@@ -69,9 +69,6 @@
       },
       "dashboard": {
         "title": "Dashboard de Vouchers"
-      },
-      "config": {
-        "title": "Configuração de Vouchers"
       }
     },
     "adjustment": {
@@ -147,6 +144,9 @@
       },
       "emailLog": {
         "title": "Auditoria de E-mail"
+      },
+      "voucher": {
+        "title": "Configuração de Vouchers"
       }
     },
     "transactions": {
@@ -349,7 +349,6 @@
     "motivoCancelamento": "Motivo Cancelamento",
     "voucher": "Voucher",
     "voucherDashboard": "Dashboard",
-    "voucherConfig": "Configuração",
     "dashboard": {
       "title": "Dashboard",
       "management": {

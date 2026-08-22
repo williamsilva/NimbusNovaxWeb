@@ -30,18 +30,6 @@ export const VOUCHER_ROUTES: Routes = [
       import('./voucher-dashboard/voucher-dashboard.component').then((m) => m.VoucherDashboardComponent),
   },
   {
-    path: 'config',
-    title: 'routes.voucher.config.title',
-    canActivate: [permissionGuard],
-    data: {
-      requireAll: false,
-      redirectTo: '/forbidden',
-      permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHER_CONFIG.VIEW],
-    },
-    loadComponent: () =>
-      import('./voucher-config/voucher-config-page.component').then((m) => m.VoucherConfigPageComponent),
-  },
-  {
     path: '**',
     title: 'routes.notFound.title',
     loadComponent: () => import('../error/not-found/not-found.page').then((m) => m.NotFoundPage),

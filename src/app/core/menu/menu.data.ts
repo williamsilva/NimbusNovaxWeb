@@ -107,7 +107,7 @@ export const APP_MENU: AppMenuItem[] = [
       },
       {
         exact: false,
-        route: '/voucher/config',
+        route: '/settings/voucher',
         labelKey: 'menu.settings.voucher',
         icon: 'pi pi-ticket text-slate-400',
         permissions: [PERMISSIONS.SUPPORT, PERMISSIONS.VOUCHER_CONFIG.VIEW],
