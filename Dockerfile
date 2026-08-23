@@ -7,9 +7,9 @@ COPY . .
 # "development" (não o default "production" do angular.json) - build alternativo sem live-reload
 # (produção "de mentira", servido via nginx); o docker-compose local (ver ../docker-compose.yml)
 # usa Dockerfile.dev (ng serve) pro serviço `web`, não este arquivo. Se você rodar esta imagem à
-# mão, precisa do environment.ts (bffBaseUrl/apiBaseUrl = localhost:9092) em vez do
+# mão, precisa do environment.ts (bffBaseUrl/apiBaseUrl = localhost:9093) em vez do
 # environment.prod.ts (fileReplacement só existe na config "production"), senão a SPA fala com o
-# backend de PRODUÇÃO e o CORS bloqueia a origem (mapeie o container pra localhost:4203, mesmo
+# backend de PRODUÇÃO e o CORS bloqueia a origem (mapeie o container pra localhost:4202, mesmo
 # default do ng serve, ou ajuste CORS_ALLOWED_ORIGINS no backend pra bater com a porta escolhida).
 RUN npm run build -- --configuration development
 
