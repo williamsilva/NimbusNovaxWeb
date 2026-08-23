@@ -141,9 +141,7 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
   voucher = signal('');
   client = signal('');
   promoterIds = signal<string[] | null>(null);
-  /** Vem pré-selecionado com Negociando/Vencido/Confirmado - mesmo critério que o backend já
-   *  aplicava implicitamente quando a busca não informava nenhum status (ver
-   *  VoucherService.HIDDEN_BY_DEFAULT), agora explícito na tela. */
+  /** Valor inicial antes de qualquer cache ser restaurado - ver applyDefaultAdvancedFilters. */
   status = signal<StatusVoucher[] | null>(defaultVisibleStatusVoucher());
   visitDate = signal<string | string[] | null>(null);
   periodVisitDate = signal<PeriodEnum | null>(null);
@@ -318,9 +316,19 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
     this.voucher.set('');
     this.client.set('');
     this.promoterIds.set(null);
-    this.status.set(defaultVisibleStatusVoucher());
+    this.status.set(null);
     this.visitDate.set(null);
     this.periodVisitDate.set(null);
+    this.applyDefaultAdvancedFiltersIfEmpty();
+  }
+
+  /** Vem pré-selecionado com Negociando/Vencido/Confirmado - mesmo critério que o backend já
+   *  aplicava implicitamente quando a busca não informava nenhum status (ver
+   *  VoucherService.HIDDEN_BY_DEFAULT). O gate que decide SE isso deve ser aplicado (painel
+   *  inteiro vazio, não campo a campo) vive na classe base — ver applyDefaultAdvancedFiltersIfEmpty
+   *  em StatefulListPage. */
+  protected override applyDefaultAdvancedFilters(): void {
+    this.status.set(defaultVisibleStatusVoucher());
   }
 
   protected override toFiltersState(): VouchersFiltersState {
@@ -338,9 +346,11 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
     this.voucher.set(s.voucher ?? '');
     this.client.set(s.client ?? '');
     this.promoterIds.set(s.promoterIds ?? null);
-    this.status.set(s.status ?? defaultVisibleStatusVoucher());
+    this.status.set(s.status ?? null);
     this.visitDate.set(s.visitDate ?? null);
     this.periodVisitDate.set(s.periodVisitDate ?? null);
+
+    this.applyDefaultAdvancedFiltersIfEmpty();
   }
 
   protected override buildAdvancedFilters(): Partial<VouchersAdvancedFilters> {
