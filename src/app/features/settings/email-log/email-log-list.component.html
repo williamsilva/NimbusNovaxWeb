@@ -29,8 +29,8 @@
     <div class="col-12 md:col-3 p-1">
       <p-floatLabel variant="on" class="w-full">
         <input
-          id="recipients"
           pInputText
+          id="recipients"
           [value]="recipients()"
           class="w-full p-inputtext-sm"
           (input)="recipients.set(($any($event.target).value ?? '').toString())"
@@ -125,14 +125,14 @@
     sortMode="multiple"
     filterDisplay="menu"
     stateStorage="local"
-    class="cs-admin-table"
     [loading]="loading()"
+    class="cs-admin-table"
     [stateKey]="tableStateKey()"
     [showCurrentPageReport]="true"
     [totalRecords]="totalRecords()"
+    (onPage)="onPageChange($event)"
     (onLazyLoad)="onLazyLoad($event)"
     [paginatorDropdownAppendTo]="'body'"
-    (onPage)="onPageChange($event)"
     [rowsPerPageOptions]="rowsPerPageOptions"
     [tableStyle]="{ width: '100%', 'min-width': '62rem' }"
     [currentPageReportTemplate]="'pagination.report' | translate"
@@ -141,7 +141,7 @@
       <colgroup>
         <col style="width: auto" />
         <col style="width: auto" />
-        <col style="width: 160px" />
+        <col style="width: 250px" />
         <col style="width: 130px" />
         <col style="width: 160px" />
         <col style="width: 70px" />
@@ -341,9 +341,12 @@
           }}</span>
         </td>
         <td class="text-center">
-          <span class="cs-table-cell-ellipsis" tooltipPosition="top" [pTooltip]="eventTypeLabel(row.eventType)">{{
-            eventTypeLabel(row.eventType)
-          }}</span>
+          <span
+            class="cs-table-cell-ellipsis"
+            tooltipPosition="top"
+            [pTooltip]="eventTypeLabel(row.eventType)"
+            >{{ eventTypeLabel(row.eventType) }}</span
+          >
         </td>
         <td class="text-center">
           <cs-status-badge
