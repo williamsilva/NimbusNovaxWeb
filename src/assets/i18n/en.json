@@ -4000,7 +4000,16 @@
     "phone": "Phone",
     "email": "E-mail",
     "hint": "This data appears in the header of the e-mail and PDF sent to the client.",
-    "saved": "Settings saved successfully."
+    "saved": "Settings saved successfully.",
+    "logo": {
+      "label": "Company logo",
+      "choose": "Choose file",
+      "hint": "PNG, JPEG or WEBP, up to 2MB. Appears in the header of the e-mail and PDF sent to the client.",
+      "uploaded": "Logo updated successfully.",
+      "removed": "Logo removed successfully.",
+      "invalidType": "Invalid format - use PNG, JPEG or WEBP.",
+      "tooLarge": "File larger than 2MB."
+    }
   },
   "scheduler": {
     "status": {
