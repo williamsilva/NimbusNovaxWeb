@@ -7,6 +7,7 @@ export interface CompanySettingsModel {
   postalCode: string | null;
   phone: string | null;
   email: string | null;
+  logoUrl: string | null;
 }
 
 export interface CompanySettingsUpdateInput {
@@ -32,5 +33,6 @@ export function mapCompanySettingsApiModel(input: CompanySettingsApiModel): Comp
     postalCode: input.postalCode ?? null,
     phone: input.phone ?? null,
     email: input.email ?? null,
+    logoUrl: input.logoUrl ?? null,
   };
 }

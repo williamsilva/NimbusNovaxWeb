@@ -31,4 +31,12 @@ export class CompanySettingsFacade {
   update(input: CompanySettingsUpdateInput): Observable<CompanySettingsModel> {
     return this.api.update(input).pipe(tap((settings) => this._settings.set(settings)));
   }
+
+  uploadLogo(file: File): Observable<CompanySettingsModel> {
+    return this.api.uploadLogo(file).pipe(tap((settings) => this._settings.set(settings)));
+  }
+
+  deleteLogo(): Observable<CompanySettingsModel> {
+    return this.api.deleteLogo().pipe(tap((settings) => this._settings.set(settings)));
+  }
 }

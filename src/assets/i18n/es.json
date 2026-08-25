@@ -4000,7 +4000,16 @@
     "phone": "Teléfono",
     "email": "E-mail",
     "hint": "Estos datos aparecen en el encabezado del correo y del PDF enviados al cliente.",
-    "saved": "Configuración guardada con éxito."
+    "saved": "Configuración guardada con éxito.",
+    "logo": {
+      "label": "Logo de la empresa",
+      "choose": "Seleccionar archivo",
+      "hint": "PNG, JPEG o WEBP, hasta 2MB. Aparece en el encabezado del correo y del PDF del voucher enviado al cliente.",
+      "uploaded": "Logo actualizado con éxito.",
+      "removed": "Logo eliminado con éxito.",
+      "invalidType": "Formato inválido - use PNG, JPEG o WEBP.",
+      "tooLarge": "Archivo mayor a 2MB."
+    }
   },
   "scheduler": {
     "status": {

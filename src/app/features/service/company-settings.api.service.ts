@@ -24,4 +24,16 @@ export class CompanySettingsApiService {
   update(input: CompanySettingsUpdateInput): Observable<CompanySettingsModel> {
     return this.http.put<CompanySettingsApiModel>(this.baseUrl, input).pipe(map(mapCompanySettingsApiModel));
   }
+
+  uploadLogo(file: File): Observable<CompanySettingsModel> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http
+      .post<CompanySettingsApiModel>(`${this.baseUrl}/logo`, formData)
+      .pipe(map(mapCompanySettingsApiModel));
+  }
+
+  deleteLogo(): Observable<CompanySettingsModel> {
+    return this.http.delete<CompanySettingsApiModel>(`${this.baseUrl}/logo`).pipe(map(mapCompanySettingsApiModel));
+  }
 }

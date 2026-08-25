@@ -3995,7 +3995,16 @@
     "phone": "Telefone",
     "email": "E-mail",
     "hint": "Estes dados aparecem no cabeçalho do e-mail e do PDF do voucher enviado ao cliente.",
-    "saved": "Configuração salva com sucesso."
+    "saved": "Configuração salva com sucesso.",
+    "logo": {
+      "label": "Logo da empresa",
+      "choose": "Selecionar arquivo",
+      "hint": "PNG, JPEG ou WEBP, até 2MB. Aparece no cabeçalho do e-mail e do PDF do voucher enviado ao cliente.",
+      "uploaded": "Logo atualizada com sucesso.",
+      "removed": "Logo removida com sucesso.",
+      "invalidType": "Formato inválido - use PNG, JPEG ou WEBP.",
+      "tooLarge": "Arquivo maior que 2MB."
+    }
   },
   "scheduler": {
     "status": {

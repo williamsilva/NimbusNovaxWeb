@@ -9,6 +9,54 @@
 <p-card class="mt-2 block">
   <form [formGroup]="form" (ngSubmit)="save()">
     <div class="grid formgrid gap-0">
+      <div class="col-12 p-2">
+        <label class="block text-sm text-color-secondary mb-2">{{ 'companySettings.logo.label' | translate }}</label>
+        <div class="flex align-items-center gap-3">
+          <div
+            class="border-1 surface-border border-round flex align-items-center justify-content-center overflow-hidden flex-shrink-0"
+            style="width: 72px; height: 72px"
+          >
+            @if (logoUrl(); as logo) {
+              <img [src]="logo" alt="Logo" style="max-width: 100%; max-height: 100%" />
+            } @else {
+              <i class="pi pi-image text-color-secondary text-2xl"></i>
+            }
+          </div>
+
+          @if (canEdit()) {
+            <div class="flex flex-column gap-2">
+              <input
+                #logoInput
+                type="file"
+                class="hidden"
+                accept="image/png,image/jpeg,image/webp"
+                (change)="onLogoFileSelected($event)"
+              />
+              <div class="flex gap-2">
+                <p-button
+                  type="button"
+                  icon="pi pi-upload"
+                  [label]="'companySettings.logo.choose' | translate"
+                  [loading]="logoUploading()"
+                  (onClick)="logoInput.click()"
+                ></p-button>
+                @if (logoUrl()) {
+                  <p-button
+                    type="button"
+                    icon="pi pi-trash"
+                    severity="danger"
+                    [label]="'common.remove' | translate"
+                    [disabled]="logoUploading()"
+                    (onClick)="removeLogo()"
+                  ></p-button>
+                }
+              </div>
+              <small class="text-color-secondary">{{ 'companySettings.logo.hint' | translate }}</small>
+            </div>
+          }
+        </div>
+      </div>
+
       <div class="col-12 md:col-6 p-2">
         <p-floatLabel variant="on" class="w-full">
           <input pInputText type="text" class="w-full" id="name" formControlName="name" />

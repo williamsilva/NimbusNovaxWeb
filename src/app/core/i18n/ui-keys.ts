@@ -1796,6 +1796,12 @@ export const UI_KEYS = {
   },
   companySettings: {
     saved: 'companySettings.saved',
+    logo: {
+      uploaded: 'companySettings.logo.uploaded',
+      removed: 'companySettings.logo.removed',
+      invalidType: 'companySettings.logo.invalidType',
+      tooLarge: 'companySettings.logo.tooLarge',
+    },
   },
   audit: {
     emailLog: {

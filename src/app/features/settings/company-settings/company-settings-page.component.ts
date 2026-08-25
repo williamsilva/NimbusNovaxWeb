@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { CardModule } from 'primeng/card';
@@ -14,8 +14,13 @@ import { PERMISSIONS } from '@core/auth/permissions.constants';
 import { CompanySettingsFacade } from '@features/facade/company-settings.facade';
 import { PageHeaderComponent } from '@shared/features/page-header/page-header.component';
 
-/** Tela "Configurações > Empresa" - nome/CNPJ/endereço/telefone da empresa emissora do voucher,
- *  exibidos no cabeçalho do e-mail e do PDF enviados ao cliente (ver
+/** Mesmo limite/formatos validados em CompanySettingsService (backend) - checado aqui só pra dar
+ *  feedback imediato sem round-trip, a validação de verdade continua no servidor. */
+const ALLOWED_LOGO_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
+const MAX_LOGO_SIZE_BYTES = 2 * 1024 * 1024;
+
+/** Tela "Configurações > Empresa" - nome/CNPJ/endereço/telefone/logo da empresa emissora do
+ *  voucher, exibidos no cabeçalho do e-mail e do PDF enviados ao cliente (ver
  *  VoucherFlowService.buildDocumentContext no backend). Linha única, mesmo papel de Configurações
  *  de E-mail. */
 @Component({
@@ -41,6 +46,9 @@ export class CompanySettingsPageComponent {
   readonly facade = inject(CompanySettingsFacade);
 
   readonly canEdit = computed(() => this.perms.hasSupportOr(PERMISSIONS.SETTINGS.COMPANY_CHANGE));
+
+  readonly logoUploading = signal(false);
+  readonly logoUrl = computed(() => this.facade.settings()?.logoUrl ?? null);
 
   readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.maxLength(255)]],
@@ -104,5 +112,59 @@ export class CompanySettingsPageComponent {
           });
         },
       });
+  }
+
+  onLogoFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0] ?? null;
+    // Limpa o input pra permitir selecionar o mesmo arquivo de novo depois (ex.: tentar de novo
+    // após corrigir o arquivo) - o evento "change" não dispara se o value não mudar.
+    input.value = '';
+    if (!file) return;
+
+    if (!ALLOWED_LOGO_TYPES.includes(file.type)) {
+      this.toast.add({
+        severity: 'error',
+        summary: this.i18n.tUi('common.error'),
+        detail: this.i18n.tUi('companySettings.logo.invalidType'),
+      });
+      return;
+    }
+    if (file.size > MAX_LOGO_SIZE_BYTES) {
+      this.toast.add({
+        severity: 'error',
+        summary: this.i18n.tUi('common.error'),
+        detail: this.i18n.tUi('companySettings.logo.tooLarge'),
+      });
+      return;
+    }
+
+    this.logoUploading.set(true);
+    this.facade.uploadLogo(file).subscribe({
+      next: () => {
+        this.logoUploading.set(false);
+        this.toast.add({
+          severity: 'success',
+          summary: this.i18n.tUi('common.success'),
+          detail: this.i18n.tUi('companySettings.logo.uploaded'),
+        });
+      },
+      error: () => this.logoUploading.set(false),
+    });
+  }
+
+  removeLogo(): void {
+    this.logoUploading.set(true);
+    this.facade.deleteLogo().subscribe({
+      next: () => {
+        this.logoUploading.set(false);
+        this.toast.add({
+          severity: 'success',
+          summary: this.i18n.tUi('common.success'),
+          detail: this.i18n.tUi('companySettings.logo.removed'),
+        });
+      },
+      error: () => this.logoUploading.set(false),
+    });
   }
 }
