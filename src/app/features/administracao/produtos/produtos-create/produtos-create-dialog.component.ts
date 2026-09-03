@@ -22,7 +22,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 
 import { I18nService } from '@core/i18n/i18n.service';
 import { ErrorMsgComponent } from '@shared/error-msg/error-msg.component';
-import { DateInputMaskDirective } from '@shared/directives/date-input-mask.directive';
+import { DateInputMaskDirective } from '@williamsilva/nimbus-web-commons';
 import { ProductsFacade } from '@features/facade/produtos.facade';
 import { ProductModel, ProductCreateInput } from '@models/produtos.models';
 import { TypeProduct, allTypeProducts, typeProductLabel } from '@models/enums/type-product.enum';

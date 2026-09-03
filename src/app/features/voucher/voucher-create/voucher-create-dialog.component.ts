@@ -17,7 +17,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 
 import { I18nService } from '@core/i18n/i18n.service';
 import { ErrorMsgComponent } from '@shared/error-msg/error-msg.component';
-import { DateInputMaskDirective } from '@shared/directives/date-input-mask.directive';
+import { DateInputMaskDirective } from '@williamsilva/nimbus-web-commons';
 import { VoucherFacade } from '@features/facade/voucher.facade';
 import { AgentOptionsFacade } from '@features/facade/agent-options.facade';
 import { TypeAgent } from '@models/enums/type-agent.enum';

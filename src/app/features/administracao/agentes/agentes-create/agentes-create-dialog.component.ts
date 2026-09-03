@@ -32,7 +32,7 @@ import { CepLookupService } from '@shared/services/cep-lookup.service';
 import { onlyDigits, formatZipCode } from '@shared/utils/br-format';
 import { PhoneMaskDirective } from '@shared/directives/phone-mask.directive';
 import { CpfCnpjMaskDirective } from '@shared/directives/cpf-cnpj-mask.directive';
-import { DateInputMaskDirective } from '@shared/directives/date-input-mask.directive';
+import { DateInputMaskDirective } from '@williamsilva/nimbus-web-commons';
 import { AgentModel, AgentUpsertInput } from '@models/agentes.models';
 import { Sex, allSexes, sexLabel } from '@models/enums/sex.enum';
 import { TypeAgent, allTypeAgents, typeAgentLabel } from '@models/enums/type-agent.enum';

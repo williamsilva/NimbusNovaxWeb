@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 
 import { AgentesApiService } from '@features/service/agentes.api.service';
 import { AgentsAdvancedFilters } from '@features/filter/agentes.filters';
-import { ListQueryDto } from '@shared/features/list-query/list-query.types';
+import { ListQueryDto } from '@williamsilva/nimbus-web-commons';
 import { AgentModel, AgentUpsertInput } from '@models/agentes.models';
 
 type LastQuery = ListQueryDto<AgentsAdvancedFilters>;

@@ -17,9 +17,9 @@ import { CsTagComponent } from '@shared/ui';
 import { I18nService } from '@core/i18n/i18n.service';
 import { CsDatePipe } from '@shared/pipes/cs-date.pipe';
 import { STATE_KEY } from '@features/state-key.constants';
-import { StatefulListPage } from '@features/list-base/stateful-list-page';
+import { StatefulListPage } from '@williamsilva/nimbus-web-commons';
 import { BulkActionListPage } from '@features/list-base/bulk-action-list-page';
-import { buildListQuery } from '@shared/features/list-query/list-query.builder';
+import { buildListQuery } from '@williamsilva/nimbus-web-commons';
 import { PageHeaderComponent } from '@shared/features/page-header/page-header.component';
 import { VoucherFacade } from '@features/facade/voucher.facade';
 import { AgentOptionsFacade } from '@features/facade/agent-options.facade';
@@ -30,7 +30,7 @@ import { VoucherPermissionPolicy } from '@features/voucher/policy/voucher-permis
 import { VoucherCreateDialogComponent } from '@features/voucher/voucher-create/voucher-create-dialog.component';
 import { VoucherCancelDialogComponent } from '@features/voucher/voucher-cancel/voucher-cancel-dialog.component';
 import { PeriodEnum, allPeriodEnum, periodEnumLabel } from '@models/enums/period.enum';
-import { CsAdvancedPeriodDateFilterComponent } from '@features/list-base/cs-advanced-period-date-filter.component';
+import { CsAdvancedPeriodDateFilterComponent } from '@williamsilva/nimbus-web-commons';
 import {
   StatusVoucher,
   allStatusVoucher,
@@ -41,8 +41,8 @@ import {
 import {
   ActiveFilterItem,
   FiltersPanelComponent,
-} from '@shared/features/filters-panel/filters-panel.component';
-import { readSingleFilterValue, readArrayFilterValues } from '@features/list-base/table-filter-readers';
+} from '@williamsilva/nimbus-web-commons';
+import { readSingleFilterValue, readArrayFilterValues } from '@williamsilva/nimbus-web-commons';
 
 @Component({
   standalone: true,

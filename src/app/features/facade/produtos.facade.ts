@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 
 import { ProductsApiService } from '@features/service/produtos.api.service';
 import { ProductsAdvancedFilters } from '@features/filter/produtos.filters';
-import { ListQueryDto } from '@shared/features/list-query/list-query.types';
+import { ListQueryDto } from '@williamsilva/nimbus-web-commons';
 import { ProductModel, ProductCreateInput, ProductUpdateInput } from '@models/produtos.models';
 
 type LastQuery = ListQueryDto<ProductsAdvancedFilters>;
