@@ -1,4 +1,4 @@
-<cs-page-header
+<app-page-header
   [subtitle]="'motivoCancelamento.subtitle' | translate"
   [breadcrumb]="[
     { label: ('breadcrumb.dashboard.title' | translate), url: '/' },
@@ -25,7 +25,7 @@
     class="p-button-info p-button-sm"
     [label]="'motivoCancelamento.new.title' | translate"
   ></button>
-</cs-page-header>
+</app-page-header>
 
 <app-motivo-cancelamento-create-dialog
   [reason]="reason()"
@@ -289,16 +289,16 @@
           >
         </td>
         <td class="text-center" [attr.data-label]="'motivoCancelamento.columns.status' | translate">
-          <cs-tag [value]="statusLabel(row.status)" [tone]="statusSeverity(row.status)"></cs-tag>
+          <app-tag [value]="statusLabel(row.status)" [tone]="statusSeverity(row.status)"></app-tag>
         </td>
         <td
           class="text-center"
           [attr.data-label]="'motivoCancelamento.columns.generation' | translate"
         >
-          <cs-tag
+          <app-tag
             [value]="generationLabel(row.generation)"
             [tone]="generationSeverity(row.generation)"
-          ></cs-tag>
+          ></app-tag>
         </td>
         <td
           class="text-center"
@@ -321,6 +321,12 @@
                   : (secPolicy.editDisabledReason(row) ??
                       'motivoCancelamento.action.edit.noPermission' | translate)
               "
+              [attr.aria-label]="
+                secPolicy.canEdit(row)
+                  ? ('common.edit' | translate)
+                  : (secPolicy.editDisabledReason(row) ??
+                      'motivoCancelamento.action.edit.noPermission' | translate)
+              "
               tooltipPosition="top"
             ></button>
 
@@ -332,6 +338,12 @@
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canDelete(row)"
               [pTooltip]="
+                secPolicy.canDelete(row)
+                  ? ('common.delete' | translate)
+                  : (secPolicy.deleteDisabledReason(row) ??
+                      'motivoCancelamento.action.delete.noPermission' | translate)
+              "
+              [attr.aria-label]="
                 secPolicy.canDelete(row)
                   ? ('common.delete' | translate)
                   : (secPolicy.deleteDisabledReason(row) ??

@@ -5,7 +5,7 @@ import { PermissionService } from '@core/auth/permission.service';
 import { StatusVoucher } from '@models/enums/status-voucher.enum';
 import { VoucherModel } from '@models/voucher.models';
 
-export interface VoucherPermissionTarget extends Pick<VoucherModel, 'id' | 'status' | 'totalPrice'> {}
+export type VoucherPermissionTarget = Pick<VoucherModel, 'id' | 'status' | 'totalPrice'>;
 
 /** Regras replicadas do sistema legado (Novax antigo): delete físico só em DEALING
  *  (VoucherConsultComponent.canCancel); as ações de fluxo (confirmar/não confirmar/trocar/
@@ -23,6 +23,9 @@ export class VoucherPermissionPolicy {
     return this.perms.hasSupportOr(PERMISSIONS.VOUCHERS.CREATE);
   }
 
+  // row mantido pra uniformizar a assinatura com os outros métodos da policy (o chamador sempre
+  // passa a linha), mesmo sem uso aqui.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   canEdit(_row: VoucherPermissionTarget): boolean {
     return this.perms.hasSupportOr(PERMISSIONS.VOUCHERS.CHANGE);
   }
@@ -68,6 +71,9 @@ export class VoucherPermissionPolicy {
     return row.status !== StatusVoucher.CALLED_OFF && row.status !== StatusVoucher.OVERDUE;
   }
 
+  // row mantido pra uniformizar a assinatura com os outros métodos da policy (o chamador sempre
+  // passa a linha) - hoje visualizar PDF nunca depende do estado do voucher.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   canViewPdf(_row: VoucherPermissionTarget): boolean {
     return true;
   }

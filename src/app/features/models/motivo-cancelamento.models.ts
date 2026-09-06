@@ -20,13 +20,13 @@ export interface CancellationReasonCreateInput {
 
 export type CancellationReasonUpdateInput = CancellationReasonCreateInput;
 
-export type CancellationReasonsFiltersState = {
+export interface CancellationReasonsFiltersState {
   name: string;
   description: string;
   status: RecordStatus[] | null;
   createdAt: string | string[] | null;
   periodCreatedAt: PeriodEnum | null;
-};
+}
 
 export interface CancellationReasonApiModel {
   id: string;

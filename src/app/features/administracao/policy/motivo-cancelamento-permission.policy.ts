@@ -5,8 +5,10 @@ import { PermissionService } from '@core/auth/permission.service';
 import { isSystemGenerated } from '@models/enums/generation.enum';
 import { CancellationReasonModel } from '@models/motivo-cancelamento.models';
 
-export interface CancellationReasonPermissionTarget
-  extends Pick<CancellationReasonModel, 'id' | 'generation'> {}
+export type CancellationReasonPermissionTarget = Pick<
+  CancellationReasonModel,
+  'id' | 'generation'
+>;
 
 /** Motivos SYSTEM (seed) ficam protegidos contra edição/exclusão só aqui na UI - o backend nunca
  *  impôs esse bloqueio (ver CancellationReasonService, que sempre força generation=USER no save

@@ -1,4 +1,4 @@
-<cs-page-header
+<app-page-header
   [subtitle]="'groups.subtitle' | translate"
   [breadcrumb]="[
     { label: ('breadcrumb.dashboard.title' | translate), url: '/' },
@@ -25,7 +25,7 @@
     class="p-button-info p-button-sm"
     [label]="'groups.new.title' | translate"
   ></button>
-</cs-page-header>
+</app-page-header>
 
 <app-groups-create-dialog
   [group]="group()"
@@ -350,6 +350,7 @@
               tooltipPosition="top"
               class="p-button-text p-button-sm"
               [pTooltip]="'common.view' | translate"
+              [attr.aria-label]="'common.view' | translate"
             ></button>
 
             <button
@@ -360,6 +361,12 @@
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canEdit(row)"
               [pTooltip]="
+                secPolicy.canEdit(row)
+                  ? ('common.edit' | translate)
+                  : (secPolicy.editDisabledReason(row) ?? 'groups.action.edit.noPermission'
+                    | translate)
+              "
+              [attr.aria-label]="
                 secPolicy.canEdit(row)
                   ? ('common.edit' | translate)
                   : (secPolicy.editDisabledReason(row) ?? 'groups.action.edit.noPermission'
@@ -376,6 +383,12 @@
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canDelete(row)"
               [pTooltip]="
+                secPolicy.canDelete(row)
+                  ? ('common.delete' | translate)
+                  : (secPolicy.deleteDisabledReason(row) ?? 'groups.action.delete.noPermission'
+                    | translate)
+              "
+              [attr.aria-label]="
                 secPolicy.canDelete(row)
                   ? ('common.delete' | translate)
                   : (secPolicy.deleteDisabledReason(row) ?? 'groups.action.delete.noPermission'

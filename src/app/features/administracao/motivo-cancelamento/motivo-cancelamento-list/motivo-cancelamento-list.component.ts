@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { Component, ViewChild, computed, inject, signal } from '@angular/core';
+import { Component, ViewChild, computed, inject, signal, OnInit } from '@angular/core';
 
 import { Table } from 'primeng/table';
 import { TableModule } from 'primeng/table';
@@ -71,7 +71,7 @@ import { readSingleFilterValue, readArrayFilterValues } from '@williamsilva/nimb
 export class MotivoCancelamentoListComponent extends StatefulListPage<
   CancellationReasonsFiltersState,
   CancellationReasonsAdvancedFilters
-> {
+> implements OnInit {
   @ViewChild('dt') private dt?: Table;
 
   protected override readonly i18n = inject(I18nService);
@@ -90,6 +90,8 @@ export class MotivoCancelamentoListComponent extends StatefulListPage<
     constructor(private readonly host: MotivoCancelamentoListComponent) {
       super();
     }
+    // essa lista não usa seleção em lote, então não há nada pra limpar.
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     protected override clearSelection(): void {}
 
     confirmDelete(row: CancellationReasonModel): void {
@@ -230,6 +232,9 @@ export class MotivoCancelamentoListComponent extends StatefulListPage<
     this.reloadWithCurrentState();
   }
 
+  // reload dessa lista já é disparado pelo effect() de filtros da própria StatefulListPage,
+  // não precisa de lógica extra aqui.
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected override loadFirstPage(): void {}
 
   protected override resetFilters(): void {
@@ -268,7 +273,7 @@ export class MotivoCancelamentoListComponent extends StatefulListPage<
     };
   }
 
-  protected override mapTableFiltersToActiveItems(filters: any): ActiveFilterItem[] {
+  protected override mapTableFiltersToActiveItems(filters: Record<string, unknown>): ActiveFilterItem[] {
     this.i18n.getAppliedLang();
 
     const items: ActiveFilterItem[] = [];

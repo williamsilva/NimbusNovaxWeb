@@ -88,7 +88,7 @@
                   id="document"
                   pInputText
                   type="text"
-                  csCpfCnpjMask
+                  appCpfCnpjMask
                   formControlName="document"
                   class="w-full p-inputtext-sm"
                 />
@@ -209,12 +209,15 @@
                         pInputText
                         type="text"
                         maxlength="9"
+                        [id]="'address-postalCode-' + i"
                         formControlName="postalCode"
                         class="w-full p-inputtext-sm"
                         (input)="onZipCodeInput(i, $any($event.target).value)"
                         (keydown.enter)="searchZipCode(i)"
                       />
-                      <label>{{ 'agentes.fields.postalCode' | translate }}</label>
+                      <label [for]="'address-postalCode-' + i">{{
+                        'agentes.fields.postalCode' | translate
+                      }}</label>
                     </p-floatLabel>
                     <button
                       pButton
@@ -225,6 +228,7 @@
                       [loading]="isCepLoading(i)"
                       class="p-button-sm flex-shrink-0"
                       [pTooltip]="'agentes.cep.searchTooltip' | translate"
+                      [attr.aria-label]="'agentes.cep.searchTooltip' | translate"
                     ></button>
                   </div>
                 </div>
@@ -233,10 +237,13 @@
                     <input
                       pInputText
                       type="text"
+                      [id]="'address-street-' + i"
                       formControlName="street"
                       class="w-full p-inputtext-sm"
                     />
-                    <label>{{ 'agentes.fields.street' | translate }}</label>
+                    <label [for]="'address-street-' + i">{{
+                      'agentes.fields.street' | translate
+                    }}</label>
                   </p-floatLabel>
                 </div>
                 <div class="col-6 md:col-2 p-2">
@@ -244,10 +251,13 @@
                     <input
                       pInputText
                       type="text"
+                      [id]="'address-number-' + i"
                       formControlName="number"
                       class="w-full p-inputtext-sm"
                     />
-                    <label>{{ 'agentes.fields.number' | translate }}</label>
+                    <label [for]="'address-number-' + i">{{
+                      'agentes.fields.number' | translate
+                    }}</label>
                   </p-floatLabel>
                 </div>
                 <div class="col-6 md:col-2 p-2">
@@ -255,10 +265,13 @@
                     <input
                       pInputText
                       type="text"
+                      [id]="'address-complement-' + i"
                       formControlName="complement"
                       class="w-full p-inputtext-sm"
                     />
-                    <label>{{ 'agentes.fields.complement' | translate }}</label>
+                    <label [for]="'address-complement-' + i">{{
+                      'agentes.fields.complement' | translate
+                    }}</label>
                   </p-floatLabel>
                 </div>
 
@@ -267,10 +280,13 @@
                     <input
                       pInputText
                       type="text"
+                      [id]="'address-burgh-' + i"
                       formControlName="burgh"
                       class="w-full p-inputtext-sm"
                     />
-                    <label>{{ 'agentes.fields.burgh' | translate }}</label>
+                    <label [for]="'address-burgh-' + i">{{
+                      'agentes.fields.burgh' | translate
+                    }}</label>
                   </p-floatLabel>
                 </div>
                 <div class="col-6 md:col-3 p-2">
@@ -283,11 +299,14 @@
                       optionValue="id"
                       [showClear]="true"
                       [options]="states()"
+                      [inputId]="'address-state-' + i"
                       [ngModel]="stateIdForAddress(i)"
                       [ngModelOptions]="{ standalone: true }"
                       (ngModelChange)="onAddressStateChange(i, $event)"
                     ></p-select>
-                    <label>{{ 'agentes.fields.state' | translate }}</label>
+                    <label [for]="'address-state-' + i">{{
+                      'agentes.fields.state' | translate
+                    }}</label>
                   </p-floatLabel>
                 </div>
                 <div class="col-5 md:col-4 p-2">
@@ -301,8 +320,11 @@
                       [showClear]="true"
                       formControlName="cityId"
                       [options]="citiesForAddress(i)"
+                      [inputId]="'address-city-' + i"
                     ></p-select>
-                    <label>{{ 'agentes.fields.city' | translate }}</label>
+                    <label [for]="'address-city-' + i">{{
+                      'agentes.fields.city' | translate
+                    }}</label>
                   </p-floatLabel>
                 </div>
                 <div class="col-1 p-2 text-right">
@@ -312,6 +334,7 @@
                     icon="pi pi-trash"
                     (click)="removeAddress(i)"
                     class="p-button-text p-button-sm p-button-danger"
+                    [attr.aria-label]="'common.remove' | translate"
                   ></button>
                 </div>
               </div>
@@ -341,10 +364,13 @@
                     <input
                       pInputText
                       type="text"
+                      [id]="'contact-name-' + i"
                       formControlName="name"
                       class="w-full p-inputtext-sm"
                     />
-                    <label>{{ 'agentes.fields.contactName' | translate }}</label>
+                    <label [for]="'contact-name-' + i">{{
+                      'agentes.fields.contactName' | translate
+                    }}</label>
                   </p-floatLabel>
                 </div>
                 <div class="col-6 md:col-2 p-1">
@@ -352,13 +378,16 @@
                     <input
                       pInputText
                       type="text"
-                      csPhoneMask
+                      appPhoneMask
                       autocomplete="off"
                       inputmode="numeric"
+                      [id]="'contact-cellphone-' + i"
                       formControlName="cellphone"
                       class="w-full p-inputtext-sm"
                     />
-                    <label>{{ 'agentes.fields.cellphone' | translate }}</label>
+                    <label [for]="'contact-cellphone-' + i">{{
+                      'agentes.fields.cellphone' | translate
+                    }}</label>
                   </p-floatLabel>
                 </div>
                 <div class="col-6 md:col-2 p-1">
@@ -366,13 +395,16 @@
                     <input
                       pInputText
                       type="text"
-                      csPhoneMask
+                      appPhoneMask
                       autocomplete="off"
                       inputmode="numeric"
+                      [id]="'contact-telephone-' + i"
                       formControlName="telephone"
                       class="w-full p-inputtext-sm"
                     />
-                    <label>{{ 'agentes.fields.telephone' | translate }}</label>
+                    <label [for]="'contact-telephone-' + i">{{
+                      'agentes.fields.telephone' | translate
+                    }}</label>
                   </p-floatLabel>
                 </div>
                 <div class="col-11 md:col-4 p-1">
@@ -380,10 +412,13 @@
                     <input
                       pInputText
                       type="text"
+                      [id]="'contact-email-' + i"
                       formControlName="email"
                       class="w-full p-inputtext-sm"
                     />
-                    <label>{{ 'agentes.fields.email' | translate }}</label>
+                    <label [for]="'contact-email-' + i">{{
+                      'agentes.fields.email' | translate
+                    }}</label>
                   </p-floatLabel>
                 </div>
                 <div class="col-1 p-1 text-right">
@@ -393,6 +428,7 @@
                     icon="pi pi-trash"
                     (click)="removeContact(i)"
                     class="p-button-text p-button-sm p-button-danger"
+                    [attr.aria-label]="'common.remove' | translate"
                   ></button>
                 </div>
               </div>
@@ -412,8 +448,9 @@
                   optionValue="value"
                   [options]="partyStatusOptions()"
                   formControlName="statusClient"
+                  inputId="statusClient"
                 ></p-select>
-                <label>{{ 'agentes.fields.status' | translate }}</label>
+                <label for="statusClient">{{ 'agentes.fields.status' | translate }}</label>
               </p-floatLabel>
             </div>
           </p-tabpanel>
@@ -431,8 +468,9 @@
                   optionValue="value"
                   [options]="partyStatusOptions()"
                   formControlName="statusPromoter"
+                  inputId="statusPromoter"
                 ></p-select>
-                <label>{{ 'agentes.fields.status' | translate }}</label>
+                <label for="statusPromoter">{{ 'agentes.fields.status' | translate }}</label>
               </p-floatLabel>
             </div>
           </p-tabpanel>
@@ -450,8 +488,9 @@
                   optionValue="value"
                   [options]="partyStatusOptions()"
                   formControlName="statusProvider"
+                  inputId="statusProvider"
                 ></p-select>
-                <label>{{ 'agentes.fields.status' | translate }}</label>
+                <label for="statusProvider">{{ 'agentes.fields.status' | translate }}</label>
               </p-floatLabel>
             </div>
           </p-tabpanel>
@@ -470,8 +509,9 @@
                     optionValue="value"
                     [options]="partyStatusOptions()"
                     formControlName="statusEmployee"
+                    inputId="statusEmployee"
                   ></p-select>
-                  <label>{{ 'agentes.fields.status' | translate }}</label>
+                  <label for="statusEmployee">{{ 'agentes.fields.status' | translate }}</label>
                 </p-floatLabel>
               </div>
               <div class="col-12 md:col-3 p-2 flex align-items-center gap-2">
@@ -506,8 +546,9 @@
                   optionValue="value"
                   [options]="partyStatusOptions()"
                   formControlName="statusTourGuide"
+                  inputId="statusTourGuide"
                 ></p-select>
-                <label>{{ 'agentes.fields.status' | translate }}</label>
+                <label for="statusTourGuide">{{ 'agentes.fields.status' | translate }}</label>
               </p-floatLabel>
             </div>
           </p-tabpanel>
