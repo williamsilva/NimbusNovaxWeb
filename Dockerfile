@@ -1,7 +1,13 @@
 # syntax=docker/dockerfile:1
+# Nota (2026-09-07): achado real rodando docker compose build local depois da extração do
+# @williamsilva/nimbus-web-commons - "npm error 401 Unauthorized ... authentication token not
+# provided" no `npm ci`. O .npmrc do projeto precisa estar copiado ANTES do npm ci rodar, e
+# NODE_AUTH_TOKEN precisa virar variável de ambiente de verdade (ARG sozinho não basta).
 FROM node:22-alpine AS build
 WORKDIR /workspace
-COPY package.json package-lock.json ./
+ARG NODE_AUTH_TOKEN
+ENV NODE_AUTH_TOKEN=$NODE_AUTH_TOKEN
+COPY package.json package-lock.json .npmrc ./
 RUN npm ci
 COPY . .
 # "development" (não o default "production" do angular.json) - build alternativo sem live-reload
