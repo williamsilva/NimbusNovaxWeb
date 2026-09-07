@@ -63,14 +63,14 @@ export interface VoucherUpsertInput {
   foods: VoucherItemInput[];
 }
 
-export type VouchersFiltersState = {
+export interface VouchersFiltersState {
   voucher: string;
   client: string;
   promoterIds: string[] | null;
   status: StatusVoucher[] | null;
   visitDate: string | string[] | null;
   periodVisitDate: PeriodEnum | null;
-};
+}
 
 export interface VoucherApiModel {
   id: string;
@@ -90,22 +90,22 @@ export interface VoucherApiModel {
   promoter: VoucherAgentRefModel;
   tourGuide?: VoucherAgentRefModel | null;
   cancellationReason?: VoucherCancellationReasonRefModel | null;
-  tickets?: Array<{
+  tickets?: {
     id: string;
     productId: string;
     productName?: string | null;
     quantity: number;
     unitPrice: number;
     totalPrice?: number | null;
-  }> | null;
-  foods?: Array<{
+  }[] | null;
+  foods?: {
     id: string;
     productId: string;
     productName?: string | null;
     quantity: number;
     unitPrice: number;
     totalPrice?: number | null;
-  }> | null;
+  }[] | null;
   createdAt?: string | null;
   updatedAt?: string | null;
 }

@@ -1,4 +1,4 @@
-<cs-page-header
+<app-page-header
   [subtitle]="'voucher.subtitle' | translate"
   [breadcrumb]="[
     { label: ('breadcrumb.dashboard.title' | translate), url: '/' },
@@ -25,7 +25,7 @@
     class="p-button-info p-button-sm"
     [label]="'voucher.new.title' | translate"
   ></button>
-</cs-page-header>
+</app-page-header>
 
 <app-voucher-create-dialog
   (saved)="onSaved()"
@@ -322,7 +322,7 @@
           {{ formatAmount(row.totalPrice) }}
         </td>
         <td class="text-center" [attr.data-label]="'voucher.columns.status' | translate">
-          <cs-tag [value]="statusLabel(row.status)" [tone]="statusSeverity(row.status)"></cs-tag>
+          <app-tag [value]="statusLabel(row.status)" [tone]="statusSeverity(row.status)"></app-tag>
         </td>
         <td class="text-center mobile-card-actions">
           <div class="table-actions">
@@ -334,6 +334,7 @@
               tooltipPosition="top"
               class="p-button-text p-button-sm"
               [pTooltip]="'common.edit' | translate"
+              [attr.aria-label]="'common.edit' | translate"
               [disabled]="!secPolicy.canEdit(row)"
             ></button>
 
@@ -346,6 +347,7 @@
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canConfirm(row)"
               [pTooltip]="'voucher.action.confirm.tooltip' | translate"
+              [attr.aria-label]="'voucher.action.confirm.tooltip' | translate"
             ></button>
 
             <button
@@ -357,6 +359,7 @@
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canNotConfirm(row)"
               [pTooltip]="'voucher.action.notConfirm.tooltip' | translate"
+              [attr.aria-label]="'voucher.action.notConfirm.tooltip' | translate"
             ></button>
 
             <button
@@ -368,6 +371,7 @@
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canChangeStatus(row)"
               [pTooltip]="'voucher.action.change.tooltip' | translate"
+              [attr.aria-label]="'voucher.action.change.tooltip' | translate"
             ></button>
 
             <button
@@ -379,6 +383,7 @@
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canCancel(row)"
               [pTooltip]="'voucher.action.cancel.tooltip' | translate"
+              [attr.aria-label]="'voucher.action.cancel.tooltip' | translate"
             ></button>
 
             <button
@@ -390,6 +395,7 @@
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canSendEmail(row)"
               [pTooltip]="'voucher.action.sendEmail.tooltip' | translate"
+              [attr.aria-label]="'voucher.action.sendEmail.tooltip' | translate"
             ></button>
 
             <button
@@ -400,6 +406,7 @@
               (click)="viewPdf(row)"
               class="p-button-text p-button-sm"
               [pTooltip]="'voucher.action.viewPdf.tooltip' | translate"
+              [attr.aria-label]="'voucher.action.viewPdf.tooltip' | translate"
             ></button>
 
             <button
@@ -411,6 +418,7 @@
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canDelete(row)"
               [pTooltip]="'common.delete' | translate"
+              [attr.aria-label]="'common.delete' | translate"
             ></button>
           </div>
         </td>

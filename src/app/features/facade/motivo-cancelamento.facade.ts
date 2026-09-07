@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 
 import { CancellationReasonsApiService } from '@features/service/motivo-cancelamento.api.service';
 import { CancellationReasonsAdvancedFilters } from '@features/filter/motivo-cancelamento.filters';
-import { ListQueryDto } from '@shared/features/list-query/list-query.types';
+import { ListQueryDto } from '@williamsilva/nimbus-web-commons';
 import {
   CancellationReasonModel,
   CancellationReasonCreateInput,

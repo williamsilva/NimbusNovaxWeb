@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { Component, ViewChild, computed, inject, signal } from '@angular/core';
+import { Component, ViewChild, computed, inject, signal, OnInit } from '@angular/core';
 
 import { Table } from 'primeng/table';
 import { TableModule } from 'primeng/table';
@@ -17,9 +17,9 @@ import { CsTagComponent } from '@shared/ui';
 import { I18nService } from '@core/i18n/i18n.service';
 import { CsDatePipe } from '@shared/pipes/cs-date.pipe';
 import { STATE_KEY } from '@features/state-key.constants';
-import { StatefulListPage } from '@features/list-base/stateful-list-page';
+import { StatefulListPage } from '@williamsilva/nimbus-web-commons';
 import { BulkActionListPage } from '@features/list-base/bulk-action-list-page';
-import { buildListQuery } from '@shared/features/list-query/list-query.builder';
+import { buildListQuery } from '@williamsilva/nimbus-web-commons';
 import { PageHeaderComponent } from '@shared/features/page-header/page-header.component';
 import { CancellationReasonsFacade } from '@features/facade/motivo-cancelamento.facade';
 import { CancellationReasonsAdvancedFilters } from '@features/filter/motivo-cancelamento.filters';
@@ -30,7 +30,7 @@ import {
 import { MotivoCancelamentoPermissionPolicy } from '@features/administracao/policy/motivo-cancelamento-permission.policy';
 import { MotivoCancelamentoCreateDialogComponent } from '@features/administracao/motivo-cancelamento/motivo-cancelamento-create/motivo-cancelamento-create-dialog.component';
 import { PeriodEnum, allPeriodEnum, periodEnumLabel } from '@models/enums/period.enum';
-import { CsAdvancedPeriodDateFilterComponent } from '@features/list-base/cs-advanced-period-date-filter.component';
+import { CsAdvancedPeriodDateFilterComponent } from '@williamsilva/nimbus-web-commons';
 import {
   RecordStatus,
   allRecordStatuses,
@@ -41,8 +41,8 @@ import { generationLabel, generationSeverity, isSystemGenerated } from '@models/
 import {
   ActiveFilterItem,
   FiltersPanelComponent,
-} from '@shared/features/filters-panel/filters-panel.component';
-import { readSingleFilterValue, readArrayFilterValues } from '@features/list-base/table-filter-readers';
+} from '@williamsilva/nimbus-web-commons';
+import { readSingleFilterValue, readArrayFilterValues } from '@williamsilva/nimbus-web-commons';
 
 @Component({
   standalone: true,
@@ -71,7 +71,7 @@ import { readSingleFilterValue, readArrayFilterValues } from '@features/list-bas
 export class MotivoCancelamentoListComponent extends StatefulListPage<
   CancellationReasonsFiltersState,
   CancellationReasonsAdvancedFilters
-> {
+> implements OnInit {
   @ViewChild('dt') private dt?: Table;
 
   protected override readonly i18n = inject(I18nService);
@@ -90,6 +90,8 @@ export class MotivoCancelamentoListComponent extends StatefulListPage<
     constructor(private readonly host: MotivoCancelamentoListComponent) {
       super();
     }
+    // essa lista não usa seleção em lote, então não há nada pra limpar.
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     protected override clearSelection(): void {}
 
     confirmDelete(row: CancellationReasonModel): void {
@@ -230,6 +232,9 @@ export class MotivoCancelamentoListComponent extends StatefulListPage<
     this.reloadWithCurrentState();
   }
 
+  // reload dessa lista já é disparado pelo effect() de filtros da própria StatefulListPage,
+  // não precisa de lógica extra aqui.
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected override loadFirstPage(): void {}
 
   protected override resetFilters(): void {
@@ -268,7 +273,7 @@ export class MotivoCancelamentoListComponent extends StatefulListPage<
     };
   }
 
-  protected override mapTableFiltersToActiveItems(filters: any): ActiveFilterItem[] {
+  protected override mapTableFiltersToActiveItems(filters: Record<string, unknown>): ActiveFilterItem[] {
     this.i18n.getAppliedLang();
 
     const items: ActiveFilterItem[] = [];

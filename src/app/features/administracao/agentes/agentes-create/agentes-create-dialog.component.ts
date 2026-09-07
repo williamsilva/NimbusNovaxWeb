@@ -32,9 +32,14 @@ import { CepLookupService } from '@shared/services/cep-lookup.service';
 import { onlyDigits, formatZipCode } from '@shared/utils/br-format';
 import { PhoneMaskDirective } from '@shared/directives/phone-mask.directive';
 import { CpfCnpjMaskDirective } from '@shared/directives/cpf-cnpj-mask.directive';
-import { DateInputMaskDirective } from '@shared/directives/date-input-mask.directive';
-import { AgentModel, AgentUpsertInput } from '@models/agentes.models';
-import { Sex, allSexes, sexLabel } from '@models/enums/sex.enum';
+import { DateInputMaskDirective } from '@williamsilva/nimbus-web-commons';
+import {
+  AgentModel,
+  AgentUpsertInput,
+  AgentAddressModel,
+  AgentContactModel,
+} from '@models/agentes.models';
+import { allSexes, sexLabel } from '@models/enums/sex.enum';
 import { TypeAgent, allTypeAgents, typeAgentLabel } from '@models/enums/type-agent.enum';
 import { TypePerson, allTypePersons, typePersonLabel } from '@models/enums/type-person.enum';
 import { CivilState, allCivilStates, civilStateLabel } from '@models/enums/civil-state.enum';
@@ -472,7 +477,7 @@ export class AgentesCreateDialogComponent {
       statusPromoter: roles.includes(TypeAgent.PROMOTER) ? v.statusPromoter : null,
       statusEmployee: roles.includes(TypeAgent.EMPLOYEE) ? v.statusEmployee : null,
       statusTourGuide: roles.includes(TypeAgent.TOUR_GUIDE) ? v.statusTourGuide : null,
-      addresses: (v.addresses ?? []).map((a: any) => ({
+      addresses: ((v.addresses ?? []) as AgentAddressModel[]).map((a) => ({
         street: a.street?.trim() || null,
         number: a.number?.trim() || null,
         complement: a.complement?.trim() || null,
@@ -480,7 +485,7 @@ export class AgentesCreateDialogComponent {
         postalCode: a.postalCode?.trim() || null,
         cityId: a.cityId || null,
       })),
-      contacts: (v.contacts ?? []).map((c: any) => ({
+      contacts: ((v.contacts ?? []) as AgentContactModel[]).map((c) => ({
         name: c.name?.trim() || null,
         cellphone: c.cellphone?.trim() || null,
         telephone: c.telephone?.trim() || null,

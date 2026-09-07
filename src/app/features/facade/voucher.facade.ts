@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 
 import { VoucherApiService } from '@features/service/voucher.api.service';
 import { VouchersAdvancedFilters } from '@features/filter/voucher.filters';
-import { ListQueryDto } from '@shared/features/list-query/list-query.types';
+import { ListQueryDto } from '@williamsilva/nimbus-web-commons';
 import { VoucherModel, VoucherUpsertInput } from '@models/voucher.models';
 
 type LastQuery = ListQueryDto<VouchersAdvancedFilters>;

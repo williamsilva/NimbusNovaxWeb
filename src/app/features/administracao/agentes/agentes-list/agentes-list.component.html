@@ -1,4 +1,4 @@
-<cs-page-header
+<app-page-header
   [subtitle]="'agentes.subtitle' | translate"
   [breadcrumb]="[
     { label: ('breadcrumb.dashboard.title' | translate), url: '/' },
@@ -25,7 +25,7 @@
     class="p-button-info p-button-sm"
     [label]="'agentes.new.title' | translate"
   ></button>
-</cs-page-header>
+</app-page-header>
 
 <app-agentes-create-dialog
   [agent]="agent()"
@@ -93,7 +93,7 @@
         <input
           pInputText
           id="document"
-          csCpfCnpjMask
+          appCpfCnpjMask
           [value]="document()"
           class="w-full p-inputtext-sm"
           (input)="document.set(($any($event.target).value ?? '').toString().replace(/\D+/g, ''))"
@@ -303,6 +303,7 @@
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canEdit()"
               [pTooltip]="'common.edit' | translate"
+              [attr.aria-label]="'common.edit' | translate"
               tooltipPosition="top"
             ></button>
 
@@ -314,6 +315,7 @@
               class="p-button-text p-button-sm"
               [disabled]="!secPolicy.canDelete()"
               [pTooltip]="'common.delete' | translate"
+              [attr.aria-label]="'common.delete' | translate"
               tooltipPosition="top"
             ></button>
           </div>

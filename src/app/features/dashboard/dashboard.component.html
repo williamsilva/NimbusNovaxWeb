@@ -1,4 +1,4 @@
-<cs-page-header [subtitle]="'dashboard.subtitle' | translate"></cs-page-header>
+<app-page-header [subtitle]="'dashboard.subtitle' | translate"></app-page-header>
 
 @if (canViewVoucherStats()) {
   <form [formGroup]="form" (ngSubmit)="reload()" class="grid formgrid gap-0 align-items-end mt-2">

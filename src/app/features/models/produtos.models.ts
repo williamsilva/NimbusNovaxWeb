@@ -27,13 +27,13 @@ export interface ProductCreateInput {
 
 export type ProductUpdateInput = ProductCreateInput;
 
-export type ProductsFiltersState = {
+export interface ProductsFiltersState {
   name: string;
   typeProduct: TypeProduct[] | null;
   status: RecordStatus[] | null;
   createdAt: string | string[] | null;
   periodCreatedAt: PeriodEnum | null;
-};
+}
 
 export interface ProductApiModel {
   id: string;

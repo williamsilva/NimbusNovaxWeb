@@ -70,14 +70,14 @@ export interface AgentUpsertInput {
   contacts: AgentContactModel[];
 }
 
-export type AgentsFiltersState = {
+export interface AgentsFiltersState {
   code: string;
   name: string;
   document: string;
   typePerson: TypePerson[] | null;
   createdAt: string | string[] | null;
   periodCreatedAt: PeriodEnum | null;
-};
+}
 
 export interface AgentApiModel {
   id: string;
@@ -98,7 +98,7 @@ export interface AgentApiModel {
   statusPromoter: PartyStatusInput;
   statusEmployee: PartyStatusInput;
   statusTourGuide: PartyStatusInput;
-  addresses: Array<{
+  addresses: {
     id: string;
     street?: string | null;
     number?: string | null;
@@ -108,14 +108,14 @@ export interface AgentApiModel {
     cityId?: string | null;
     cityName?: string | null;
     stateUf?: string | null;
-  }>;
-  contacts: Array<{
+  }[];
+  contacts: {
     id: string;
     name?: string | null;
     cellphone?: string | null;
     telephone?: string | null;
     email?: string | null;
-  }>;
+  }[];
   createdAt?: string | null;
   updatedAt?: string | null;
 }

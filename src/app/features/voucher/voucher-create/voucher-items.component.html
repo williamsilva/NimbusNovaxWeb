@@ -47,6 +47,7 @@
       (click)="addItem()"
       class="p-button-sm w-full"
       [pTooltip]="'common.add' | translate"
+      [attr.aria-label]="'common.add' | translate"
       tooltipPosition="top"
     ></button>
   </div>
@@ -77,6 +78,7 @@
           (click)="removeItem(rowIndex)"
           class="p-button-text p-button-sm p-button-danger"
           [pTooltip]="'common.remove' | translate"
+          [attr.aria-label]="'common.remove' | translate"
         ></button>
       </td>
     </tr>

@@ -5,7 +5,7 @@ import { PermissionService } from '@core/auth/permission.service';
 import { RecordStatus } from '@models/enums/record-status.enum';
 import { ProductModel } from '@models/produtos.models';
 
-export interface ProductPermissionTarget extends Pick<ProductModel, 'id' | 'status'> {}
+export type ProductPermissionTarget = Pick<ProductModel, 'id' | 'status'>;
 
 @Injectable({ providedIn: 'root' })
 export class ProdutosPermissionPolicy {
@@ -19,10 +19,14 @@ export class ProdutosPermissionPolicy {
     return this.perms.hasSupportOr(PERMISSIONS.PRODUTOS.CREATE);
   }
 
+  // row mantido pra uniformizar a assinatura com os outros métodos da policy (o chamador sempre
+  // passa a linha), mesmo sem uso aqui.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   canEdit(_row: ProductPermissionTarget): boolean {
     return this.perms.hasSupportOr(PERMISSIONS.PRODUTOS.CHANGE);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- ver canEdit acima.
   canDelete(_row: ProductPermissionTarget): boolean {
     return this.perms.hasSupportOr(PERMISSIONS.PRODUTOS.DELETE);
   }
