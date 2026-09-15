@@ -4,4 +4,5 @@ export const environment = {
   production: true,
   bffBaseUrl: 'https://novax-api.nimbussystems.com.br',
   apiBaseUrl: 'https://novax-api.nimbussystems.com.br',
+  nimbusAuthWebUrl: 'https://nimbussystems.com.br',
 }
