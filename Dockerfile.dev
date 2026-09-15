@@ -4,7 +4,13 @@
 # (build otimizado servido via nginx, usado nos deploys reais e no preview local sem live-reload).
 FROM node:22-alpine
 WORKDIR /workspace
-COPY package.json package-lock.json ./
+# NODE_AUTH_TOKEN: o .npmrc do projeto (@williamsilva:registry) precisa dessa var pra autenticar
+# no GitHub Packages durante `npm ci` (mesmo achado/fix já feito no NimbusDeskWeb em 2026-09-07) -
+# .npmrc precisa estar copiado ANTES do npm ci rodar, e a var precisa virar ENV de verdade (ARG
+# sozinho não basta).
+ARG NODE_AUTH_TOKEN
+ENV NODE_AUTH_TOKEN=$NODE_AUTH_TOKEN
+COPY package.json package-lock.json .npmrc ./
 RUN npm ci
 COPY . .
 EXPOSE 4203
