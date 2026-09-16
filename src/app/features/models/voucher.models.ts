@@ -1,6 +1,7 @@
 import { PeriodEnum } from '@models/enums/period.enum';
 import { TypePerson, TypePersonInput, normalizeTypePerson } from '@models/enums/type-person.enum';
 import { StatusVoucher, StatusVoucherInput, normalizeStatusVoucher } from '@models/enums/status-voucher.enum';
+import { PaymentMethod, PaymentMethodInput, normalizePaymentMethod } from '@models/enums/payment-method.enum';
 
 export interface VoucherItemModel {
   id?: string;
@@ -9,6 +10,12 @@ export interface VoucherItemModel {
   quantity: number;
   unitPrice: number;
   totalPrice: number | null;
+}
+
+export interface VoucherAdvancePaymentModel {
+  id?: string;
+  paymentMethod: PaymentMethod;
+  amount: number;
 }
 
 export interface VoucherAgentRefModel {
@@ -42,6 +49,7 @@ export interface VoucherModel {
   cancellationReason: VoucherCancellationReasonRefModel | null;
   tickets: VoucherItemModel[];
   foods: VoucherItemModel[];
+  advancePayments: VoucherAdvancePaymentModel[];
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -52,20 +60,26 @@ export interface VoucherItemInput {
   unitPrice?: number | null;
 }
 
+export interface VoucherAdvancePaymentInput {
+  paymentMethod: PaymentMethod;
+  amount: number;
+}
+
 export interface VoucherUpsertInput {
   note?: string | null;
   visitDate: string;
-  advanceValue?: number | null;
   clientId: string;
   promoterId: string;
   tourGuideId?: string | null;
   tickets: VoucherItemInput[];
   foods: VoucherItemInput[];
+  advancePayments: VoucherAdvancePaymentInput[];
 }
 
 export interface VouchersFiltersState {
   voucher: string;
   client: string;
+  clientDocument: string;
   promoterIds: string[] | null;
   status: StatusVoucher[] | null;
   visitDate: string | string[] | null;
@@ -106,6 +120,11 @@ export interface VoucherApiModel {
     unitPrice: number;
     totalPrice?: number | null;
   }[] | null;
+  advancePayments?: {
+    id: string;
+    paymentMethod: PaymentMethodInput;
+    amount: number;
+  }[] | null;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -119,6 +138,17 @@ function mapItems(items: VoucherApiModel['tickets']): VoucherItemModel[] {
     unitPrice: i.unitPrice,
     totalPrice: i.totalPrice ?? null,
   }));
+}
+
+function mapAdvancePayments(items: VoucherApiModel['advancePayments']): VoucherAdvancePaymentModel[] {
+  const result: VoucherAdvancePaymentModel[] = [];
+  for (const i of items ?? []) {
+    const paymentMethod = normalizePaymentMethod(i.paymentMethod);
+    if (paymentMethod !== null) {
+      result.push({ id: i.id, paymentMethod, amount: i.amount });
+    }
+  }
+  return result;
 }
 
 export function mapVoucherApiModel(input: VoucherApiModel): VoucherModel {
@@ -142,6 +172,7 @@ export function mapVoucherApiModel(input: VoucherApiModel): VoucherModel {
     cancellationReason: input.cancellationReason ?? null,
     tickets: mapItems(input.tickets),
     foods: mapItems(input.foods),
+    advancePayments: mapAdvancePayments(input.advancePayments),
     createdAt: input.createdAt ?? null,
     updatedAt: input.updatedAt ?? null,
   };

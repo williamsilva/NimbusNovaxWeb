@@ -1315,6 +1315,17 @@ export const UI_KEYS = {
       courtesy: 'enum.typeProduct.courtesy',
       unknown: 'enum.typeProduct.unknown',
     },
+    paymentMethod: {
+      bankDeposit: 'enum.paymentMethod.bankDeposit',
+      creditCard: 'enum.paymentMethod.creditCard',
+      debitCard: 'enum.paymentMethod.debitCard',
+      pix: 'enum.paymentMethod.pix',
+      cash: 'enum.paymentMethod.cash',
+      check: 'enum.paymentMethod.check',
+      bankSlip: 'enum.paymentMethod.bankSlip',
+      other: 'enum.paymentMethod.other',
+      unknown: 'enum.paymentMethod.unknown',
+    },
     generation: {
       user: 'enum.generation.user',
       system: 'enum.generation.system',
@@ -1752,9 +1763,13 @@ export const UI_KEYS = {
     fields: {
       voucher: 'voucher.fields.voucher',
       client: 'voucher.fields.client',
+      clientDocument: 'voucher.fields.clientDocument',
       promoter: 'voucher.fields.promoter',
       status: 'voucher.fields.status',
       visitDate: 'voucher.fields.visitDate',
+    },
+    advancePayments: {
+      exceedsTotal: 'voucher.advancePayments.exceedsTotal',
     },
     form: {
       updated: 'voucher.form.updated',

@@ -80,7 +80,7 @@
       </p-floatLabel>
     </div>
 
-    <div class="col-12 md:col-3 p-1">
+    <div class="col-12 md:col-4 p-1">
       <p-floatLabel variant="on" class="w-full">
         <input
           pInputText
@@ -93,29 +93,45 @@
       </p-floatLabel>
     </div>
 
+    <div class="col-12 md:col-2 p-1">
+      <p-floatLabel variant="on" class="w-full">
+        <input
+          pInputText
+          appCpfCnpjMask
+          id="clientDocument"
+          [value]="clientDocument()"
+          class="w-full p-inputtext-sm"
+          (input)="
+            clientDocument.set(($any($event.target).value ?? '').toString().replace(/\D+/g, ''))
+          "
+        />
+        <label for="clientDocument">{{ 'voucher.fields.clientDocument' | translate }}</label>
+      </p-floatLabel>
+    </div>
+  </div>
+
+  <div class="grid formgrid gap-0 align-items-end">
     <div class="col-12 md:col-3 p-1">
       <p-floatLabel variant="on" class="w-full">
         <p-multiSelect
           size="small"
           class="w-full"
           appendTo="body"
-          [showClear]="true"
-          inputId="promoterIds"
-          optionLabel="name"
-          optionValue="id"
           filterBy="name"
           [filter]="true"
-          [ngModel]="promoterIds()"
+          optionValue="id"
+          [showClear]="true"
+          optionLabel="name"
+          inputId="promoterIds"
           [showToggleAll]="false"
+          [ngModel]="promoterIds()"
           [options]="promoterOptions()"
           (ngModelChange)="promoterIds.set($event?.length ? $event : null)"
         ></p-multiSelect>
         <label for="promoterIds">{{ 'voucher.fields.promoter' | translate }}</label>
       </p-floatLabel>
     </div>
-  </div>
 
-  <div class="grid formgrid gap-0 align-items-end">
     <div class="col-12 md:col-4 p-1">
       <p-floatLabel variant="on" class="w-full">
         <p-multiSelect
@@ -168,6 +184,7 @@
       <colgroup>
         <col style="width: 140px" />
         <col style="width: auto" />
+        <col style="width: 150px" />
         <col style="width: auto" />
         <col style="width: 110px" />
         <col style="width: 130px" />
@@ -210,6 +227,41 @@
               [pTooltip]="'voucher.columns.client' | translate"
               >{{ 'voucher.columns.client' | translate }}</span
             >
+            <span class="th-icons">
+              <p-columnFilter
+                type="text"
+                field="client"
+                display="menu"
+                matchMode="contains"
+                class="cs-colfilter"
+                [useGrouping]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+              ></p-columnFilter>
+            </span>
+          </div>
+        </th>
+
+        <th>
+          <div class="th-flex text-center">
+            <span
+              class="th-label"
+              tooltipPosition="top"
+              [pTooltip]="'voucher.columns.clientDocument' | translate"
+              >{{ 'voucher.columns.clientDocument' | translate }}</span
+            >
+            <span class="th-icons">
+              <p-columnFilter
+                type="text"
+                display="menu"
+                matchMode="contains"
+                field="clientDocument"
+                class="cs-colfilter"
+                [useGrouping]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+              ></p-columnFilter>
+            </span>
           </div>
         </th>
 
@@ -221,6 +273,34 @@
               [pTooltip]="'voucher.columns.promoter' | translate"
               >{{ 'voucher.columns.promoter' | translate }}</span
             >
+            <span class="th-icons">
+              <p-columnFilter
+                display="menu"
+                matchMode="in"
+                field="promoter"
+                class="cs-colfilter"
+                [showOperator]="false"
+                [showAddButton]="false"
+                [showMatchModes]="false"
+              >
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-multiSelect
+                    size="small"
+                    class="w-full"
+                    appendTo="body"
+                    [ngModel]="value"
+                    [showClear]="true"
+                    optionLabel="name"
+                    optionValue="id"
+                    filterBy="name"
+                    [filter]="true"
+                    [options]="promoterOptions()"
+                    (onChange)="filter($event.value)"
+                    [placeholder]="'common.all' | translate"
+                  ></p-multiSelect>
+                </ng-template>
+              </p-columnFilter>
+            </span>
           </div>
         </th>
 
@@ -306,6 +386,9 @@
           <span class="cs-table-cell-ellipsis" tooltipPosition="top" [pTooltip]="row.client.name">{{
             row.client.name
           }}</span>
+        </td>
+        <td class="text-center" [attr.data-label]="'voucher.columns.clientDocument' | translate">
+          {{ row.client.document | csDocument }}
         </td>
         <td class="text-center" [attr.data-label]="'voucher.columns.promoter' | translate">
           <span
@@ -427,7 +510,7 @@
 
     <ng-template pTemplate="emptymessage">
       <tr>
-        <td colspan="7" class="text-center py-5 opacity-70">
+        <td colspan="8" class="text-center py-5 opacity-70">
           {{
             facade.loadedOnce()
               ? ('voucher.empty.title' | translate)

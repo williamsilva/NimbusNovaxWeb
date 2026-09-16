@@ -41,7 +41,7 @@ import { VoucherItemModel } from '@models/voucher.models';
 })
 export class VoucherItemsComponent {
   items = input.required<VoucherItemModel[]>();
-  typeProduct = input.required<TypeProduct>();
+  typeProduct = input.required<TypeProduct | TypeProduct[]>();
   label = input.required<string>();
 
   @Output() itemsChange = new EventEmitter<VoucherItemModel[]>();
@@ -50,7 +50,11 @@ export class VoucherItemsComponent {
   readonly i18n = inject(I18nService);
   private readonly productOptions = inject(ProductOptionsFacade);
 
-  readonly products = computed(() => this.productOptions.optionsFor(this.typeProduct())());
+  readonly products = computed(() => {
+    const types = this.typeProduct();
+    const typeList = Array.isArray(types) ? types : [types];
+    return typeList.flatMap((type) => this.productOptions.optionsFor(type)());
+  });
 
   readonly totalValue = computed(() =>
     this.items().reduce((total, item) => total + (item.unitPrice ?? 0) * (item.quantity ?? 0), 0),

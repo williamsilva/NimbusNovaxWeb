@@ -16,6 +16,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { CsTagComponent } from '@shared/ui';
 import { I18nService } from '@core/i18n/i18n.service';
 import { CsDatePipe } from '@shared/pipes/cs-date.pipe';
+import { CsDocumentPipe } from '@shared/pipes/cs-document.pipe';
+import { CpfCnpjMaskDirective } from '@shared/directives/cpf-cnpj-mask.directive';
 import { STATE_KEY } from '@features/state-key.constants';
 import { StatefulListPage } from '@williamsilva/nimbus-web-commons';
 import { BulkActionListPage } from '@features/list-base/bulk-action-list-page';
@@ -58,8 +60,10 @@ import { readSingleFilterValue, readArrayFilterValues } from '@williamsilva/nimb
     SelectModule,
     TooltipModule,
     CsTagComponent,
+    CsDocumentPipe,
     InputTextModule,
     TranslateModule,
+    CpfCnpjMaskDirective,
     MultiSelectModule,
     PageHeaderComponent,
     ConfirmDialogModule,
@@ -142,6 +146,7 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
 
   voucher = signal('');
   client = signal('');
+  clientDocument = signal('');
   promoterIds = signal<string[] | null>(null);
   /** Valor inicial antes de qualquer cache ser restaurado - ver applyDefaultAdvancedFilters. */
   status = signal<StatusVoucher[] | null>(defaultVisibleStatusVoucher());
@@ -175,11 +180,15 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
 
     const voucher = this.voucher().trim();
     const client = this.client().trim();
+    const clientDocument = this.clientDocument().trim();
     const promoters = this.promoterIds();
     const statuses = this.status();
 
     if (voucher) items.push({ label: this.i18n.tUi('voucher.fields.voucher'), value: voucher });
     if (client) items.push({ label: this.i18n.tUi('voucher.fields.client'), value: client });
+    if (clientDocument) {
+      items.push({ label: this.i18n.tUi('voucher.fields.clientDocument'), value: clientDocument });
+    }
 
     if (promoters?.length) {
       const names = this.promoterOptions()
@@ -320,6 +329,7 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
   protected override resetFilters(): void {
     this.voucher.set('');
     this.client.set('');
+    this.clientDocument.set('');
     this.promoterIds.set(null);
     this.status.set(null);
     this.visitDate.set(null);
@@ -340,6 +350,7 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
     return {
       voucher: this.voucher(),
       client: this.client(),
+      clientDocument: this.clientDocument(),
       promoterIds: this.promoterIds()?.length ? this.promoterIds() : null,
       status: this.status()?.length ? this.status() : null,
       visitDate: this.visitDate(),
@@ -350,6 +361,7 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
   protected override applyFiltersState(s: VouchersFiltersState): void {
     this.voucher.set(s.voucher ?? '');
     this.client.set(s.client ?? '');
+    this.clientDocument.set(s.clientDocument ?? '');
     this.promoterIds.set(s.promoterIds ?? null);
     this.status.set(s.status ?? null);
     this.visitDate.set(s.visitDate ?? null);
@@ -362,6 +374,7 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
     return {
       voucher: this.voucher().trim() || undefined,
       client: this.client().trim() || undefined,
+      clientDocument: this.clientDocument().trim() || undefined,
       promoterIds: this.promoterIds()?.length ? this.promoterIds()! : undefined,
       status: this.status()?.length ? this.status() : undefined,
       visitDate: this.visitDate() ?? undefined,
@@ -376,6 +389,23 @@ export class VoucherListComponent extends StatefulListPage<VouchersFiltersState,
 
     const voucher = readSingleFilterValue(filters, 'voucher');
     if (voucher) items.push({ label: this.i18n.tUi('voucher.fields.voucher'), value: voucher });
+
+    const client = readSingleFilterValue(filters, 'client');
+    if (client) items.push({ label: this.i18n.tUi('voucher.fields.client'), value: client });
+
+    const clientDocument = readSingleFilterValue(filters, 'clientDocument');
+    if (clientDocument) {
+      items.push({ label: this.i18n.tUi('voucher.fields.clientDocument'), value: clientDocument });
+    }
+
+    const promoterIds = readArrayFilterValues(filters, 'promoter');
+    if (promoterIds.length) {
+      const names = this.promoterOptions()
+        .filter((o) => promoterIds.includes(o.id))
+        .map((o) => o.name)
+        .join(', ');
+      items.push({ label: this.i18n.tUi('voucher.fields.promoter'), value: names || String(promoterIds.length) });
+    }
 
     const statuses = readArrayFilterValues(filters, 'status');
     if (statuses.length) {

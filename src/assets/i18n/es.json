@@ -645,6 +645,17 @@
       "courtesy": "Cortesía",
       "unknown": "Desconocido"
     },
+    "paymentMethod": {
+      "bankDeposit": "Depósito Bancario",
+      "creditCard": "Tarjeta de Crédito",
+      "debitCard": "Tarjeta de Débito",
+      "pix": "PIX",
+      "cash": "Efectivo",
+      "check": "Cheque",
+      "bankSlip": "Boleto",
+      "other": "Otros",
+      "unknown": "N/A"
+    },
     "generation": {
       "user": "Usuario",
       "system": "Sistema",
@@ -2138,13 +2149,15 @@
       "tourGuide": "Guía Turístico",
       "visitDate": "Fecha de visita",
       "periodVisitDate": "Período de la visita",
-      "advanceValue": "Depósito",
+      "clientDocument": "Documento del Cliente",
+      "advancePayment": "Pago Anticipado",
       "note": "Observación",
       "status": "Estado"
     },
     "columns": {
       "voucher": "Voucher",
       "client": "Cliente",
+      "clientDocument": "Documento",
       "promoter": "Promotor",
       "visitDate": "Visita",
       "totalPrice": "Valor",
@@ -2159,9 +2172,18 @@
       "subtotal": "Subtotal",
       "empty": "Ningún ítem agregado"
     },
+    "advancePayments": {
+      "selectMethod": "Seleccione la forma de pago",
+      "method": "Forma de Pago",
+      "amount": "Valor",
+      "total": "Total",
+      "empty": "Ningún pago agregado",
+      "exceedsTotal": "El valor del pago anticipado no puede ser mayor que el valor total del voucher."
+    },
     "form": {
       "created": "Voucher creado con éxito.",
-      "updated": "Voucher actualizado con éxito."
+      "updated": "Voucher actualizado con éxito.",
+      "searchByNameOrDocument": "Buscar por nombre o documento"
     },
     "empty": {
       "title": "Ningún voucher encontrado"

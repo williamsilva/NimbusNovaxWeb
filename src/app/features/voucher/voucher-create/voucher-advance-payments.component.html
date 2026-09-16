@@ -1,0 +1,95 @@
+<div class="p-fluid grid formgrid gap-0 align-items-end mb-2">
+  <div class="col-6 p-1">
+    <app-error-msg
+      [field]="'paymentMethod'"
+      [forId]="'paymentMethod'"
+      [control]="paymentMethod"
+      [label]="'voucher.advancePayments.method' | translate"
+    />
+    <p-select
+      size="small"
+      [filter]="true"
+      filterBy="label"
+      optionLabel="label"
+      optionValue="value"
+      appendTo="body"
+      class="w-full"
+      inputId="paymentMethod"
+      [formControl]="paymentMethod"
+      [options]="paymentMethods()"
+      [placeholder]="'voucher.advancePayments.selectMethod' | translate"
+    ></p-select>
+  </div>
+
+  <div class="col-4 p-1">
+    <app-error-msg
+      [field]="'amount'"
+      [forId]="'amount'"
+      [control]="amount"
+      [label]="'voucher.advancePayments.amount' | translate"
+    />
+    <p-inputNumber
+      mode="currency"
+      inputId="amount"
+      class="w-full"
+      [locale]="i18n.getLocale()"
+      [formControl]="amount"
+      [currency]="i18n.getCurrency()"
+    ></p-inputNumber>
+  </div>
+
+  <div class="col-2 p-1">
+    <button
+      pButton
+      type="button"
+      icon="pi pi-plus"
+      (click)="addItem()"
+      class="p-button-sm w-full"
+      [pTooltip]="'common.add' | translate"
+      [attr.aria-label]="'common.add' | translate"
+      tooltipPosition="top"
+    ></button>
+  </div>
+</div>
+
+<p-table [value]="items()" size="small" showGridlines class="w-full">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>{{ 'voucher.advancePayments.method' | translate }}</th>
+      <th style="width: 10rem">{{ 'voucher.advancePayments.amount' | translate }}</th>
+      <th style="width: 3rem"></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+    <tr>
+      <td>{{ paymentMethodLabel(item) }}</td>
+      <td>{{ item.amount | currency: currency : 'symbol' : undefined : locale }}</td>
+      <td>
+        <button
+          pButton
+          type="button"
+          icon="pi pi-times-circle"
+          (click)="removeItem(rowIndex)"
+          class="p-button-text p-button-sm p-button-danger"
+          [pTooltip]="'common.remove' | translate"
+          [attr.aria-label]="'common.remove' | translate"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="3" class="text-center opacity-70">{{ 'voucher.advancePayments.empty' | translate }}</td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <tr>
+      <td class="text-right font-bold">{{ 'voucher.advancePayments.total' | translate }}</td>
+      <td class="font-bold">{{ totalValue() | currency: currency : 'symbol' : undefined : locale }}</td>
+      <td></td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -39,7 +39,7 @@
                   size="small"
                   class="w-full"
                   [filter]="true"
-                  filterBy="name"
+                  filterBy="name,document"
                   appendTo="body"
                   optionValue="id"
                   optionLabel="name"
@@ -47,7 +47,15 @@
                   [options]="clients()"
                   optionDisabled="inactive"
                   formControlName="clientId"
-                ></p-select>
+                  [filterPlaceholder]="'voucher.form.searchByNameOrDocument' | translate"
+                >
+                  <ng-template pTemplate="item" let-option>
+                    <div class="flex flex-column">
+                      <span>{{ option.name }}</span>
+                      <small class="text-color-secondary">{{ option.document | csDocument }}</small>
+                    </div>
+                  </ng-template>
+                </p-select>
 
                 <app-error-msg
                   [field]="'clientId'"
@@ -64,7 +72,7 @@
                   size="small"
                   class="w-full"
                   [filter]="true"
-                  filterBy="name"
+                  filterBy="name,document"
                   appendTo="body"
                   optionValue="id"
                   optionLabel="name"
@@ -72,7 +80,15 @@
                   [options]="promoters()"
                   optionDisabled="inactive"
                   formControlName="promoterId"
-                ></p-select>
+                  [filterPlaceholder]="'voucher.form.searchByNameOrDocument' | translate"
+                >
+                  <ng-template pTemplate="item" let-option>
+                    <div class="flex flex-column">
+                      <span>{{ option.name }}</span>
+                      <small class="text-color-secondary">{{ option.document | csDocument }}</small>
+                    </div>
+                  </ng-template>
+                </p-select>
 
                 <app-error-msg
                   [field]="'promoterId'"
@@ -88,7 +104,7 @@
                 <p-select
                   size="small"
                   [filter]="true"
-                  filterBy="name"
+                  filterBy="name,document"
                   optionLabel="name"
                   optionValue="id"
                   [showClear]="true"
@@ -98,7 +114,15 @@
                   optionDisabled="inactive"
                   formControlName="tourGuideId"
                   [options]="tourGuides()"
-                ></p-select>
+                  [filterPlaceholder]="'voucher.form.searchByNameOrDocument' | translate"
+                >
+                  <ng-template pTemplate="item" let-option>
+                    <div class="flex flex-column">
+                      <span>{{ option.name }}</span>
+                      <small class="text-color-secondary">{{ option.document | csDocument }}</small>
+                    </div>
+                  </ng-template>
+                </p-select>
                 <label for="tourGuideId">{{ 'voucher.fields.tourGuide' | translate }}</label>
               </p-floatLabel>
             </div>
@@ -126,33 +150,27 @@
               </p-floatLabel>
             </div>
 
-            <div class="col-12 md:col-6 p-2">
-              <p-floatLabel variant="on" class="w-full">
-                <p-inputNumber
-                  class="w-full"
-                  mode="currency"
-                  inputId="advanceValue"
-                  [locale]="i18n.getLocale()"
-                  formControlName="advanceValue"
-                  [currency]="i18n.getCurrency()"
-                ></p-inputNumber>
-                <label for="advanceValue">{{ 'voucher.fields.advanceValue' | translate }}</label>
-              </p-floatLabel>
-            </div>
-
             @if (isEditMode()) {
               <div class="col-12 md:col-6 p-2 flex align-items-center gap-2">
                 <span class="th-label">{{ 'voucher.fields.status' | translate }}:</span>
                 <span class="font-bold">{{ statusLabel() }}</span>
               </div>
             }
+
+            <div class="col-12 p-2">
+              <span class="th-label block mb-2">{{ 'voucher.fields.advancePayment' | translate }}</span>
+              <app-voucher-advance-payments
+                [items]="advancePayments()"
+                (itemsChange)="advancePayments.set($event)"
+              ></app-voucher-advance-payments>
+            </div>
           </div>
         </p-tabpanel>
 
         <p-tabpanel [value]="1">
           <app-voucher-items
             [items]="tickets()"
-            [typeProduct]="TypeProduct.TICKET"
+            [typeProduct]="[TypeProduct.TICKET, TypeProduct.COURTESY]"
             (itemsChange)="tickets.set($event)"
             [label]="'voucher.tabs.tickets' | translate"
           ></app-voucher-items>

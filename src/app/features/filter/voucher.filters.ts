@@ -4,6 +4,7 @@ import { StatusVoucher } from '@models/enums/status-voucher.enum';
 export interface VouchersAdvancedFilters {
   voucher?: string;
   client?: string;
+  clientDocument?: string;
   promoterIds?: string[];
   status?: StatusVoucher[] | null;
 

@@ -654,6 +654,17 @@
       "courtesy": "Courtesy",
       "unknown": "Unknown"
     },
+    "paymentMethod": {
+      "bankDeposit": "Bank Deposit",
+      "creditCard": "Credit Card",
+      "debitCard": "Debit Card",
+      "pix": "PIX",
+      "cash": "Cash",
+      "check": "Check",
+      "bankSlip": "Bank Slip",
+      "other": "Other",
+      "unknown": "N/A"
+    },
     "generation": {
       "user": "User",
       "system": "System",
@@ -2138,13 +2149,15 @@
       "tourGuide": "Tour Guide",
       "visitDate": "Visit date",
       "periodVisitDate": "Visit period",
-      "advanceValue": "Deposit",
+      "clientDocument": "Client Document",
+      "advancePayment": "Advance Payment",
       "note": "Note",
       "status": "Status"
     },
     "columns": {
       "voucher": "Voucher",
       "client": "Client",
+      "clientDocument": "Document",
       "promoter": "Promoter",
       "visitDate": "Visit",
       "totalPrice": "Amount",
@@ -2159,9 +2172,18 @@
       "subtotal": "Subtotal",
       "empty": "No items added"
     },
+    "advancePayments": {
+      "selectMethod": "Select the payment method",
+      "method": "Payment Method",
+      "amount": "Amount",
+      "total": "Total",
+      "empty": "No payments added",
+      "exceedsTotal": "The advance payment amount cannot be greater than the voucher's total amount."
+    },
     "form": {
       "created": "Voucher created successfully.",
-      "updated": "Voucher updated successfully."
+      "updated": "Voucher updated successfully.",
+      "searchByNameOrDocument": "Search by name or document"
     },
     "empty": {
       "title": "No vouchers found"

@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InputNumberModule } from 'primeng/inputnumber';
 
 import { I18nService } from '@core/i18n/i18n.service';
+import { CsDocumentPipe } from '@shared/pipes/cs-document.pipe';
 import { ErrorMsgComponent } from '@shared/error-msg/error-msg.component';
 import { DateInputMaskDirective } from '@williamsilva/nimbus-web-commons';
 import { VoucherFacade } from '@features/facade/voucher.facade';
@@ -23,9 +24,10 @@ import { AgentOptionsFacade } from '@features/facade/agent-options.facade';
 import { TypeAgent } from '@models/enums/type-agent.enum';
 import { TypeProduct } from '@models/enums/type-product.enum';
 import { statusVoucherLabel } from '@models/enums/status-voucher.enum';
-import { VoucherModel, VoucherItemModel, VoucherUpsertInput } from '@models/voucher.models';
+import { VoucherModel, VoucherItemModel, VoucherAdvancePaymentModel, VoucherUpsertInput } from '@models/voucher.models';
 import { VoucherPermissionPolicy } from '@features/voucher/policy/voucher-permission.policy';
 import { VoucherItemsComponent } from '@features/voucher/voucher-create/voucher-items.component';
+import { VoucherAdvancePaymentsComponent } from '@features/voucher/voucher-create/voucher-advance-payments.component';
 
 @Component({
   standalone: true,
@@ -37,6 +39,7 @@ import { VoucherItemsComponent } from '@features/voucher/voucher-create/voucher-
     SelectModule,
     DialogModule,
     ButtonModule,
+    CsDocumentPipe,
     TextareaModule,
     TranslateModule,
     DatePickerModule,
@@ -46,6 +49,7 @@ import { VoucherItemsComponent } from '@features/voucher/voucher-create/voucher-
     ReactiveFormsModule,
     VoucherItemsComponent,
     DateInputMaskDirective,
+    VoucherAdvancePaymentsComponent,
   ],
 })
 export class VoucherCreateDialogComponent {
@@ -81,6 +85,18 @@ export class VoucherCreateDialogComponent {
   readonly saving = signal(false);
   readonly tickets = signal<VoucherItemModel[]>([]);
   readonly foods = signal<VoucherItemModel[]>([]);
+  readonly advancePayments = signal<VoucherAdvancePaymentModel[]>([]);
+
+  private readonly voucherTotal = computed(() =>
+    [...this.tickets(), ...this.foods()].reduce(
+      (total, item) => total + (item.unitPrice ?? 0) * (item.quantity ?? 0),
+      0,
+    ),
+  );
+
+  private readonly advancePaymentsTotal = computed(() =>
+    this.advancePayments().reduce((total, payment) => total + (payment.amount ?? 0), 0),
+  );
 
   private lastLoadedId: string | null = null;
 
@@ -89,7 +105,6 @@ export class VoucherCreateDialogComponent {
     promoterId: [null as string | null, [Validators.required]],
     tourGuideId: [null as string | null],
     visitDate: [null as Date | null, [Validators.required]],
-    advanceValue: [null as number | null],
     note: ['', [Validators.maxLength(200)]],
   });
 
@@ -121,11 +136,11 @@ export class VoucherCreateDialogComponent {
           promoterId: voucher.promoter.id,
           tourGuideId: voucher.tourGuide?.id ?? null,
           visitDate: voucher.visitDate ? new Date(voucher.visitDate) : null,
-          advanceValue: voucher.advanceValue,
           note: voucher.note ?? '',
         });
         this.tickets.set(voucher.tickets);
         this.foods.set(voucher.foods);
+        this.advancePayments.set(voucher.advancePayments);
       });
     });
   }
@@ -148,11 +163,11 @@ export class VoucherCreateDialogComponent {
       promoterId: null,
       tourGuideId: null,
       visitDate: null,
-      advanceValue: null,
       note: '',
     });
     this.tickets.set([]);
     this.foods.set([]);
+    this.advancePayments.set([]);
   }
 
   private toDateOnly(value: Date | null): string {
@@ -172,16 +187,26 @@ export class VoucherCreateDialogComponent {
       return;
     }
 
+    if (Math.round(this.advancePaymentsTotal() * 100) > Math.round(this.voucherTotal() * 100)) {
+      this.activeTab.set(0);
+      this.toast.add({
+        severity: 'error',
+        summary: this.i18n.tUi('common.error'),
+        detail: this.i18n.tUi('voucher.advancePayments.exceedsTotal'),
+      });
+      return;
+    }
+
     const v = this.form.getRawValue();
     const payload: VoucherUpsertInput = {
       note: v.note?.trim() || null,
       visitDate: this.toDateOnly(v.visitDate),
-      advanceValue: v.advanceValue ?? null,
       clientId: v.clientId!,
       promoterId: v.promoterId!,
       tourGuideId: v.tourGuideId || null,
       tickets: this.tickets().map((i) => ({ productId: i.productId, quantity: i.quantity, unitPrice: i.unitPrice })),
       foods: this.foods().map((i) => ({ productId: i.productId, quantity: i.quantity, unitPrice: i.unitPrice })),
+      advancePayments: this.advancePayments().map((p) => ({ paymentMethod: p.paymentMethod, amount: p.amount })),
     };
 
     this.saving.set(true);
