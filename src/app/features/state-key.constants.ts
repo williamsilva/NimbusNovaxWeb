@@ -51,16 +51,5 @@ export const STATE_KEY = {
       },
       FILTERS: { V1: 'nimbusnovax.voucher.filters.v1' },
     },
-
-    /* Configurações > Auditoria de E-mail (com.nimbusnovax.common.notification.mail no backend) */
-    SETTINGS: {
-      EMAIL_LOG: {
-        TABLE: {
-          ROWS: { V1: 'email-log.table.rows' },
-          STATE: { V1: 'nimbusnovax.email-log.table.state.v1' },
-        },
-        FILTERS: { V1: 'nimbusnovax.email-log.filters.v1' },
-      },
-    },
   },
 };
