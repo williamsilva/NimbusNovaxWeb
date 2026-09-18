@@ -1,8 +1,13 @@
 # syntax=docker/dockerfile:1
 FROM node:22-alpine AS build
 WORKDIR /workspace
-COPY package.json package-lock.json ./
-RUN npm ci
+# NODE_AUTH_TOKEN: achado real 2026-09-19 (revisão geral pós-vazamento no CardsyncServer) - este
+# Dockerfile nunca copiava .npmrc nem autenticava no GitHub Packages, então `npm ci` falharia com
+# 401 em qualquer ambiente sem os pacotes @williamsilva/* já em cache (este app depende de
+# @williamsilva/nimbus-web-commons). Mesmo padrão --mount=type=secret dos outros 4 apps.
+COPY package.json package-lock.json .npmrc ./
+RUN --mount=type=secret,id=node_auth_token \
+    export NODE_AUTH_TOKEN="$(cat /run/secrets/node_auth_token)" && npm ci
 COPY . .
 # "development" (não o default "production" do angular.json) - build alternativo sem live-reload
 # (produção "de mentira", servido via nginx); o docker-compose local (ver ../docker-compose.yml)
